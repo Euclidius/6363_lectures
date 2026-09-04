@@ -1,0 +1,60 @@
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{lectures}[2026/07/31 v1.0 My math notes style]
+
+% --- Encoding and languages --- 
+\RequirePackage[T2A]{fontenc}
+\RequirePackage[utf8]{inputenc}
+\RequirePackage[english, russian]{babel}
+
+% --- Graphycs and colors --- 
+
+\RequirePackage{xcolor}
+\RequirePackage{graphicx}
+
+% --- Math packages ---
+
+\RequirePackage{amsmath, amssymb, amsthm, amsfonts}
+\RequirePackage{mathtools}
+\RequirePackage{mathrsfs}
+\RequirePackage{bm}
+\RequirePackage{esint}
+
+
+\RequirePackage{interval}
+\RequirePackage{centernot}
+
+
+\RequirePackage{thmtools}
+\declaretheorem[style=definition,name=Определение]{definition}
+\declaretheorem[style=plain,name=Теорема]{theorem}
+\declaretheorem[style=plain,name=Лемма]{lem}
+\declaretheorem[style=plain,name=Следствие]{cor}
+\declaretheorem[style=remark,name=Замечание]{rem}
+\declaretheorem[style=definition,name=Пример]{exmp}
+
+% --- Tables, links and lists --- 
+\RequirePackage{hyperref}
+\RequirePackage{enumitem}
+\RequirePackage{booktabs}
+
+
+% --- Definitions ---
+
+\let\ker\undefined
+\DeclareMathOperator{\ker}{Ker}                  % Changes ker -> Ker
+
+\newcommand{\diff}{\mathop{}\!\mathrm{d}}        % Makes dx pretty for integrals
+
+\DeclareMathOperator{\lcm}{lcm}
+\DeclareMathOperator{\ord}{ord}
+\DeclareMathOperator{\sgn}{sgn}
+\DeclareMathOperator{\st}{St}
+\DeclareMathOperator{\card}{Card}
+
+\hypersetup{
+  colorlinks,
+  linkcolor={black},
+  citecolor={black},
+  urlcolor={black}
+}
+

@@ -1,0 +1,115 @@
+\documentclass[12pt, a4paper]{article}
+\RequirePackage{../../lectures}
+\usepackage[left=3cm,right=3cm,top=3cm,bottom=3cm]{geometry}
+
+
+\title{Конспект лекций по алгебре и геометрии}
+\author{Смирнов Дмитрий Станиславович sdsik@yandex.ru}
+\date{}
+
+\begin{document}
+    \maketitle
+    \tableofcontents
+    \section{Комплексные числа}
+
+    \begin{definition}
+        Комплексное число - выражение вида \( a + bi \), где \( a, b \in \mathbb{R} \), а \( i \)- особый символ, причем \( i^2 = -1 \).\\
+        В записи выше \(  a\) называется вещественной (действительной) частью комплексного числа, а \( b \) - мнимой.
+    \end{definition}
+    \subsection{Операции над комплексными числами}
+    Пусть \( z_{1} = a_{1} + b_{1}i \), \( z_{2} = a_{2} + b_{2}i \) - комплексные числа.
+    \subsubsection{Равенство комплексных чисел}
+    По определению 
+    \[
+        z_{1} = z_{2} \iff
+    \begin{cases}
+        a_{1} = a_{2} \\
+        b_{1} = b_{2}
+    \end{cases}
+    \] 
+    \subsubsection{Сложение комплексных чисел}
+    \[
+        z_{1} + z_{2} \coloneqq (a_{1} + a_{2}) + (b_{1} + b_{2})i
+    \] 
+
+    \begin{exmp}
+        \( 3 - 2i \) и \( 4 + 3i \)
+
+        +: \( 7 + i \)
+
+        -: \( -1 - 5i \)
+    \end{exmp}
+
+    \subsubsection{Умножение комплексных чисел}
+    Умножение происходит как у многочленов по переменной \( i \):
+    \[
+        z_{1} \cdot z_{2} = (a_{1} + b_{1}i) \cdot (a_{2} + b_{2}i)= (a_{1}a_{2} - b_{1}b_{2}) + (a_{1}b_{2} + b_{1}a_{2})i
+    \] 
+    
+    
+    \subsubsection{Сопряжение комплексных чисел}
+    \begin{definition}
+        Сопряженным для комплексного числа \( z = a + bi \) будет называться комплексное число \( \overline{z} = a - bi \)
+    \end{definition}
+
+    \begin{exmp}
+        \item 1. \( \overline{z} = 3z \)
+            \begin{align*}
+                \overline{z} &= 3z \\
+                a - bi &= 3a + 3bi \\
+                2a + 4bi &= 0 \\
+                a + 2bi &= 0 \\
+                 \Updownarrow \\
+            \begin{cases*}
+                a = 0 \\
+                b = 0 
+            \end{cases*} 
+            \end{align*} 
+            То есть, это верно только при \( z = 0 \).
+        \item 2. \( z^2 = \overline{z} \)
+            \begin{align*}
+                z^2 & = \overline{z} \\
+                a^2 + 2abi - b^2 & = a - bi \\
+                \Updownarrow \\
+                \begin{cases} 
+                    a^2 - b^2  = a \\
+                    2ab = - b \\
+                \end{cases}
+            \end{align*}
+            Разбираем второе уравнение: \( 2ab = -b \iff 2ab + b = 0 \iff b(2a + 1) = 0 \iff b = 0 \) или \( a = - \frac{1}{2} \)
+
+            Подставляем \( b = 0 \) в первое уравнение: 
+            \begin{align*}
+                a^2 & = a \\
+                    & \Updownarrow \\
+                \left[ \begin{array}{l}
+                        a = 1\\
+                        a = 0
+                \end{array}\right.
+            \end{align*}
+            Подставляем \( a = -\frac{1}{2} \) в первое уравнение:
+            \begin{align*}
+                \frac{1}{4} - b^2 &= \frac{1}{2} \\
+                \frac{3}{4} = b^2 &\implies b = \pm \frac{\sqrt{3} }{2} 
+            \end{align*}
+            Собираем все вместе: \( z = 0; 1; -\frac{1}{2} + \frac{\sqrt{3} }{2}; -\frac{1}{2} - \frac{\sqrt{3} }{2} \)
+    \end{exmp}
+
+    \subsubsection{Деление комплексных чисел}
+    Для деления комплексных чисел нужно домножить знаменатель на сопряженное: \[
+        \frac{z_{1}}{z_{2}} = \frac{a_{1} + b_{1}i}{a_{2} + b_{2}i} = \frac{(a_{1} + b_{1}i)(a_{2} - b_{2}i)}{(a_{2} + b_{2}i)(a_{2} - b_{2}i)} = \frac{(a_{1} + b_{1}i)(a_{2} - b_{2}i)}{a_{2}^2 + b_{2}^2} 
+    \] 
+    Числитель - комплексное, знаменатель - заведомо действительное, следовательно, можно разделить числитель покомпонентно.
+
+    \begin{exmp}
+    \item 1. \( \frac{3}{2 - i} \)
+        \[
+            \frac{3}{2 - i} = \frac{3(2 + i)}{5} = \frac{6}{5} + \frac{3}{5}i
+        \] 
+        
+    \item 2. \( \frac{-3 + 2i}{1 + i} \)
+        \[
+            \frac{-3 + 2i}{1 + i} = \frac{(-3 + 2i)(1 - i)}{2} = \frac{-3 + 3i + 2i + 2}{2} = -\frac{1}{2} + \frac{5}{2}i
+        \] 
+    \end{exmp}
+\end{document}
