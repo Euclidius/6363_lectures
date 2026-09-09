@@ -1,4 +1,6 @@
 \documentclass[12pt, a4paper]{article}
+\usepackage{silence}
+\WarningFilter{latex}{You have requested package}
 \RequirePackage{../../lectures}
 \usepackage[left=3cm,right=3cm,top=3cm,bottom=3cm]{geometry}
 
@@ -14,7 +16,7 @@
 
     \begin{definition}
         Комплексное число - выражение вида \( a + bi \), где \( a, b \in \mathbb{R} \), а \( i \)- особый символ, причем \( i^2 = -1 \).\\
-        В записи выше \(  a\) называется вещественной (действительной) частью комплексного числа, а \( b \) - мнимой.
+        В записи выше \(  a\) называется вещественной (действительной) частью комплексного числа, а \( b \) - мнимой. \( a = \mathrm{Re}\,z, b = \mathrm{Im}\, z \)
     \end{definition}
     \subsection{Операции над комплексными числами}
     Пусть \( z_{1} = a_{1} + b_{1}i \), \( z_{2} = a_{2} + b_{2}i \) - комплексные числа.
@@ -112,4 +114,329 @@
             \frac{-3 + 2i}{1 + i} = \frac{(-3 + 2i)(1 - i)}{2} = \frac{-3 + 3i + 2i + 2}{2} = -\frac{1}{2} + \frac{5}{2}i
         \] 
     \end{exmp}
+
+    \subsubsection{Возведение в степень}
+    \[
+        z^{n} = \underbrace{z \cdot z \cdot \ldots \cdot z }_{ n \text{ раз}}
+    \] 
+    \[
+        (1 + i)^{20} = ((1 + i)^2)^{10} = (12 + 2i - 1)^{10} = (2i)^{10} = -1024 
+    \] 
+    \subsection{Квадратные корни из комплексного числа в алгебраической форме}
+    \begin{definition}
+        Пусть \( z \) - комплексное число, тогда квадратным корнем из \( z \) называют число, квадрат которого равен \( z \)
+    \end{definition}
+    Вычисление удобно производить через метод неопределенных коэффициентов: \[
+        \sqrt{z} = A + Bi \implies z = (A + Bi)^2
+    \] 
+    \begin{exmp}
+        \begin{align*}
+            \sqrt{8 + 6i}  &= A + Bi \\
+            8 + 6i &= A^2 - B^2 + 2ABi
+        \end{align*}
+        Приравниваем действительные и мнимые части: \[
+            \begin{cases}
+                8 = A^2 - B^2 \\
+                6 = 2AB
+            \end{cases} \implies A = \frac{6}{2B} = \frac{3}{B}
+        \] 
+        Подставляем в первое уравнение и получаем биквадратное уравнение:
+        \begin{align*}
+            8B^2 - 9 + B^{4} &= 0 \\
+            B = \pm 1 \implies A &= \pm 3
+        \end{align*}
+        Ответ: \( 3 + i \); \( -3 - i \)
+    \end{exmp}
+    \subsection{Квадратные уравнения с комплексными коэффициентами и корнями}
+    \begin{align*}
+        &az^2 + bz + c = 0 \\
+        &z_{1, 2} = \frac{-b \pm \sqrt{b^2 - 4ac} }{2a}
+    \end{align*}
+    Поскольку для комплексных чисел арифметический квадратный корень не определен в этом случае под \( \pm \sqrt{b^2 - 4ac}  \) подразумевается прибавление квадратных корней из дискриминанта. Для ненулевого дискриминанта таких чисел два и они противоположны по знаку. Для извлечения квадратного корня из дискриминанта применяют вычисления, аналогичные приведенным выше.
+    \begin{exmp}
+        \[
+            z^2 + (-1 + i)z + 2 - 2i = 0
+        \]. \( D = b^2 - 4ac = (-1 + i)^2 - 4(2 - 2i) = 1 - 2i - 1 -8 + 8i = -8 + 6i \)
+        \[
+            \begin{cases}
+                A^2 - B^2 = -8 \\
+                2AB = 6
+            \end{cases} \implies A = \frac{3}{B} \implies \frac{9}{B^2} - B^2 = -8
+        \] 
+        \begin{align*}
+            &9 - B^{4}  = 8B^2 \\
+            &B^{4} - 8B^2 - 9 = 0\\  
+        \end{align*}
+        \begin{align*}
+            B = \pm 3 \\
+            A = \pm 1
+        \end{align*} \( \implies \sqrt{D} = \pm(1 + 3i) \)
+
+        \begin{align*}
+            z_{1} = \frac{1 - i + 1 + 3i}{2} = 1 + i \\
+            z_{2} = \frac{1 - i -1 - 3i}{2} = -2i
+        \end{align*}
+        Ответ: \( 1 + i \); \( -2i \)
+    \end{exmp}
+    \subsection{Модуль и аргумент комплексного числа}
+
+    \begin{figure}[htbp]
+        \incfig{complex_geometry}
+        \caption{Комплексное число как вектор.}
+    \end{figure}
+    Длина \( |z| \) -- модуль комплексного числа.
+
+    \( \mathrm{Arg} z  = \varphi\)  -- аргумент комплексного числа.
+
+    \( \mathrm{Arg} z = \arg z + 2 \pi k, \, k \in \mathbb{Z}, \, 0 \le \arg z < 2 \pi \)
+
+    По теореме Пифагора: \[
+        |z| = \sqrt{x^2 + y^2} 
+    \] 
+
+    Также по определению косинуса и синуса:
+    \[
+        \begin{cases}
+            \cos  \varphi = \frac{x}{\sqrt{x^2 + y^2} } \\
+            \sin  \varphi = \frac{y}{\sqrt{x^2 + y^2} }
+        \end{cases}
+    \] 
+
+    Теперь можно переписать определение комплексного числа в следующей форме : \[
+        z = x + iy = \sqrt{x^2 + y^2} \left( \frac{x}{\sqrt{x^2+y^2} } + \frac{y}{\sqrt{x^2 + y^2} }i \right)  = |z| ( \cos \varphi + i \sin \varphi)
+    \] 
+    Самое правое выражение называют тригонометрической формой комплексного числа. \( |z| \) иногда обозначают \( r \).
+
+    Из формул Эйлера для синуса и косинуса: \[
+        \begin{cases}
+            \cos \varphi = \frac{e^{i\varphi} + e^{-i\varphi}  }{2} \\
+            \sin  \varphi = \frac{e^{i\varphi} - e^{-i\varphi}  }{2i}
+        \end{cases}
+    \] следует еще и показательная формула комплексного числа: \[
+        z = re^{i\varphi}. 
+    \] 
+
+    \begin{exmp}
+        \(  \)
+        \begin{figure}[htbp]
+            \incfig{trig_form_example}
+            \caption{Пример.}
+        \end{figure}
+
+        \begin{enumerate}
+            \item \( 2 = 2(\cos 0 + i \sin 0) \)
+            \item \( -6 = 6(\cos  \pi  + i \sin  \pi ) \)
+            \item \( i = 1 (\cos  \frac{\pi}{2} + i \sin \frac{\pi}{2})  \)
+            \item \( 1 - i = \sqrt{2} (\cos \frac{7 \pi }{4} + i \sin \frac{7 \pi }{4}) \)
+            \item \( i + i\sqrt{3}  = 2 (\cos \frac{\pi}{3} + i \sin \frac{\pi}{3}) \)
+        \end{enumerate}
+    \end{exmp}
+
+    \subsection{Умножение и возведение в степень в тригонометрической форме}
+    Пусть \( z_{1} = r_{1}(\cos \varphi_{1} + i \sin \varphi_{2}) \), \( z_{2} = r_{2}(\cos \varphi_{2} + i \sin \varphi_{2}) \), тогда
+    \begin{align*}
+        z_{1}\cdot z_{2} &= r_{1}r_{2}(\cos \varphi_{1} + i \sin \varphi_{1}) (\cos \varphi_{1} + i \sin \varphi_{2}) = \\
+                         &=r_{1}r_{2}(\cos \varphi_{1}\cos \varphi_{2} + i \sin\varphi_{1}\cos \varphi_{2} + i \sin \varphi_{2}\cos \varphi_{1} - \sin \varphi_{2}\cos \varphi_{2}) = \\
+                         & = r_{1}r_{2}(\cos (\varphi_{1} + \varphi_{2}) + i \sin(\varphi_{1} + \varphi_{2}))
+    \end{align*}
+    Аналогично выводится формула для деления: \[
+        \frac{z_{1}}{z_{2}} = \frac{r_{1}}{r_{2}}(\cos (\varphi_{1} - \varphi_{2}) + i \sin (\varphi_{1} - \varphi_{2}))
+    \] 
+    Теперь попробуем умножить \( z \) само на себя:
+    \[
+        z^2 = r^2(\cos  2\varphi + i \sin 2\varphi)
+    \] 
+    Из этого следует (желающие могут доказать по индукции) \[
+        z^{n} = r^{n}(\cos n\varphi + i \sin n\varphi)  
+    \] 
+    \subsection{Формулы Муавра}
+    В принципе, то, что мы получили чуть выше и есть формула Муавра. Но в исходных текстах она выглядит так: \[
+        (\cos \varphi + i \sin \varphi)^{n} = \cos n\varphi + i \sin \varphi 
+    \] 
+    \begin{exmp}
+        Вычислим формулы для \( \cos 5x \) и \( \sin 5x \) через \( \sin x \) и \( \cos  x \)
+        \begin{lem}
+            \( (a + b)^{5} = a^{5} + 5a^{4}b + 10a^{3}b^2 + 10a^2b^3 + 5ab^{4} + b^{5}  \)
+            
+        \end{lem}
+        \begin{proof}
+            Гуглить: бином Ньютона, треугольник Паскаля
+        \end{proof}
+
+        Из формулы Муавра: \( (\underline{\cos 5 \varphi}+ i\underline{\underline{ \sin 5 \varphi}}) = (\cos  \varphi + i \sin  \varphi)^{5}  \). Раскроем правую скобку при помощи леммы. 
+        \begin{align*}
+            (\cos  \varphi + i \sin  \varphi)^{5} = \cos ^{5}\varphi &+ 5 \cos  ^{4}(i \sin \varphi)  + 10 \cos  ^3 \varphi(i \sin  \varphi)^2 + 10 \cos ^2\varphi(i \sin  \varphi)^3  + \\
+            &+ 5 \cos \varphi (i \sin \varphi)^{4} + (i \sin \varphi)^{5} = \\
+            & =  \underline{\cos ^{5}\varphi - 10 \cos ^3 \varphi \sin ^2\varphi + 5 \cos \varphi \sin ^{4} \varphi} + \\
+            & + i (\underline{\underline{5 \cos ^{4} \varphi \sin \varphi - 10 \cos ^2\varphi \sin ^3 \varphi + \sin ^{5} \varphi}}  )
+        \end{align*}
+        Осталось только приравнять действительные (одно подчеркивание) и мнимые (два подчеркивания) части равенства:
+        \begin{align*}
+            \cos 5 \varphi = \cos ^{5}\varphi - 10 \cos ^3 \varphi \sin ^2\varphi + 5 \cos \varphi \sin ^{4} \varphi \\
+            \sin 5\varphi = 5 \cos ^{4} \varphi \sin \varphi - 10 \cos ^2 \varphi \sin ^3 \varphi + \sin  ^{5}\varphi  
+        \end{align*}
+        
+    \end{exmp}
+
+    \begin{exmp}
+        Упростим сумму \( \sin x + \sin  2x + \ldots + \sin nx \).
+        \begin{align*}
+            z &= \cos  \varphi + i \sin \varphi \\
+            z^{n} &= \cos n\varphi + i \sin n\varphi 
+        \end{align*}
+        Несложно заметить, что \[
+            \sin x + \sin 2x + \ldots  + \sin  nx = \mathrm{Im}(z + z^2 + \ldots + z^{n} )
+        \] 
+        По формуле суммы геометрической прогрессии:\[
+            z + z^2 + \ldots  + z^{n} = \frac{z(1 - z^{n} )}{1 - z}.
+        \] Подставив вместо \( z \) тригонометрическую форму, и проведя ряд несложных преобразований, получаем \[
+            \sin x + \sin 2x + \ldots + \sin nx = \frac{\sin \frac{nx}{2} \cdot \sin \frac{n+1}{2}x}{\sin \frac{x}{2}}
+        \] 
+        
+    \end{exmp}
+    \subsection{Корни из комплексного числа в тригонометрической форме}
+    \begin{definition}
+        Пусть \( n \in \mathbb{N} \). Корнем степени \( n \) из комплексного числа \( z \) называется такое число \( x \), что \( x^{n} = z  \).
+    \end{definition}
+    \begin{align*}
+        z &= r(\cos \varphi + i \sin \varphi) \\
+        x' &= p(\cos \beta + i \sin \beta) \\
+        (x')^{n} &= p^{n}(\cos n\beta + i \sin n\beta) = r (\cos \varphi + i \sin \varphi) = z
+    \end{align*}
+    Отсюда получаем \[
+        \begin{cases}
+            p^{n} = r \\
+            \cos n\beta = \cos \varphi\\
+            \sin n\beta = \sin \varphi
+        \end{cases}
+    \] 
+    Так как равны одновременно и синусы и косинусы, то углы отличаются на \( 2 \pi \):
+    \begin{align*}
+        n\beta &= \varphi + 2 \pi k, \qquad k \in \mathbb{Z}\\
+        \beta &= \frac{\varphi + 2 \pi k}{n}\\
+        p &= \sqrt[n]{r} \\
+        x' &= \sqrt[n]{r}\left( \cos \frac{\varphi + 2 \pi k}{n} + i \sin \frac{\varphi + 2 \pi k}{n} \right) , \qquad k = 0, 1, 2, \ldots , n -1 
+    \end{align*}
+    Корни степени \( n \) из числа \( z \) равномерно расположены на окружности радиуса \( \sqrt[n]{r}  \).
+    \begin{exmp}
+        \( \sqrt[3]{8}  \)
+        \begin{align*}
+            \sqrt[3]{8} &= \sqrt[3]{8(\cos 0 + i \sin 0)} = 2 \left( \cos \frac{2 \pi k}{3} + i \sin \frac{2 \pi k}{3} \right), \qquad k = 0, 1, 2 \\
+            k &= 0 \quad 2\left( \cos 0 + i \sin 0 \right) = 2 \\
+            k &= 1 \quad 2\left( \cos \frac{2 \pi }{3} + i \sin \frac{2 \pi }{3}\right) = 2\left(- \frac{1}{2} + i \frac{\sqrt{3} }{2}\right)  \\
+            k &= 2 \quad 2\left( \cos \frac{4 \pi }{3} + i \sin \frac{4 \pi }{3}\right) = 2\left(- \frac{1}{2} - i \frac{\sqrt{3} }{2}\right)  
+        \end{align*}
+        
+    \end{exmp}
+
+    \begin{exmp}
+        \( \sqrt[4]{i}  \)
+        \begin{align*}
+            \sqrt[4]{i} &= \sqrt[4]{\cos \frac{\pi}{2} + i \sin \frac{\pi}{2}}  = \cos \frac{\frac{\pi}{2} + 2 \pi k}{4} + i \sin \frac{\frac{\pi}{2} + 2 \pi k}{4}, \qquad k = 0, 1, 2, 3\\
+            k &= 0 \quad \cos \frac{\pi}{8} + i \sin \frac{\pi}{8}\\
+            k &= 1 \quad \cos \frac{5\pi}{8} + i \sin \frac{5\pi}{8}\\
+            k &= 2 \quad \cos \frac{9\pi}{8} + i \sin \frac{9\pi}{8}\\
+            k &= 3 \quad \cos \frac{13\pi}{8} + i \sin \frac{13\pi}{8}\\
+        \end{align*}
+    \end{exmp}
+    \subsection{Изображение множеств на плоскости}
+    \begin{enumerate}
+        \item \( |z - z_{1}| = |z - z_{2}| \)
+
+            Другими словами, это \( \sqrt{(x - x_{1})^2 + (y - y_{1})^2}  = \sqrt{(x - x_{2})^2 + (y - y_{2})^2}  \), то есть, множество точек, равноудаленных от точек \( z_{1} \) и \( z_{2} \). Из курса школьной математики известно, что это серединный перпендикуляр
+            \begin{figure}[h]
+                \incfig{complex_drawing1}
+            \end{figure}
+        \item \( |z - z_{1}| \le |z - z_{2}| \)
+            
+            Аналогичными рассуждениями получаем, что это множество точек, которое ближе к \( z_{1} \), чем к \( z_{2} \), т.е. полуплоскость слева от серединного перпендикуляра
+            \begin{figure}[ht]
+                \incfig{complex_drawing2}
+            \end{figure}
+        \item \( |z_{1} \cdot z - z_{2}| \le R \)
+            
+            Вынесем \( z_{1} \) за скобки: \( |z_{1}| \left| z - \frac{z_{1}}{z_{1}} \right| \le  R \), поделим на \( |z_{1}| \): \( \left| z - \frac{z_{2}}{z_{1}} \right| \le \frac{R}{|z_{1}|}  \). Слева очевидно комплексное число, а справа очевидно действительное. Сделаем замену: \( |z - z_{0}| \le R_{0} \). Теперь проделаем процедуру из предыдущих пунктов: \[
+                \sqrt{(x - x_{0})^2 + (y - y_{0})^2}  \le  R_{0}
+            \] или же, \[
+            (x - x_{0})^2 + (y - y_{0})^2 \le R_{0}^2
+            \]   
+            А это буквально круг с центром в \( (x_{0}, y_{0}) \) и радиусом \( R_{0} \).
+    \end{enumerate}
+    \section{Многочлены и действия над ними}
+    \begin{definition}
+        Многочлен - функция вида \[
+            f(x) = a_{n}x^{n} + a_{n-1}x^{n-1} + \ldots  + a_{1}x + a_{0} = \sum_{i=0}^{n} a_i x^{i}.
+        \]При этом, \( a_{n} \) называется старшим членом, \( a_{0} \) -- свободным членом, \( n = \deg f \) -- степенью многочлена. Многочлен равен нулю \( \iff \) все его коэффициенты равны нулю. Если в записи многочлена нет какой-либо степени неизвестного, то коэффициент при этой степени равен нулю.
+    \end{definition}
+    На множестве многочленов определены следующие действия: 
+    \begin{enumerate}
+        \item Сложение
+        \item Умножение 
+        \item Деление с остатком
+
+            \[
+                \frac{f(x)}{g(x)} \iff f(x) = g(x) \cdot q(x) + r(x), \quad \deg r < \deg g
+            \] 
+    \end{enumerate}
+    \subsection{Корни многочлена}
+    \begin{definition}
+        Корнем многочлена \( f(x) \) называется число \( a \): \( f(a) = 0 \)
+    \end{definition}
+    \begin{theorem}[Безу]
+        \( \forall f(x), a \in \mathbb{R} \): \[
+            f(x) = (x-a) \cdot q(x) + r, \qquad r = f(a)
+        \] 
+    \end{theorem}
+    \begin{proof}
+        Доказывается подстановкой \( a \) в \( f \): пусть \( x = a \implies f(a) = r \).
+    \end{proof}
+    \begin{cor}
+        \( a \) -- корень \( f(x) \iff f(x) \, \vdots \, (x - a) \) без остатка.
+    \end{cor}
+    \subsection{Рациональные корни многочлена с целыми коэффициентами}
+    \begin{theorem}
+        Пусть \( f(x) \) -- многочлен с целыми коэффициентами. Если \( r = \frac{m}{n} \), несократима дробь, -- корень \( f \), то \(a_{0} \, \vdots \, m \) и \( a_{n} \, \vdots  \,n \).
+    \end{theorem}
+    \begin{proof}
+        Пусть \( a_{0}, a_{1}, \ldots , a_{n} \) -- целые коэффициенты \( F \). \[
+            F(x) = a_{n}x^{n} + a_{n-1}x^{n-1} + \ldots  + a_{1}x + a_{0}  .
+        \]. Пусть \( r = \frac{p}{q} \) -- несократимая и \( F(\frac{p}{q}) = 0 \), тогда \( a_{0} \, \vdots \, p, \, a_{n} \, \vdots \, q \). Действительно, подставим \( r \) в \( F \):
+        \[
+            a_{n}\left( \frac{p}{q} \right) ^{n} + \ldots + a_{1} \frac{p}{q} + a_{0} = 0.
+        \] Домножим на знаменатель: \[
+            a_{n}p^{n} + a_{n-1}p^{n-1}q + \ldots  + a_{1}pq^{n-1} + a_{0}q^{n} = 0.
+        \]Теперь внимательно смотрим на то, что делится на \( p \): \[
+        \underbrace{a_{n}p^{n} + a_{n-1}p^{n-1}q + \ldots  + a_{1}pq^{n-1}}_{\vdots \, p} + a_{0}q^{n} = \underbrace{0}_{\vdots\, p}.
+        \]Ага, то есть, и \( a_{0}q^{n}  \) делится на \( p \). Но т.к. \( \frac{p}{q} \)  -- несократимая, то \( p \) и \( q \) -- взаимно простые, а значит именно \( a_{0} \) делится на \( p \). Абсолютно точно также доказывается то, что \( a_{n} \) делится на \( q \).
+        
+    \end{proof}
+    \begin{rem}
+        Теорема дает только необходимое условие существования рационального корня и оно не является достаточным.
+    \end{rem}
+    \begin{rem}
+        Среди делителей нужно брать не только положительные, но и отрицательные целые числа.
+    \end{rem}
+    \begin{rem}
+        Начать проверку предполагаемых корней удобнее всего с небольших целых чисел.
+    \end{rem}
+    \begin{exmp}
+        \( x^3 + 3x^2 + 3x + 2 = 0 \).
+        По теореме выше кандидатами на корни являются \( \pm 1, \pm 2 \). Проверяем их: \( 1 \) -- нет. \( -1 \) -- нет. \( 2 \) -- нет. \( -2: -8 + 12 - 6 + 2 = 0 \), то есть \( -2 \) -- корень.
+    \end{exmp}
+    \subsection{Разложение многочленов на множители}
+    \begin{definition}
+        Разложить многочлен на множители -- представить его в виде произведения двух многочленов степень каждого из которых не меньше единицы.
+    \end{definition}
+    \begin{exmp}
+        \(  \)
+
+        \begin{enumerate}
+            \item \( x^{4} - 1 = (x^2 - 1)(x^2 + 1) = (x^2+1)(x - 1)(x+1) \)
+            \item \( x^{4} - x^3 - x + 1 = x^3 (x-1) - (x-1) = (x-1)(x^3 -1) = (x-1)^2(x^2 + x + 1)  \)
+        \end{enumerate}
+        
+    \end{exmp}
+
+
+
 \end{document}
