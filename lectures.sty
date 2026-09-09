@@ -10,6 +10,9 @@
 
 \RequirePackage{xcolor}
 \RequirePackage{graphicx}
+\RequirePackage{import}
+\RequirePackage{pdfpages}
+\RequirePackage{transparent}
 
 % --- Math packages ---
 
@@ -58,3 +61,9 @@
   urlcolor={black}
 }
 
+% --- Command for including drawings ---
+
+\newcommand{\incfig}[1]{%
+    \def\svgwidth{\columnwidth}
+    \import{./drawings/}{#1.pdf_tex}
+}
