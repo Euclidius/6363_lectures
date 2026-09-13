@@ -1,0 +1,131 @@
+\documentclass{article}
+\usepackage[russian]{babel}
+\usepackage{amssymb}
+\usepackage{amsfonts}
+\usepackage{amsmath}
+\usepackage{silence}
+\RequirePackage{lectures}
+\usepackage[left=3cm,right=3cm,top=3cm,bottom=3cm]{geometry}
+
+\title{Математический анализ. Лекции.}
+\author{Солодухина Ольга Анатольевна oasolodukhina@etu.ru или soa7096@yandex.ru}
+\date{}
+\begin{document}
+\maketitle
+\tableofcontents
+\section{Числовая последовательность и её предел}
+\subsection{ЧП и её ограниченность}
+\begin{definition}
+    Под числовой последовательностью (ЧП) понимается функция вида: $x_n = f(n), n \in \mathbb{N} $\\
+    Аналогичные способы записи ф-ции: $\{x_n\}$ или $x_n, n \in \mathbb{N} $;
+    Таким образом ЧП имеет вид: $ x_1, x_2, x_3, ... x_n $ где $x_n$ - общий член Числовой Последовательности.
+\end{definition} 
+
+\begin{definition}
+    Числовая последовательность называется ограниченной сверху, если существует $M > 0$ такое, что для любого $n \in \mathbb{N}$ выполняется $x_n \leq M$.\\
+    Текст на языке кванторов: $\exists M > 0: \forall n \in \mathbb{N} \Rightarrow x_n \leq M$
+\end{definition} 
+
+\begin{definition}
+    Числовая последовательность называется ограниченной снизу, если существует $m > 0$ такое, что для любого $n \in \mathbb{N}$ выполняется $x_n \geq m$.\\
+    Текст на языке кванторов: $\exists m > 0 : \forall n \in \mathbb{N} \Rightarrow x_n \geq  m$
+\end{definition}
+
+\begin{definition}
+    Числовая последовательность называется ограниченной, если она ограничена сверху и снизу. \textbf{В противном случае последовательность неограниченна.}
+\end{definition}
+
+\subsection{Определения монотонных последовательностей:}
+Последовательность называется...\\
+\\
+\textbf{Убывающей}, если для любого $n \in \mathbb{N} $ выполняется неравенство $ x_{n+1} < x_n$
+\\
+\textbf{Невозрастающей}, если для любого $n \in \mathbb{N} $ выполняется неравенство $ x_{n+1} \leq x_n$
+\\
+\textbf{Возрастающей}, если для любого $n \in \mathbb{N} $ выполняется неравенство $ x_{n+1} > x_n$
+\\
+\textbf{Неубывающей}, если для любого $n \in \mathbb{N} $ выполняется неравенство $ x_{n+1} \geq x_n$
+
+\begin{definition}
+    Если ЧП обладает одной из перечисленных выше характеристик, то она называется \textbf{монотонной}.
+\end{definition} 
+
+\begin{definition}
+    Если все элементы числовой последовательности равны одному и тому же элементу, то её называют \textbf{постоянной}.
+\end{definition}
+
+\subsection{Рекуррентный способ задания Числовой Последовательности}
+Выглядит следующим образом: $$x_n = f(x_{n-1})$$
+\subsection{Предел Числовой Последовательности}
+
+Рассмотрим Числовую Последовательность:\\
+$\displaystyle x_n = \frac{n-1}{n} = 1 - \frac{1}{n}, n \in \mathbb{N} $\\
+При n стремящемся к бесконечности ($n \rightarrow \infty$) Числовая Последовательность стремится к единице ($x_n \underset{n \to \infty}{=} (1 - \frac{1}{n}) \to 1$)\\\\
+Аналогичный способ записи:\\
+$$
+\displaystyle \lim_{n \to \infty} 1 - \frac{1}{n} = 1, n \in \mathbb{N}
+$$
+\\\\
+В общем случае: $$\lim_{n \to \infty} x_n = a$$
+\\\\
+\begin{definition}
+    число $a$ называется \textit{пределом числовой последовательности}, если для любого эпсилон (сколь угодно малое число) больше нуля существует целое N такое, что для любого n больше N выполняется: $|x_n - a| < \varepsilon$\\
+    Язык кванторов: $a$ - предел ЧП, если $\forall\varepsilon > 0 \exists N: \forall n > N \Rightarrow |x_n - a| < \varepsilon$
+\end{definition} 
+
+\begin{exmp}
+    Докажем по определению, что $\lim_{n \to \infty}\, x_n = a$\\
+    $$
+    \left|x_n - a\right| < \varepsilon$$
+    $$\left|\frac{n-1}{n} - 1\right| < \varepsilon$$
+    $$\left|\frac{n-1-n}{n}\right| < \varepsilon$$
+    $$\left|-\frac{1}{n}\right| < \varepsilon$$
+    $$\frac{1}{n} < \varepsilon$$
+    $$n > \frac{1}{\varepsilon} \Rightarrow N(\varepsilon) = \frac{1}{\varepsilon}$$
+    \textbf{Примечание:} Эпсилон ($\varepsilon$) можно назвать точностью, с которой ищется предел.
+\end{exmp}
+
+\subsection{Геометрический смысл предела Числовой последовательности}
+Давайте раскроем модуль из определения предела: $|x_n - a| < \varepsilon \longrightarrow -\varepsilon < x_n - a < \varepsilon$\\
+Эта запись равносильна: $-\varepsilon + a < x_n < \varepsilon + a$. Таким образом, все $x_n$ подходящие под это условие мы можем назвать лежащими в окрестности Эпсилон точки $a$
+\subsection{Сходимость}
+\begin{definition}
+    Если $\lim_{n \to \infty} x_n = a = const$, то ЧП называется сходящейся. Из определения следует, что \textbf{сходящая последовательность ограничена (НО ОБРАТНОЕ СЛЕДСТВИЕ НЕВЕРНО)}.\\ Так же, числовая последовательность не может иметь более одного предела,
+    но это уже не утверждение, а теорема.
+\end{definition}
+
+\begin{proof}
+    Пусть существует 2 предела А и B, таких, что A < B. Возьмём $\varepsilon_0$ > 0 так, чтобы Окрестности А и B не имели общих точек. Поскольку А - предел, найдётся номер, начиная с которого все члены последовательности лежат внутри окрестности А, а значит вне неё  число членов последовательности становится конечным, что противоречит утверждению о том, что B предел.
+\end{proof}
+
+\begin{definition}
+    Если $\lim_{n \to \infty} x_n = \infty$, то ЧП называется расходящейся.
+\end{definition}
+
+\begin{rem}
+    Постоянная ЧП: $x_n = C, n \in \mathbb{N}$ имеет $\lim = C \Rightarrow $ $\displaystyle\lim_{n \to \infty} C = C$
+\end{rem}
+
+\begin{proof}
+    По определению ЧП $|x_n - a| < \varepsilon$ $\Rightarrow$ $\displaystyle\forall\varepsilon > 0: |C - C| = 0 < \varepsilon$
+\end{proof}
+
+\section{Предельный переход в неравенствах}
+$\sphericalangle$ (это значок рассмотрим) ЧП: $\{x_n\}, \{y_n\}$
+
+\begin{theorem}
+    Если $\lim_{n \to \infty} x_n = a$; $\lim_{n \to \infty} y_n = b$ и, начиная с некоторого номера
+    выполняется неравенство $x_n \leq y_n$, то $a \leq b$
+\end{theorem}
+
+\begin{proof}
+    Пусть $a > b$
+Исходя из того, что $a$ - предел $x_n$, а $b$ - предел $y_n$ $\Rightarrow$ $\forall\varepsilon > 0 \exists N(\varepsilon): \forall n$ будут выполняться неравенства:\\
+$\displaystyle |x_n - a| < \varepsilon\\
+|y_n - b| < \varepsilon$\\
+$\displaystyle -\varepsilon + a < x_n < \varepsilon + a$; $\displaystyle -\varepsilon + b < y_n < \varepsilon + b$\\
+Допустим, {\Large $\varepsilon = \frac{a-b}{2}$}, тогда {\Large $x_n > a - \frac{a-b}{2} = \frac{a+b}{2} \Rightarrow x_n > \frac{a+b}{2}$}\\
+Аналогично: {\Large $y_n < \frac{a+b}{2} \Rightarrow x_n > y_n$}, что противоречит {\Large $x_n \leq y_n$} {\Large $\Rightarrow a \leq b$}
+\end{proof}
+
+\end{document}
