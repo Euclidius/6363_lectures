@@ -3,6 +3,7 @@
 \WarningFilter{latex}{You have requested package}
 \RequirePackage{../../lectures}
 \usepackage[left=3cm,right=3cm,top=3cm,bottom=3cm]{geometry}
+\usepackage{mathtools}
 \usepackage{float}
 
 
@@ -531,6 +532,272 @@
     \begin{rem}
         Если старший коэффициент многочлена не равен 1, то для применения теоремы Виета нужно поделить многочлен на этот коэффициент.
     \end{rem}
+
+    \section{Дробно-рациональные функции}
+    \begin{definition}
+        Дробно рациональная функция (ДРФ) -- отношение \( f = \frac{A(x)}{B(x)}, \quad B(x) \neq 0 \). При этом \( D(f) = \mathbb{R} \backslash Z \), где \( Z \) -- множество всех корней \( B \).
+    \end{definition}
+    \subsection{Операции над ДРФ}
+    \begin{enumerate}
+        \item  Равенство. \[
+            \frac{A(x)}{B(x)} = \frac{C(x)}{D(x)} \iff A(x) \cdot D(x) = B(x) \cdot C(x)
+        \] 
+        \item Сложение. \[
+                \frac{A(x)}{B(x)} + \frac{C(x)}{D(x)} = \frac{A(x)\cdot D(x) + B(x) \cdot C(x)}{B(x) \cdot D(x)}
+        \] 
+        \item Умножение. \[
+            \frac{A(x)}{B(x)} \cdot \frac{C(x)}{D(x)} = \frac{A(x) \cdot  C(x)}{B(x) \cdot D(x)}
+        \]  
+    \end{enumerate}
+    \subsection{Расширение и сокращение ДРФ}
+    \[
+        \frac{A(x)}{B(x)} \iff \frac{A(x) \cdot C(x)}{B(x) \cdot C(x)}
+    \] 
+
+    \( \Leftarrow  \) Сокращение.
+
+    \( \Rightarrow \) Расширение.
+    \begin{exmp}
+        \[
+            \frac{2x}{x^2 - 1} + \frac{3x-2}{x + 1} = \frac{2x + (3x - 2)(x-1)}{x^2 - 1} = \ldots 
+        \] 
+        
+    \end{exmp}
+    \subsection{Првильные и простейшие ДРФ}
+    \begin{definition}
+        Правильная ДРФ - такая ДРФ, что степень числителя строго меньше степени знаменателя: \( \deg A < \deg B \)
+    \end{definition}
+    \begin{definition}
+        Простейшая ДРФ - функция следующего вида: \( \frac{A(x)}{(B(x))^{n} } \), где \( \deg A < \deg B \), \( n \in N \), \( B(x) \) -- неприводимый над заданным множеством.
+    \end{definition}
+    \begin{exmp}
+        \[
+            \underbrace{\frac{x + 2}{(x+1)^3 }}_{\text{правильная, но не простейшая}} = \frac{x + 1 + 1}{(x + 1)^3 } = \underbrace{\frac{1}{(x+1)^2} + \frac{1}{(x+1)^3 }}_{\text{простейшие}}
+        \] 
+    \end{exmp}
+    \begin{lem}
+        Любую правильную дробь можно разложить в сумму простейших, причем единственным образом.
+        Пусть \( \deg A < \deg B \). \( \frac{A(x)}{B(x)}\), \( B(x) = \prod_{i=1}^{m} (B_{i}(x))^{m}    \). Тогда \[
+            \frac{A(x)}{B(x)} = \sum_{i=1}^{m} \sum_{j=1}^{n_{i}} \frac{A_{ij}(x)}{(B_{i}(x))^{j}},
+        \] где \( \frac{A_{ij}(x)}{(B_{i}(x))^{j}} \) -- простейшая дробь.
+    \end{lem}
+    \begin{proof}
+        Верь мне, брат
+    \end{proof}
+    \subsection{Метод неопределенных коэффициентов}
+    \begin{exmp}
+        Я не понял, что препод хотел этим сказать, видимо, о том,как найти остаток от деления на какой-то из корней, попутно вычисляя коэффициента частного.
+        Рассмотрим многочлен из теоремы Безу: \[
+            A(x) = (x - x_{0})B(x) + A(x_{0})
+        \] 
+        Пусть теперь \[
+            A(x) = \sum_{i=0}^{m} a_{i}x^{i}, \qquad a_i, x_0\text{ -- известны} 
+        \] 
+        \[
+            B(x) = \sum_{i=0}^{m-1} b_{i}x^{i}, \qquad b_{i} \text{ -- неизвестны}  
+        \] 
+        \[
+            A(x_{0}) \text{ -- неизвестно и требуется}
+        \] Подставим эти суммы в исходное равенство: \[
+            \sum_{i=0}^{m} a_{i}x^{i}(x - x_{0})  \cdot  \sum_{i=0}^{m-1} b_{i}x^{i} + A(x_{0}) = \ldots  
+        \] Раскроем скобки и приведем подобные: \[
+            \begin{cases}
+                b_{m-1} = a_{m}\\
+                b_{m-2}=x_{0} \cdot b_{m-1} + a_{m-1}\\
+                b_{m-3} =x_{0} \cdot b_{m-2} +a_{m-2}\\
+                \ldots \\
+                b_{m-1-i} = x_{0} \cdot b_{m-i} + a_{m-i}, \quad i \in [0, m-1]\\
+                b_{0}= x_{0}\cdot b_{1} + a_{1}\\
+                A(x_{0}) =x_{0}\cdot b_{0} + a_{0}
+            \end{cases}
+        \]  
+        
+    \end{exmp}
+    \begin{exmp}[Разложить на простейшие над \( \mathbb{R} \)]
+        \[
+            \frac{1}{x^2 - 5x + 6} = \frac{1}{(x-2)(x-3)} = \frac{A}{x-2} + \frac{B}{x-3} = \frac{A(x-3) + B(x-2)}{(x-2)(x-3)}
+        \] И т.к. знаменатели одинаковые, можем приравнять числители: \[
+            1 = A(x-3) + B(x-2) = Ax - 3A  + Bx - 2B = x(A + B) - 3A - 2B.
+        \] Приравняем коэффициенты при соответствующих степенях \( x \): \[
+            \begin{cases}
+                A + B = 0 \\
+                -3A - 2B = 1
+            \end{cases} \implies B = 1, \, A = -1.
+        \] Теперь можно записать ответ: \[
+            \frac{1}{x^2 - 5x + 6} = \frac{-1}{x-2} + \frac{1}{x-3}
+        \] 
+        
+    \end{exmp}
+    \begin{exmp}[Разложить на простейшие]
+        \begin{align*}
+            \frac{1}{x^3  + x} & = \frac{A}{x} + \frac{Bx + C}{x^2 + 1} =\\
+                                                                      &=\frac{A(x^2 + 1) + x(Bx + C)}{x^3  + x} = \frac{Ax^2 + A + Bx^2 + Cx}{x^3 +x} = \\
+                                                                      &= \frac{x^2(A + B) + x\cdot C + A}{x^3  + x}.
+        \end{align*}
+        Снова составляем систему уравнений и решаем ее: \[
+            \begin{cases}
+                A = 1 \\
+                C = 0 \\
+                A + B = 0
+            \end{cases} \implies \begin{cases}
+                A = 1 \\
+                B = -1 \\
+                C = 0
+            \end{cases}
+        \] И запишем ответ: \[
+            \frac{1}{x^3 + x} = \frac{1}{x} - \frac{x}{x^2 + 1}.
+        \]  
+        
+    \end{exmp}
+    \section{Матрицы}
+    \subsection{Множество матриц}
+    Множество матриц размера \( m \times n \) обозначается как \( M_{m\times n}(\mathbb{R}) \), где \( m \) -- количество строк, \( n \) -- количество столбцов, \( \mathbb{R} \) -- множество, из которого выбираются элементы матрицы.
+    \begin{exmp}
+        \(  \)
+        \begin{enumerate}
+            \item \( A = \begin{pmatrix} 1  & 2 \\ 3 & 4 \end{pmatrix}  \)
+            \item \( B = \begin{pmatrix} 1 & 2 & 3 \\ 4 & 5 & 6\end{pmatrix}\)
+            \item \( C = \begin{pmatrix} 1 & 2 \\ 3 & 4 \\ 5 & 6 \end{pmatrix}   \)
+            \item Матрицы размера \( 1\times 1 \) мы будем отождествлять просто с числами: \( M_{1\times 1}(\mathbb{R}) \equiv \mathbb{R} \)
+        \end{enumerate}
+        
+    \end{exmp}
+    Если нам не выжны компоненты матрицы, мы будем обозначать ее так: \( A = (a_{ij})_{m \times n} \).
+    \subsection{Операции над матрицами}
+    Пусть \( A = (a_{ij})_{m \times n} \), \( B = (b_{ij})_{m \times n} \)
+    \begin{enumerate}
+        \item Равенство матриц. \( A = B \iff \forall i \in [1, m], \, \forall j \in [1, n] \, a_{ij} = b_{ij} \).  То есть, матрицы равны тогда и только тогда, когда равны все их компоненты.
+        \item Сложением матриц. \( A + B = C = (c_{ij})_{m\times n} \), где \( c_{ij} = a_{ij} + b_{ij} \). Соответственно -- поэлементная сумма.
+        \item Умножение на скаляр. \( \alpha \cdot A = B \), где \( b_{ij} = \alpha \cdot a_{ij} \).
+    \end{enumerate}
+
+    \subsection{Произведение матриц}
+    Во-первых, нельзя умножать все подряд матрицы. Они должны быть согласованы по размеру: \[
+        C = A \cdot B \qquad A = (a_{ij})_{m\times \underline{\underline{n}}}, \qquad B = (b_{ij})_{\underline{\underline{n}}\times p}.
+    \] Где матрица \( C \) определяется как \[
+        C = (c_{ik})_{m\times p} \qquad c_{ik} = \sum_{j=1}^{n} a_{ij}b_{jk}
+    \] 
+    \begin{exmp}
+        \[
+            \underbrace{\begin{pmatrix} 1 & -1 & 2 \\3 & 0 & 1 \end{pmatrix}}_{2\times 3} \cdot \underbrace{\begin{pmatrix} -1& 3 \\ 4 & 5 \\ -2 & 2 \end{pmatrix}}_{3\times 2}  = A
+        \] 
+        \( A = (a_{ij}) _{2\times 2} \)\\
+        \( a_{11} = 1 \cdot (-1) + (-1) \cdot 4 + 2 \cdot (-2) = -9 \)\\
+        \( a_{12} = 1 \cdot 3 + (-1) \cdot 5 + 2 \cdot  2 = 2 \)\\
+        \( a_{21} = 3 \cdot (-1) + 0 \cdot 4 + 2 \cdot (-1) = -5 \) \\
+        \( a_{22} = 3 \cdot 3 + 0 \cdot 5 + 1 \cdot 2 = 11 \) \\
+        \( \implies A = \begin{pmatrix} -9 & 2 \\ -5 & 11 \end{pmatrix}  \)
+        
+    \end{exmp}
+    \subsection{Свойства операций}
+    \begin{enumerate}
+        \item Ассоциативность сложения. \( (A + B) + C = A + (B + C) \)
+        \item Коммутативность сложения. \( A + B = B + A \)
+        \item Существование нуля. \( A + O = O + A = A \), здесь \( O \) -- нулевая матрица соответсвующего размера.
+    \end{enumerate}
+    Заметим, что в общем случае \( A \cdot B \neq B \cdot A \). (Здесь \( m = n \)). То есть, например, \( (A + B)^2 = (A + B)(A + B) = A^2 + AB + BA + B^2 \).
+    С учетом некоммутативности выполняются следующие свойства: 
+    \begin{enumerate}
+        \item Ассоциативность умножения. \( (A \cdot B) \cdot C = A \cdot (B \cdot C) \)
+        \item Левая дистрибутивность. \( A \cdot (B + C) = AB + AC \)
+        \item Правая дистрибутивность. \( (A + B) \cdot C = AC + BC \)
+    \end{enumerate}
+    \subsection{Транспонирование матриц и его свойства}
+    \begin{definition}
+        Транспонирование матрицы -- операция вида \[
+            A = (a_{ij})_{m\times n} \implies A^{\mathrm{T}} = (a_{ji})_{n\times m}.
+        \] Здесь буквально происходит перестановка столбцов и строк местами.
+    \end{definition}
+    \begin{exmp}
+        \[
+            \begin{pmatrix} 1 & -1 \\ 2 & -3 \\ 5 & 4\end{pmatrix}^{\mathrm{T}}  = \begin{pmatrix} 1 & 2 & 5 \\ -1 & -3 & 4 \end{pmatrix} 
+        \] 
+    \end{exmp}
+    Свойства: \begin{enumerate}
+        \item Инволютивность. \( (A^{\mathrm{T}} )^{\mathrm{T}} = A  \).
+        \item Линейность. \( (\alpha \cdot A + \beta \cdot B)^{\mathrm T} = \alpha \cdot A^{\mathrm T} + \beta \cdot B^{\mathrm T} \).
+        \item \( (A \cdot B)^{\mathrm T} = B^{\mathrm T}   \cdot  A^{\mathrm T}   \).
+    \end{enumerate}
+    \begin{proof}
+        \(  \)
+    \begin{enumerate}
+        \item
+            Докажем, что \( B = (A^{\mathrm T} ) ^{\mathrm T} \implies B = A  \). \\
+            Пусть \( A = (a_{ij}) _{m \times n} \). Тогда, по определению \( A^{\mathrm T} = (a_{ji}) _{n\times m}  \), и снова по определению \( (A^{\mathrm T} )^{\mathrm T} = (a_{ij})_{m\times n} = B \)
+        \item 
+            Пусть \( L \coloneqq (\alpha A + \beta B)^{\mathrm T}  \), \( R \coloneqq \alpha A ^{\mathrm T} + \beta B^{\mathrm T} \). Преобразуем оба выраженния и покажем, что они равны.
+
+            \( L = (l_{ij}) _{m \times n} \) 
+            \begin{align*}
+                \alpha A + \beta B &= (\alpha a_{ij} + \beta b_{ij})_{m \times n} \\
+                (\alpha A + \beta B)^{\mathrm T} &= (\alpha a_{ji} + \beta b_{ji}) _{n\times m}.
+            \end{align*} То есть, \( l_{ij} = \alpha a_{ji} + \beta b_{ji} \). Теперь с правой частью: 
+            \begin{align*}
+                \alpha A^{\mathrm T} & = (\alpha a_{ji})_{n\times m} \\
+                \beta B^{\mathrm T} & = (\beta b_{ji}) _{n \times m} \\
+                \alpha A ^{\mathrm T} + \beta B ^{\mathrm T} & = (\alpha a_{ji} + \beta b_{ji}) _{n \times m} = (r_{ij})_{n\times m}
+            \end{align*}
+            Итого: \( r_{ij} = \alpha a_{ji} + \beta b_{ji} = l_{ij} \) -- буквально определение равенства матриц.
+        \item 
+            Пусть \( L \coloneqq (A\cdot B)^{\mathrm T}  \), \( R \coloneqq B^{\mathrm T} \cdot A ^{\mathrm T}\), \( A = (a_{ij})_{m\times n} \), \( B = (b_{jk})_{n\times p} \). Положим \[
+                C = AB = \left( \underbrace{\sum_{j=1}^{n} a_{ij} b_{jk}}_{c_{ik}} \right) _{m\times p}
+            \] 
+            По определению транспонирования \[
+                l_{ik} = c_{ki} = \sum_{j=1}^{n} a_{kj}\cdot b_{ji}
+            \] 
+            Теперь с правой частью: \( B^{\mathrm T} = (b_{kj})_{p\times n}  \), \( A^{\mathrm T} = (a_{ji})_{n\times m}  \) \[
+                D = B^{\mathrm T}A^{\mathrm T} = \left( \underbrace{\sum_{j=1}^{m} b_{kj} a_{ji}}_{d_{ki}} \right)   
+            \] 
+            Теперь замечаем, что \[
+                d_{ki} = r_{ki} = c_{ik} = l_{ki},
+            \] что снова приводит к определению поэлементного равенства.
+            
+    \end{enumerate}
+    \end{proof}
+
+    \subsection{Элементарные преобразования строк матрицы. Метод Гаусса.}
+    \begin{definition}
+        Элементарные преобразования строк матрицы: 
+        \begin{enumerate}
+            \item Перестановка местами двух различных строк \( i \) и \( j \): \( P_{ij} \).
+            \item Умножение на ненулевое число \( a \) элементов строки \( i \): \( M_{i}(a) \)
+            \item Сложение строки \( i \) с другой строкой \( j \), умноженной на ненулевое число \( a \): \( M_{ij}(a) \)
+        \end{enumerate}
+    \end{definition}
+
+    \[
+        A \xrightarrow{M_{ij}(a)}B \implies \underbrace{B_{k}}_{k-\text{я строка матрицы} B} = \begin{cases}
+            A_{k}, \quad k \neq  i \\
+            A_{i} + a A_{j}, \quad k =i
+        \end{cases}
+    \] Рассмотрим систему линейных уравнений(СЛУ): \[
+        \begin{cases}
+            a_{11}x_{1} + a_{12}x_{2} + \ldots  + a_{1n}x_{n} = b_{1} \\
+            a_{21}x_{1} + a_{22}x_{2} + \ldots  + a_{2n}x_{n} = b_{2} \\
+            \ldots \\
+            a_{m1}x_{1} + a_{m2}x_{2} + \ldots  + a_{mn}x_{n} = b_{m}
+        \end{cases}
+    \] и перепишем ее в матричном виде. \( A = (a_{ij})_{m\times n} \), \( \overline{x} = (x_{j})_{n\times 1} \), \( \overline{b} = (b_{i})_{m\times 1} \). Тогда \[
+    A\overline{x} = \overline{b}.
+    \] Здесь \( A \) -- матрица коэффициентов СЛУ, а \( (A \mid  \overline{b}) \) -- расширенная матрица коэффициентов СЛУ.
+
+    Для решения СЛУ, нужно привести расширенную матрицу к особому виду при помощи элементарных преобразований: \[
+        (A \mid \overline{b}) \sim  \begin{pmatrix} E & C \\ 0 & 0 \end{pmatrix} 
+    \] 
+
+    \begin{definition}
+        Ведущий элемент строки матрицы -- первый ненулевай элемент этой строки.
+    \end{definition}
+    \begin{definition}
+        Матрица стандартного вида -- либо матрица, состоящая из одной строки, либо матрица, для каждой строки которой, начиная со второй, ведущий элемент строки находится правее, чем ведущий элемент предшествующих строк, а все нулевые строки матрицы располагаются ниже ненулевых.
+    \end{definition}
+    \begin{exmp}[Привести к стандартному виду матрицу]
+        \[
+            \begin{pmatrix} 2 & 3 & -1 \\ 3 & -2 & 4 \end{pmatrix} \xrightarrow{M_{21}\left( -\frac{3}{2} \right) } \begin{pmatrix} 2 & 3 & -1 \\ 0 & -\frac{13}{2} & \frac{11}{2} \end{pmatrix}.
+        \] 
+
+        
+    \end{exmp}
 
 
     
