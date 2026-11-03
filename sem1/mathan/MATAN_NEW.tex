@@ -1,0 +1,256 @@
+\documentclass[12pt, a4paper]{article}
+
+% --- Кодировки и шрифты ---
+\usepackage[utf8]{inputenc}
+\usepackage[T2A]{fontenc}
+\usepackage[russian]{babel}
+
+% --- Геометрия страницы (поля) ---
+\usepackage{geometry}
+\geometry{top=2cm, bottom=2cm, left=2.5cm, right=2cm}
+
+% --- Математика ---
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{mathtools}
+\usepackage{tikz}
+\usetikzlibrary{decorations.pathreplacing, patterns}
+
+% --- Многоточие ---
+\usepackage{tocloft}
+\renewcommand{\cftsecleader}{\cftdotfill{\cftdotsep}}
+
+% --- Оформление теорем и определений ---
+\newtheorem{theorem}{Теорема}[section]
+\newtheorem{lemma}[theorem]{Лемма}
+\newtheorem{corollary}[theorem]{Следствие}
+\newtheorem{definition}{Определение}[section]
+\newtheorem{example}{Пример}[section]
+
+\theoremstyle{remark}
+\newtheorem*{remark}{Замечание}
+
+% --- Полезные сокращения для матана ---
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\eps}{\varepsilon}
+\newcommand{\dx}{\,dx}
+\newcommand{\Y}{\mathbb{\forall}}
+\newcommand{\F}{\mathbb{\exists}}
+\newcommand{\E}{\mathbb{\varepsilon}}
+
+% ==========================================
+% НАЧАЛО ДОКУМЕНТА
+% ==========================================
+\begin{document}
+	
+	% --- Оглавление ---
+	\tableofcontents
+	\newpage
+	% ---------------------
+	
+	\begin{center}
+		\section*{Тема 1}
+	\end{center}
+	
+	\section{Числовая последовательность (ЧП). Предел ЧП}
+	
+	\begin{definition}
+		Под числовой последовательностью подразумевается функция $f(n)$, где $n \in \N$, которая ставит в соответствие каждому натуральному числу $n$ число $x_n$. Элементы $x_1, x_2, \dots, x_n$ называются членами последовательности.
+	\end{definition}
+	
+	\begin{center}
+		\textbf{Другие записи функции:}
+	\end{center}
+	
+	\noindent $\{x_n\}$ или $x_n$, где $n \in \N$. Таким образом ЧП имеет вид: $x_1, x_2, x_3, \dots, x_n$, где $x_n$ - общий член ЧП.
+	
+	\subsection{Определения монотонных последовательностей:}
+	
+	\begin{definition}
+		ЧП называется \textbf{ограниченной сверху}, если существует M > 0 такое, что для любого $n \in \N$ выполняется $x_n \leq M$. $(\E M > 0: \Y n \in \N \implies x_n \leq M)$.
+	\end{definition}
+	
+	\begin{definition}
+		ЧП называется \textbf{ограниченной снизу}, если существует M > 0 такое, что для любого $n \in \N$ выполняется $x_n \geq M$. $(\E M > 0: \Y n \in \N \implies x_n \geq M)$.
+	\end{definition}
+	
+	\begin{definition}
+		ЧП называется \textbf{ограниченной}, если она ограничена и сверху, и снизу. $(\E M > 0: \Y n \in \N \implies |x_n| \leq M)$. В противном случае ЧП \textbf{неограничена}.
+	\end{definition}
+	
+	\begin{definition}
+		ЧП называется \textbf{убывающей (невозрастающей)}, если $\Y n \in \N \implies x_n+1 < x_n * (x_n+1 \leq x_n)$.
+	\end{definition}
+	
+	\begin{definition}
+		ЧП называется \textbf{возрастающей (неубывающей)}, если $\Y n \in \N \implies x_n+1 > x_n * (x_n+1 \geq x_n)$.
+	\end{definition}
+	
+	\begin{definition}
+		Если ЧП является \textbf{убывающей}, или \textbf{невозрастающей}, или \textbf{возрастающей}, или \textbf{неубывающей}, то она называется \textbf{монотонной}.
+	\end{definition}
+	
+	\begin{definition}
+		Если все элементы ЧП равны одному и тому же элементу, то её называют \textbf{постоянной}.
+	\end{definition}
+
+	\subsection{Рекуррентный и Аналитический способ задания ЧП:}
+	
+	\textbf{Аналитический способ:} \(x_n = \frac{n-1}{n}\). \\
+	\textbf{Рекуррентный способ:} задается \(x_1\) и формула \(x_{n+1} = f(x_n)\).
+	
+	\subsection{Предел ЧП}
+
+	\textbf{Рассмотрим ЧП:}
+	
+	\begin{example}
+		$x_n = \frac{n-1}{n} = 1 - \frac{1}{n}, n \in \N$.
+	\end{example}
+	
+	При n стремящемся к бесконечности ($n \to \infty$) ЧП стремится к единице:
+	\begin{center}
+		($\lim_{n \to \infty} 1 - \frac{1}{n} = 1, n \in \N$).
+	\end{center}
+	
+	В общем случае: 
+	\begin{center}
+		$\lim_{n \to \infty} x_n = a$.
+	\end{center}
+	
+	\begin{definition}
+		Число а называется пределом ЧП, если для любого эпсилон (сколь угодное малое число) больше 	нуля существует целые $\N$ такое, что для любых n больше $\N$ выполняется: 
+	\end{definition}
+	
+	$|x_n - a| < \E$. (а - предел ЧП, если $\Y E > 0:\F\N \in \Z: \Y n > \N \implies |x_n - a| < \E)$.
+	
+	\newpage
+	\begin{example}
+		Доказать по определению, что:
+	\end{example}
+	
+	\begin{center}
+		$\lim_{n \to \infty} \frac{n-1}{n} = 1$;
+	\end{center}
+	
+	\begin{proof}
+		\begin{gather*}
+			|x_n - a| < \E \\
+			\left|\frac{n-1}{n} - 1\right| < \E \\
+			\left|\frac{n-1-n}{n}\right| < \E \\
+			\left|-\frac{1}{n}\right| < \E \\
+			\frac{1}{n} < \varepsilon \\
+			n > \frac{1}{\varepsilon} \implies N(\E) = \frac{1}{\E}
+		\end{gather*}
+	\end{proof}
+	
+	\textbf{Эпсилон $(\E)$} можно назвать с точностью, с которой ищется предел.
+	\vspace*{0.4cm}
+	
+	\textbf{1)} Если $\E = 0,01$, то $\N(\E) = \frac{1}{0,01} = 100$.
+	Для того, чтобы $\lim_{n \to \infty} \frac{n-1}{n} = 1$ с точностью $\E = 0,01$, необходимо взять n > 100.
+	
+	\vspace*{0.4cm}
+	\textbf{2)} Взять $\E = 0, 0001$, то для $\lim_{n \to \infty} \frac{n-1}{n} = 1$ с точностью $\E = 0,0001$, необходимо взять n > 10000.
+	
+	\vspace*{0.4cm}
+	
+	\subsection{Геометрический смысл предела ЧП}
+	
+	Раскроем модуль из определения предела:
+	\begin{gather*}
+		|x_n - a| < \E \\
+		\left|-\E < x_n - a\right| < \E \\
+		\left|-\E + a < x_n\right| < \E + a 
+	\end{gather*}
+	
+	Таким образом, все $x_n$, подходящие под это условие можно назвать лежащими в окрестности эпсилон точки а. \textit{Рис. 1}
+	
+	\begin{figure}[h] 
+		\centering 
+		\begin{tikzpicture}[scale=1.5]
+			\draw[->, thick] (-2.5, 0) -- (2.5, 0) node[right] {\(x_n\)};
+			\fill[pattern=north east lines, pattern color=gray!70] (-1.2, 0) rectangle (1.2, 0.25);
+			\draw (-1.2, 0) -- (-1.2, 0.25) -- (1.2, 0.25) -- (1.2, 0);
+			\filldraw (0, 0) circle (1.5pt) node[below=4pt] {\(a\)};
+			\draw[fill=white] (-1.2, 0) circle (1.5pt) node[below=4pt] {\(a - \eps\)};
+			\draw[fill=white] (1.2, 0) circle (1.5pt) node[below=4pt] {\(a + \eps\)};
+			\draw[dashed] (-1.2, 0) -- (-1.2, 0.25);
+			\draw[dashed] (1.2, 0) -- (1.2, 0.25);
+			\draw[dashed] (0, 0) -- (0, 0.25);
+		\end{tikzpicture}
+		
+		\textit{Рис. 1: Эпсилон-окрестность точки \(a\)}
+		\label{fig:epsilon_env}
+	\end{figure}
+	
+	Вся ЧП находится внутри указаного интервала.
+	\begin{definition}
+		 Если $\lim_{n \to \infty} x_n = a = const$, то ЧП называется сходящиейся. Из определения следует, что сходящаяся последовательность ограничена (но обратное следствие неверно)
+	\end{definition}
+	
+	\begin{theorem}
+		Чп не может иметь более одного предела.
+	\end{theorem}
+	
+	\begin{proof}
+		Пусть существует 2 предела A и B, таких, что A < B. Возьмём $\E_0 > 0$ так, чтобы окрестности A и B не имели общих точек. Поскольку A - предел, найдётся номер, начиная с которого все члены ЧП лежат внутри окрестности A, а значит вне неё число членов последовательности становится конечным, что противоречит утверждению о том, что B - предел.
+	\end{proof}
+	
+	\begin{definition}
+		Если $\lim_{n \to \infty} x_n = \infty$, то ЧП называется \textbf{расходящейся}.
+	\end{definition}
+	
+	\textbf{Постоянная ЧП:} $x_n = C, n \in \N$ имеет предел, равный с.
+	
+	\begin{center}
+		$\lim_{n \to \infty} c = c$
+	\end{center}
+	
+	\begin{proof}
+		По определению ЧП $|x_n - a| < \E \implies \Y\E > 0: |c - c| = 0 < \E$.
+	\end{proof}
+	
+	\section{Предельный переход в неравенствах}
+	
+	\textbf{Рассмотрим ЧП $\{x_n\}, \{y_n\}$}
+
+	\begin{theorem}
+		Если $\lim_{n \to \infty} x_n = a; \lim_{n \to \infty} y_n = b$ и, начиная с некоторого номера выполняется неравенство $x_n \leq y_n$, то $a \leq b$
+	\end{theorem}
+	
+	\begin{proof}
+		Пусть \(a > b\). Исходя из того, что \(a = \lim\limits_{n \to \infty} x_n\), а \(b = \lim\limits_{n \to \infty} y_n\), по определению предела:
+		\[
+		\forall \varepsilon > 0 \ \exists N(\varepsilon) \in \mathbb{N}: \ \forall n > N \text{ будут выполняться неравенства:}
+		\]
+		\begin{gather*}
+			|x_n - a| < \varepsilon \\
+			|y_n - b| < \varepsilon \\
+			-\varepsilon + a < x_n < \varepsilon + a \\
+			-\varepsilon + b < y_n < \varepsilon + b
+		\end{gather*}
+		
+		Допустим, \(\varepsilon = \frac{a-b}{2}\), тогда:
+		\[
+		x_n > a - \frac{a - b}{2} = \frac{a + b}{2} \implies x_n > \frac{a + b}{2}.
+		\]
+		
+		Аналогично:
+		\[
+		y_n < b + \frac{a - b}{2} = \frac{a + b}{2} \implies y_n < \frac{a + b}{2}.
+		\]
+		
+		Отсюда следует, что \(y_n < \frac{a + b}{2} < x_n\), то есть \(y_n < x_n\). Это противоречит условию \(x_n \leq y_n\), следовательно, наше предположение \(a > b\) было неверным, и \(a \leq b\).
+	\end{proof}
+	
+	\begin{theorem}
+		если $\lim_{n \to \infty} x_n = a, \lim_{n \to \infty} y_n = b, \lim_{n \to \infty} z_n = c$, и справедливо неравенство $x_n \leq z_n \leq y_n$,начиная с некоторого номера $n \in \N$, то $a \leq c \leq b$.
+	\end{theorem}
+	
+	\begin{theorem}
+		если $\lim_{n \to \infty} x_n = a, \lim_{n \to \infty} y_n = a$, и справедливо неравенство $x_n \leq z_n \leq y_n$, то, начиная с некоторого $n \in \N$: $\lim_{n \to \infty} z_n = a$
+	\end{theorem}
+
+\end{document}
