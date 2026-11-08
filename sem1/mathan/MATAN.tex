@@ -17,22 +17,22 @@
 \usepackage{mathtools}
 \usepackage{tikz}
 \usetikzlibrary{decorations.pathreplacing, patterns}
-\usepackage{enumitem}
 
 % --- Многоточие ---
 \usepackage{tocloft}
-\renewcommand{\cftsecleader}{\cftdotfill{\cftdotsep}} % Точки для разделов
-\renewcommand{\cftsubsecleader}{\cftdotfill{\cftdotsep}} % Точки для подразделов
-\setlength{\cftsecnumwidth}{2.5em} % Место под номер раздела
-\setlength{\cftsubsecnumwidth}{3em} % Место под номер подраздела
+\renewcommand{\cftsecleader}{\cftdotfill{\cftdotsep}}
+\renewcommand{\cftsubsecleader}{\cftdotfill{\cftdotsep}}
+\setlength{\cftsecnumwidth}{2.5em}
+\setlength{\cftsubsecnumwidth}{3em}
 
 % --- Оформление теорем и определений ---
-\newtheorem{theorem}{Теорема}[section]
+% ВАЖНО: меняем [section] на [subsection], так как теперь разделы у нас - это подразделы
+\newtheorem{theorem}{Теорема}[subsection]
 \newtheorem{lemma}[theorem]{Лемма}
 \newtheorem{corollary}[theorem]{Следствие}
-\newtheorem{definition}{Определение}[section]
-\newtheorem{example}{Пример}[section]
-\newtheorem{statement}{Утверждение}[section]
+\newtheorem{definition}{Определение}[subsection]
+\newtheorem{example}{Пример}[subsection]
+\newtheorem{statement}{Утверждение}[subsection]
 
 \theoremstyle{remark}
 \newtheorem*{remark}{Замечание}
@@ -53,13 +53,14 @@
 % ==========================================
 
 % --- Команда для Темы ---
-\newcommand{\theme}[1]{%
+% Теперь она принимает номер темы, чтобы задать правильный префикс для подразделов
+\newcommand{\theme}[2]{%
 	\clearpage
 	\phantomsection
-	\addcontentsline{toc}{section}{\textbf{#1}}
-	\section*{#1}
-	\setcounter{section}{1}    % Сбрасываем разделы в 0
-	\setcounter{subsection}{0} % Сбрасываем подразделы в 0 (ЭТО ГЛАВНОЕ)
+	\addcontentsline{toc}{section}{\textbf{Тема #1. #2}}
+	\setcounter{section}{#1}   % Устанавливаем номер темы (1 или 2)
+	\setcounter{subsection}{0} % Сбрасываем подразделы в 0
+	\section*{Тема #1. #2}
 }
 
 \begin{document}
@@ -68,7 +69,7 @@
 	\tableofcontents
 	\newpage
 	
-	\theme{Тема 1. Числовая последовательность (ЧП). Предел ЧП}
+	\theme{1}{Числовая последовательность (ЧП). Предел ЧП}
 	
 	\begin{definition}
 		Под числовой последовательностью подразумевается функция $f(n)$, где $n \in \N$, которая ставит в соответствие каждому натуральному числу $n$ число $x_n$. Элементы $x_1, x_2, \dots, x_n$ называются членами последовательности.
@@ -94,11 +95,11 @@
 	\end{definition}
 	
 	\begin{definition}
-		ЧП называется \textbf{убывающей (невозрастающей)}, если $\Y n \in \N \implies x_n+1 < x_n \cdot (x_n+1 \leq x_n)$.
+		ЧП называется \textbf{убывающей (невозрастающей)}, если $\Y n \in \N \implies x_{n+1} < x_n \cdot (x_{n+1} \leq x_n)$.
 	\end{definition}
 	
 	\begin{definition}
-		ЧП называется \textbf{возрастающей (неубывающей)}, если $\Y n \in \N \implies x_n+1 > x_n \cdot (x_n+1 \geq x_n)$.
+		ЧП называется \textbf{возрастающей (неубывающей)}, если $\Y n \in \N \implies x_{n+1} > x_n \cdot (x_{n+1} \geq x_n)$.
 	\end{definition}
 	
 	\begin{definition}
@@ -108,14 +109,14 @@
 	\begin{definition}
 		Если все элементы ЧП равны одному и тому же элементу, то её называют \textbf{постоянной}.
 	\end{definition}
-
+	
 	\subsection{Рекуррентный и Аналитический способ задания ЧП:}
 	
 	\textbf{Аналитический способ:} \(x_n = \frac{n-1}{n}\). \\
 	\textbf{Рекуррентный способ:} задается \(x_1\) и формула \(x_{n+1} = f(x_n)\).
 	
 	\subsection{Предел ЧП}
-
+	
 	\textbf{Рассмотрим ЧП:}
 	
 	\begin{example}
@@ -200,7 +201,7 @@
 	
 	Вся ЧП находится внутри указаного интервала.
 	\begin{definition}
-		 Если $\lim_{n \to \infty} x_n = a = const$, то ЧП называется сходящиейся. Из определения следует, что сходящаяся последовательность ограничена (но обратное следствие неверно)
+		Если $\lim_{n \to \infty} x_n = a = const$, то ЧП называется сходящиейся. Из определения следует, что сходящаяся последовательность ограничена (но обратное следствие неверно)
 	\end{definition}
 	
 	\begin{theorem}
@@ -225,10 +226,10 @@
 		По определению ЧП $|x_n - a| < \E \implies \Y\E > 0: |c - c| = 0 < \E$.
 	\end{proof}
 	
-	\section{Предельный переход в неравенствах}
+	\subsection{Предельный переход в неравенствах}
 	
 	\textbf{Рассмотрим ЧП $\{x_n\}, \{y_n\}$}
-
+	
 	\begin{theorem}
 		Если $\lim_{n \to \infty} x_n = a; \lim_{n \to \infty} y_n = b$ и, начиная с некоторого номера выполняется неравенство $x_n \leq y_n$, то $a \leq b$
 	\end{theorem}
@@ -267,7 +268,7 @@
 	\end{theorem}
 	
 	\newpage
-	\section{Предел монотонной ограниченной ЧП. Число е. Натуральный логарифм}
+	\subsection{Предел монотонной ограниченной ЧП. Число е. Натуральный логарифм}
 	
 	\begin{itemize}
 		\item Не всякая ЧП имеет предел
@@ -284,7 +285,7 @@
 	\end{itemize}
 	$x_n = (1 + \frac{1}{n})^{n}$	
 	
-	\subsection{Формулы Биома Ньютона:}
+	\subsubsection{Формулы Биома Ньютона:}
 	$(a + b)^{n} = a^{n} + \frac{n}{1} \cdot a^{n - 1} \cdot b^{1} + \frac{n(n - 1)}{1 \cdot 2} \cdot a^{n - 2} \cdot b^{2} + \frac{n(n - 1)(n - 2)}{1 \cdot 2 \cdot 3} \cdot a^{n - 3} \cdot b^{3} + ... + \frac{n(n - 1)(n - 2) ... (n - (n - 1))}{1 \cdot 2 \cdot 3 ... \cdot n}$
 	\vspace{0.4cm}
 	
@@ -295,7 +296,7 @@
 	
 	\vspace{0.5cm} 
 	\hrule
-
+	
 	\begin{enumerate}[label=(\arabic*), start = 1]
 		\item $(1 + \frac{1}{n})^{n} = 2 + \frac{1}{1 \cdot 2} (1 - \frac{1}{n}) + \frac{1}{1 \cdot 2 \cdot 3} \cdot (1 - \frac{1}{n}) \cdot (1 - \frac{2}{n}) + ... + \frac{1}{1 \cdot 2 \cdot 3 \cdot ... \cdot n} \cdot (1 - \frac{1}{n}) \cdot (1 - \frac{2}{n}) \cdot ... \cdot (1 - \frac{n - 1}{n})$
 	\end{enumerate}
@@ -346,163 +347,163 @@
 	
 	\begin{example}
 		$\lim_{n \to \infty} (\frac{n - 3}{n + 5})^{2n} = 1^\infty$
- 	\end{example}
- 	
- 	\begin{align*}
- 		\lim_{n \to \infty} \left( \frac{(n+5)-8}{n+5} \right)^{2n} 
- 		&= \lim_{n \to \infty} \left( 1 + \frac{-8}{n+5} \right)^{2n} \\[10pt] % Отступ между строками
- 		&= \lim_{n \to \infty} \left( \left( 1 + \frac{1}{\frac{n+5}{-8}} \right)^{\frac{n+5}{-8}} \right)^{\frac{-8}{n+5} \cdot 2n} 
- 		= \lim_{n \to \infty} e^{\frac{-16n}{n+5}} \\[10pt]
- 		&= e^{\displaystyle \lim_{n \to \infty} \frac{-16n}{n\left(1+\frac{5}{n}\right)}} 
- 		= e^{\displaystyle \lim_{n \to \infty} \frac{-16}{1+\frac{5}{n}}} 
- 		= e^{-16}
- 	\end{align*}
- 	\vspace{0.4cm}
- 	
- 	\theme{Тема 2. Функции}
- 	
- 	\subsection{Понятие функции.}
- 	
- 	Пусть равны два множества: 
- 	
- 	\begin{figure}[h]
- 		\centering
- 		\begin{tikzpicture}[scale=1.4]
- 			
- 			% Подписи над кругами
- 			\node at (-3, 2.3) {\Large \(X \neq \varnothing\)};
- 			\node at (3, 2.3) {\Large \(Y \neq \varnothing\)};
- 			
- 			% Левый круг (Множество X)
- 			\draw[thick] (-3, 0) circle (1.5cm);
- 			
- 			% Правый круг (Множество Y)
- 			\draw[thick] (3, 0) circle (1.5cm);
- 			
- 			% --- Точки в левом множестве (X) ---
- 			\fill (-2.2, 1.0) circle (2pt);   % 1. Верхняя
- 			\fill (-2.2, 0.5) circle (2pt);  % 2. Средняя верхняя
- 			\fill (-2.2, -0.33) circle (2pt); % 3. Средняя нижняя
- 			\fill (-2.2, -1.0) circle (2pt);  % 4. Нижняя
- 			
- 			% --- Точки в правом множестве (Y) ---
- 			% 1. Верхняя точка (ПУСТАЯ - без стрелки)
- 			\fill (2.2, 1.0) circle (2pt);    
- 			
- 			% 2. Точка для первой стрелки
- 			\fill (2.2, 0.5) circle (2pt);    
- 			
- 			% 3. Точка для второй стрелки
- 			\fill (2.2, -0.2) circle (2pt);   
- 			
- 			% 4. Общая нижняя точка (для двух стрелок)
- 			\fill (2.2, -1.0) circle (2pt);   
- 			
- 			% --- Стрелки ---
- 			
- 			% 1. Из верхней левой в первую правую (под пустой)
- 			\draw[->, thick] (-2.2, 1.0) -- (2.2, 1.0) node[midway, above] {\(f\)};
- 			
- 			% 2. Из второй левой во вторую правую
- 			\draw[->, thick] (-2.2, 0.5) -- (2.2, 0.5) node[midway, above] {\(f\)};
- 			
- 			% 3. Из третьей левой в общую нижнюю
- 			\draw[->, thick] (-2.2, -0.33) -- (2.2, -1.0) node[midway, above] {\(f\)};
- 			
- 			% 4. Из нижней левой ТОЖЕ в общую нижнюю
- 			\draw[->, thick] (-2.2, -1.0) -- (2.2, -1.0) node[midway, above] {\(f\)};
- 			
- 		\end{tikzpicture}
- 		\caption{Отображение множества \(X\) во множество \(Y\)}
- 	\end{figure}
- 	
- 	\begin{definition}
- 		Соответствие f, которое каждому элементу $x \in X$ ставит в соответствии элемент $y \in Y$, причём один и только один называется функцией. 
- 	\end{definition}
- 		
- 	$y = f(x)$, где $x \in X$ (с точки зрения алгебры).
- 	\vspace{0.4cm}
- 	
- 	$f : x \to y$ (с точки зрения теории множеств).
- 	\vspace{0.4cm}
- 	
- 	$y = f(x) -$ аналитическое обозначение функции, где $x -$ независимая переменная (аргумент), а $y -$ зависимая переменная (результат).
- 	
- 	\newpage
- 	
-	 \begin{itemize}
- 		\item Если 2-м $y$ соответствует один $x -$ это \textbf{не функция!}
- 	\end{itemize}
- 	
- 	\begin{figure}[h]
- 		\centering
- 		\begin{tikzpicture}[scale=1.4]
- 			
- 			% Подписи над кругами
- 			\node at (-3, 2.3) {\Large \(X\)};
- 			\node at (3, 2.3) {\Large \(Y\)};
- 			
- 			% Левый круг (Множество X)
- 			\draw[thick] (-3, 0) circle (1.5cm);
- 			
- 			% Правый круг (Множество Y)
- 			\draw[thick] (3, 0) circle (1.5cm);
- 			
- 			% --- Точки в левом множестве (X) ---
- 			\fill (-2.2, 1.0) circle (2pt);   
- 			\fill (-2.2, 0.5) circle (2pt);  
- 			\fill (-2.2, -0.2) circle (2pt); 
- 			\fill (-2.2, -1.0) circle (2pt);  
- 			
- 			% --- Точки в правом множестве (Y) ---
- 			\fill (2.2, 1.0) circle (2pt);    
- 			\fill (2.2, 0.5) circle (2pt);    
- 			\fill (2.2, -0.2) circle (2pt);   
- 			\fill (2.2, -1.0) circle (2pt);   
- 			
- 			% --- Стрелки ---
- 			\draw[->, thick] (-2.2, 1.0) -- (2.2, 1.0) node[midway, above] {\(f\)};
- 			\draw[->, thick] (-2.2, 0.5) -- (2.2, 0.5) node[midway, above] {\(f\)};
- 			\draw[->, thick] (-2.2, 0.5) -- (2.2, 1.0) node[midway, above] {\(f\)};
- 			\draw[->, thick] (-2.2, -0.2) -- (2.2, -0.2) node[midway, above] {\(f\)};
- 			\draw[->, thick] (-2.2, -1.0) -- (2.2, -1.0) node[midway, above] {\(f\)};
- 			
- 		\end{tikzpicture}
- 		\caption{Соответствие, не являющееся функцией}
- 	\end{figure}
- 
- 	$D(y) - $ множество $x$, область определения функции. 
- 	\vspace{0.4cm}
- 	
- 	$\E(y) - $ множество $y$, область значения функции. 
- 	
- 	\begin{definition}
- 		Если элементами множеств $x$ и $y$ являются действительные числа, т.е $x \subset R$, $y \subset R$, то функцию называют \textbf{числовой функцией}.
- 	\end{definition}
- 	
- 	\subsection{Предел функции в точке.}
- 	
- 	Пусть дана функция $y = f(x)$ с областью определения $D(y)$.
- 	\vspace{0.4cm}
- 	
- 	\noindent Рассмотрим функцию в точке $x_0$ такой, что: $x \in D(y)$ или $x_0 \notin D(y)$.
- 	\vspace{0.4cm}
- 	
- 	\textbf{Обозначение:} $\lim_{x \to x_0} f(x) = A$
- 	
- 	\begin{definition}
- 		\textbf{(на языке последовательности или по Гейне):} число $A$ называется пределом функции $y = f(x)$ в точке $x_0$ (при $x \to x_0$), если для любой последовательности допустимых значений аргумента $x_n$, где $n \in N$, $x_n \neq x_0$ сходящейся к $x_0$ (т.е $\lim_{n \to \infty} x_n = x_0$), последовательность соответствующих значений функции $f(x_n)$, $n \in N$ сходится к числу $A$(т.е $\lim_{n \to \infty} f(x_n) = A$).
- 	\end{definition}
- 	
- 	$f(x) \to A$, т.е ($x \to x_0$)
- 	
- 	\begin{definition}
- 		\textbf{(на языке Эпсилон - дельта или по Коши):} число $А$ называется пределом функции $y = f(x)$ в точке $x_0$, если для $\Y\E > 0 \ \F\delta > 0: \Y x \neq x_0$ из неравенства $|x - x_0| < \delta \implies |f(x) - A| < \E$.
- 	\end{definition}
- 	
- 	\textbf{Обозначения:} 
- 	
- 	$\Y x \neq x_0 \ \ |x - x_0| < \delta$
+	\end{example}
+	
+	\begin{align*}
+		\lim_{n \to \infty} \left( \frac{(n+5)-8}{n+5} \right)^{2n} 
+		&= \lim_{n \to \infty} \left( 1 + \frac{-8}{n+5} \right)^{2n} \\[10pt] % Отступ между строками
+		&= \lim_{n \to \infty} \left( \left( 1 + \frac{1}{\frac{n+5}{-8}} \right)^{\frac{n+5}{-8}} \right)^{\frac{-8}{n+5} \cdot 2n} 
+		= \lim_{n \to \infty} e^{\frac{-16n}{n+5}} \\[10pt]
+		&= e^{\displaystyle \lim_{n \to \infty} \frac{-16n}{n\left(1+\frac{5}{n}\right)}} 
+		= e^{\displaystyle \lim_{n \to \infty} \frac{-16}{1+\frac{5}{n}}} 
+		= e^{-16}
+	\end{align*}
+	\vspace{0.4cm}
+	
+	\theme{2}{Функции}
+	
+	\subsection{Понятие функции}
+	
+	Пусть равны два множества: 
+	
+	\begin{figure}[h]
+		\centering
+		\begin{tikzpicture}[scale=1.4]
+			
+			% Подписи над кругами
+			\node at (-3, 2.3) {\Large \(X \neq \varnothing\)};
+			\node at (3, 2.3) {\Large \(Y \neq \varnothing\)};
+			
+			% Левый круг (Множество X)
+			\draw[thick] (-3, 0) circle (1.5cm);
+			
+			% Правый круг (Множество Y)
+			\draw[thick] (3, 0) circle (1.5cm);
+			
+			% --- Точки в левом множестве (X) ---
+			\fill (-2.2, 1.0) circle (2pt);   % 1. Верхняя
+			\fill (-2.2, 0.5) circle (2pt);  % 2. Средняя верхняя
+			\fill (-2.2, -0.33) circle (2pt); % 3. Средняя нижняя
+			\fill (-2.2, -1.0) circle (2pt);  % 4. Нижняя
+			
+			% --- Точки в правом множестве (Y) ---
+			% 1. Верхняя точка (ПУСТАЯ - без стрелки)
+			\fill (2.2, 1.0) circle (2pt);    
+			
+			% 2. Точка для первой стрелки
+			\fill (2.2, 0.5) circle (2pt);    
+			
+			% 3. Точка для второй стрелки
+			\fill (2.2, -0.2) circle (2pt);   
+			
+			% 4. Общая нижняя точка (для двух стрелок)
+			\fill (2.2, -1.0) circle (2pt);   
+			
+			% --- Стрелки ---
+			
+			% 1. Из верхней левой в первую правую (под пустой)
+			\draw[->, thick] (-2.2, 1.0) -- (2.2, 1.0) node[midway, above] {\(f\)};
+			
+			% 2. Из второй левой во вторую правую
+			\draw[->, thick] (-2.2, 0.5) -- (2.2, 0.5) node[midway, above] {\(f\)};
+			
+			% 3. Из третьей левой в общую нижнюю
+			\draw[->, thick] (-2.2, -0.33) -- (2.2, -1.0) node[midway, above] {\(f\)};
+			
+			% 4. Из нижней левой ТОЖЕ в общую нижнюю
+			\draw[->, thick] (-2.2, -1.0) -- (2.2, -1.0) node[midway, above] {\(f\)};
+			
+		\end{tikzpicture}
+		\caption{Отображение множества \(X\) во множество \(Y\)}
+	\end{figure}
+	
+	\begin{definition}
+		Соответствие f, которое каждому элементу $x \in X$ ставит в соответствии элемент $y \in Y$, причём один и только один называется функцией. 
+	\end{definition}
+	
+	$y = f(x)$, где $x \in X$ (с точки зрения алгебры).
+	\vspace{0.4cm}
+	
+	$f : x \to y$ (с точки зрения теории множеств).
+	\vspace{0.4cm}
+	
+	$y = f(x) -$ аналитическое обозначение функции, где $x -$ независимая переменная (аргумент), а $y -$ зависимая переменная (результат).
+	
+	\newpage
+	
+	\begin{itemize}
+		\item Если 2-м $y$ соответствует один $x -$ это \textbf{не функция!}
+	\end{itemize}
+	
+	\begin{figure}[h]
+		\centering
+		\begin{tikzpicture}[scale=1.4]
+			
+			% Подписи над кругами
+			\node at (-3, 2.3) {\Large \(X\)};
+			\node at (3, 2.3) {\Large \(Y\)};
+			
+			% Левый круг (Множество X)
+			\draw[thick] (-3, 0) circle (1.5cm);
+			
+			% Правый круг (Множество Y)
+			\draw[thick] (3, 0) circle (1.5cm);
+			
+			% --- Точки в левом множестве (X) ---
+			\fill (-2.2, 1.0) circle (2pt);   
+			\fill (-2.2, 0.5) circle (2pt);  
+			\fill (-2.2, -0.2) circle (2pt); 
+			\fill (-2.2, -1.0) circle (2pt);  
+			
+			% --- Точки в правом множестве (Y) ---
+			\fill (2.2, 1.0) circle (2pt);    
+			\fill (2.2, 0.5) circle (2pt);    
+			\fill (2.2, -0.2) circle (2pt);   
+			\fill (2.2, -1.0) circle (2pt);   
+			
+			% --- Стрелки ---
+			\draw[->, thick] (-2.2, 1.0) -- (2.2, 1.0) node[midway, above] {\(f\)};
+			\draw[->, thick] (-2.2, 0.5) -- (2.2, 0.5) node[midway, above] {\(f\)};
+			\draw[->, thick] (-2.2, 0.5) -- (2.2, 1.0) node[midway, above] {\(f\)};
+			\draw[->, thick] (-2.2, -0.2) -- (2.2, -0.2) node[midway, above] {\(f\)};
+			\draw[->, thick] (-2.2, -1.0) -- (2.2, -1.0) node[midway, above] {\(f\)};
+			
+		\end{tikzpicture}
+		\caption{Соответствие, не являющееся функцией}
+	\end{figure}
+	
+	$D(y) - $ множество $x$, область определения функции. 
+	\vspace{0.4cm}
+	
+	$\E(y) - $ множество $y$, область значения функции. 
+	
+	\begin{definition}
+		Если элементами множеств $x$ и $y$ являются действительные числа, т.е $x \subset R$, $y \subset R$, то функцию называют \textbf{числовой функцией}.
+	\end{definition}
+	
+	\subsection{Предел функции в точке}
+	
+	Пусть дана функция $y = f(x)$ с областью определения $D(y)$.
+	\vspace{0.4cm}
+	
+	\noindent Рассмотрим функцию в точке $x_0$ такой, что: $x \in D(y)$ или $x_0 \notin D(y)$.
+	\vspace{0.4cm}
+	
+	\textbf{Обозначение:} $\lim_{x \to x_0} f(x) = A$
+	
+	\begin{definition}
+		\textbf{(на языке последовательности или по Гейне):} число $A$ называется пределом функции $y = f(x)$ в точке $x_0$ (при $x \to x_0$), если для любой последовательности допустимых значений аргумента $x_n$, где $n \in N$, $x_n \neq x_0$ сходящейся к $x_0$ (т.е $\lim_{n \to \infty} x_n = x_0$), последовательность соответствующих значений функции $f(x_n)$, $n \in N$ сходится к числу $A$(т.е $\lim_{n \to \infty} f(x_n) = A$).
+	\end{definition}
+	
+	$f(x) \to A$, т.е ($x \to x_0$)
+	
+	\begin{definition}
+		\textbf{(на языке Эпсилон - дельта или по Коши):} число $А$ называется пределом функции $y = f(x)$ в точке $x_0$, если для $\Y\E > 0 \ \F\delta > 0: \Y x \neq x_0$ из неравенства $|x - x_0| < \delta \implies |f(x) - A| < \E$.
+	\end{definition}
+	
+	\textbf{Обозначения:} 
+	
+	$\Y x \neq x_0 \ \ |x - x_0| < \delta$
 	\vspace{0.2cm}
 	
 	$\Y x$: $x \neq x_0$, $|x - x_0| < \delta$ 	
@@ -575,7 +576,7 @@
 		\begin{proof}
 			$\Y x$: $|x - 5| < \delta \implies 2x - 3 \implies |(2x - 3) - 7| < \E \\ |2x - 10| < \E \\ |2x - 10| < \E |:2 \\ |x - 5| > \frac{\E}{2} \implies \delta(\E) = \frac{\E}{2} \implies |x - 5| < \frac{\E}{2}$ \\ $\lim_{x \to 5} (2x - 3) = 7$
 		\end{proof}
-
+		
 		\noindent 2) Доказать, что $\lim_{x \to \infty} c = c$
 		\begin{proof}
 			$\Y\E > 0 \ \F\delta(\E) > 0: |x - x_0| < \delta \implies |f(x) - c| < \E \\ |c - c| < \E \\ 0 < \E \implies \lim_{x \to x_0} c = c$
@@ -584,7 +585,7 @@
 	
 	\newpage
 	
-	\subsection{Односторонние пределы.}
+	\subsection{Односторонние пределы}
 	
 	\begin{figure}[h]
 		\centering
@@ -637,7 +638,7 @@
 	\end{definition}
 	
 	\begin{definition}
-			Число $A_2$ называется \textbf{пределом функции} $y = f(x)$ справа в точке $x_0$ или \textbf{правосторонним пределом}, если: \\ $\Y\E > 0 \ \F\delta(\E) > 0: \Y x$, $x \in (x_0; x + \delta) \implies |f(x) - A_2| < \E$
+		Число $A_2$ называется \textbf{пределом функции} $y = f(x)$ справа в точке $x_0$ или \textbf{правосторонним пределом}, если: \\ $\Y\E > 0 \ \F\delta(\E) > 0: \Y x$, $x \in (x_0; x + \delta) \implies |f(x) - A_2| < \E$
 	\end{definition}
 	
 	\begin{definition}
