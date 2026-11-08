@@ -1,0 +1,759 @@
+\documentclass[12pt, a4paper]{article}
+
+% --- Кодировки и шрифты ---
+\usepackage[utf8]{inputenc}
+\usepackage[T2A]{fontenc}
+\usepackage[russian]{babel}
+\usepackage{enumitem}
+\usepackage{tcolorbox}
+\usepackage{graphicx}
+
+% --- Геометрия страницы (поля) ---
+\usepackage{geometry}
+\geometry{top=2cm, bottom=2cm, left=2.5cm, right=2cm}
+
+% --- Математика ---
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{mathtools}
+\usepackage{tikz}
+\usetikzlibrary{decorations.pathreplacing, patterns}
+\usepackage{enumitem}
+
+% --- Многоточие ---
+\usepackage{tocloft}
+\renewcommand{\cftsecleader}{\cftdotfill{\cftdotsep}} % Точки для разделов
+\renewcommand{\cftsubsecleader}{\cftdotfill{\cftdotsep}} % Точки для подразделов
+\setlength{\cftsecnumwidth}{2.5em} % Место под номер раздела
+\setlength{\cftsubsecnumwidth}{3em} % Место под номер подраздела
+
+% --- Оформление теорем и определений ---
+\newtheorem{theorem}{Теорема}[section]
+\newtheorem{lemma}[theorem]{Лемма}
+\newtheorem{corollary}[theorem]{Следствие}
+\newtheorem{definition}{Определение}[section]
+\newtheorem{example}{Пример}[section]
+\newtheorem{statement}{Утверждение}[section]
+
+\theoremstyle{remark}
+\newtheorem*{remark}{Замечание}
+
+% --- Полезные сокращения для матана ---
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\eps}{\varepsilon}
+\newcommand{\dx}{\,dx}
+\newcommand{\Y}{\mathbb{\forall}}
+\newcommand{\F}{\mathbb{\exists}}
+\newcommand{\E}{\mathbb{\varepsilon}}
+
+% ==========================================
+% НАЧАЛО ДОКУМЕНТА
+% ==========================================
+
+% --- Команда для Темы ---
+\newcommand{\theme}[1]{%
+	\clearpage
+	\phantomsection
+	\addcontentsline{toc}{section}{\textbf{#1}}
+	\section*{#1}
+	\setcounter{section}{1}    % Сбрасываем разделы в 0
+	\setcounter{subsection}{0} % Сбрасываем подразделы в 0 (ЭТО ГЛАВНОЕ)
+}
+
+\begin{document}
+	
+	% --- Оглавление ---
+	\tableofcontents
+	\newpage
+	
+	\theme{Тема 1. Числовая последовательность (ЧП). Предел ЧП}
+	
+	\begin{definition}
+		Под числовой последовательностью подразумевается функция $f(n)$, где $n \in \N$, которая ставит в соответствие каждому натуральному числу $n$ число $x_n$. Элементы $x_1, x_2, \dots, x_n$ называются членами последовательности.
+	\end{definition}
+	
+	\paragraph{} \centerline{\textbf{Другие записи функции:}}
+	\vspace{0.4cm}
+	
+	\noindent $\{x_n\}$ или $x_n$, где $n \in \N$. Таким образом ЧП имеет вид: $x_1, x_2, x_3, \dots, x_n$, где $x_n$ - общий член ЧП.
+	
+	\subsection{Определения монотонных последовательностей:}
+	
+	\begin{definition}
+		ЧП называется \textbf{ограниченной сверху}, если существует M > 0 такое, что для любого $n \in \N$ выполняется $x_n \leq M$. $(\E M > 0: \Y n \in \N \implies x_n \leq M)$.
+	\end{definition}
+	
+	\begin{definition}
+		ЧП называется \textbf{ограниченной снизу}, если существует M > 0 такое, что для любого $n \in \N$ выполняется $x_n \geq M$. $(\E M > 0: \Y n \in \N \implies x_n \geq M)$.
+	\end{definition}
+	
+	\begin{definition}
+		ЧП называется \textbf{ограниченной}, если она ограничена и сверху, и снизу. $(\E M > 0: \Y n \in \N \implies |x_n| \leq M)$. В противном случае ЧП \textbf{неограничена}.
+	\end{definition}
+	
+	\begin{definition}
+		ЧП называется \textbf{убывающей (невозрастающей)}, если $\Y n \in \N \implies x_n+1 < x_n \cdot (x_n+1 \leq x_n)$.
+	\end{definition}
+	
+	\begin{definition}
+		ЧП называется \textbf{возрастающей (неубывающей)}, если $\Y n \in \N \implies x_n+1 > x_n \cdot (x_n+1 \geq x_n)$.
+	\end{definition}
+	
+	\begin{definition}
+		Если ЧП является \textbf{убывающей}, или \textbf{невозрастающей}, или \textbf{возрастающей}, или \textbf{неубывающей}, то она называется \textbf{монотонной}.
+	\end{definition}
+	
+	\begin{definition}
+		Если все элементы ЧП равны одному и тому же элементу, то её называют \textbf{постоянной}.
+	\end{definition}
+
+	\subsection{Рекуррентный и Аналитический способ задания ЧП:}
+	
+	\textbf{Аналитический способ:} \(x_n = \frac{n-1}{n}\). \\
+	\textbf{Рекуррентный способ:} задается \(x_1\) и формула \(x_{n+1} = f(x_n)\).
+	
+	\subsection{Предел ЧП}
+
+	\textbf{Рассмотрим ЧП:}
+	
+	\begin{example}
+		$x_n = \frac{n-1}{n} = 1 - \frac{1}{n}, n \in \N$.
+	\end{example}
+	
+	При n стремящемся к бесконечности ($n \to \infty$) ЧП стремится к единице:
+	\begin{center}
+		($\lim_{n \to \infty} 1 - \frac{1}{n} = 1, n \in \N$).
+	\end{center}
+	
+	В общем случае: 
+	\begin{center}
+		$\lim_{n \to \infty} x_n = a$.
+	\end{center}
+	
+	\begin{definition}
+		Число а называется пределом ЧП, если для любого эпсилон (сколь угодное малое число) больше 	нуля существует целые $\N$ такое, что для любых n больше $\N$ выполняется: 
+	\end{definition}
+	
+	$|x_n - a| < \E$. (а - предел ЧП, если $\Y E > 0:\F\N \in \Z: \Y n > \N \implies |x_n - a| < \E)$.
+	
+	\newpage
+	\begin{example}
+		Доказать по определению, что:
+	\end{example}
+	
+	\begin{center}
+		$\lim_{n \to \infty} \frac{n-1}{n} = 1$;
+	\end{center}
+	
+	\begin{proof}
+		\begin{gather*}
+			|x_n - a| < \E \\
+			\left|\frac{n-1}{n} - 1\right| < \E \\
+			\left|\frac{n-1-n}{n}\right| < \E \\
+			\left|-\frac{1}{n}\right| < \E \\
+			\frac{1}{n} < \varepsilon \\
+			n > \frac{1}{\varepsilon} \implies N(\E) = \frac{1}{\E}
+		\end{gather*}
+	\end{proof}
+	
+	\textbf{Эпсилон $(\E)$} можно назвать с точностью, с которой ищется предел.
+	\vspace*{0.4cm}
+	
+	\textbf{1)} Если $\E = 0,01$, то $\N(\E) = \frac{1}{0,01} = 100$.
+	Для того, чтобы $\lim_{n \to \infty} \frac{n-1}{n} = 1$ с точностью $\E = 0,01$, необходимо взять n > 100.
+	
+	\vspace*{0.4cm}
+	\textbf{2)} Взять $\E = 0, 0001$, то для $\lim_{n \to \infty} \frac{n-1}{n} = 1$ с точностью $\E = 0,0001$, необходимо взять n > 10000.
+	
+	\vspace*{0.4cm}
+	
+	\subsection{Геометрический смысл предела ЧП}
+	
+	Раскроем модуль из определения предела:
+	\begin{gather*}
+		|x_n - a| < \E \\
+		\left|-\E < x_n - a\right| < \E \\
+		\left|-\E + a < x_n\right| < \E + a 
+	\end{gather*}
+	
+	Таким образом, все $x_n$, подходящие под это условие можно назвать лежащими в окрестности эпсилон точки а. \textit{Рис. 1}
+	
+	\begin{figure}[h] 
+		\centering 
+		\begin{tikzpicture}[scale=1.5]
+			\draw[->, thick] (-2.5, 0) -- (2.5, 0) node[right] {\(x_n\)};
+			\fill[pattern=north east lines, pattern color=gray!70] (-1.2, 0) rectangle (1.2, 0.25);
+			\draw (-1.2, 0) -- (-1.2, 0.25) -- (1.2, 0.25) -- (1.2, 0);
+			\filldraw (0, 0) circle (1.5pt) node[below=4pt] {\(a\)};
+			\draw[fill=white] (-1.2, 0) circle (1.5pt) node[below=4pt] {\(a - \eps\)};
+			\draw[fill=white] (1.2, 0) circle (1.5pt) node[below=4pt] {\(a + \eps\)};
+			\draw[dashed] (-1.2, 0) -- (-1.2, 0.25);
+			\draw[dashed] (1.2, 0) -- (1.2, 0.25);
+			\draw[dashed] (0, 0) -- (0, 0.25);
+		\end{tikzpicture}
+		
+		\textit{Рис. 1: Эпсилон-окрестность точки \(a\)}
+		\label{fig:epsilon_env}
+	\end{figure}
+	
+	Вся ЧП находится внутри указаного интервала.
+	\begin{definition}
+		 Если $\lim_{n \to \infty} x_n = a = const$, то ЧП называется сходящиейся. Из определения следует, что сходящаяся последовательность ограничена (но обратное следствие неверно)
+	\end{definition}
+	
+	\begin{theorem}
+		Чп не может иметь более одного предела.
+	\end{theorem}
+	
+	\begin{proof}
+		Пусть существует 2 предела A и B, таких, что A < B. Возьмём $\E_0 > 0$ так, чтобы окрестности A и B не имели общих точек. Поскольку A - предел, найдётся номер, начиная с которого все члены ЧП лежат внутри окрестности A, а значит вне неё число членов последовательности становится конечным, что противоречит утверждению о том, что B - предел.
+	\end{proof}
+	
+	\begin{definition}
+		Если $\lim_{n \to \infty} x_n = \infty$, то ЧП называется \textbf{расходящейся}.
+	\end{definition}
+	
+	\textbf{Постоянная ЧП:} $x_n = C, n \in \N$ имеет предел, равный с.
+	
+	\begin{center}
+		$\lim_{n \to \infty} c = c$
+	\end{center}
+	
+	\begin{proof}
+		По определению ЧП $|x_n - a| < \E \implies \Y\E > 0: |c - c| = 0 < \E$.
+	\end{proof}
+	
+	\section{Предельный переход в неравенствах}
+	
+	\textbf{Рассмотрим ЧП $\{x_n\}, \{y_n\}$}
+
+	\begin{theorem}
+		Если $\lim_{n \to \infty} x_n = a; \lim_{n \to \infty} y_n = b$ и, начиная с некоторого номера выполняется неравенство $x_n \leq y_n$, то $a \leq b$
+	\end{theorem}
+	
+	\begin{proof}
+		Пусть \(a > b\). Исходя из того, что \(a = \lim\limits_{n \to \infty} x_n\), а \(b = \lim\limits_{n \to \infty} y_n\), по определению предела:
+		\[
+		\forall \varepsilon > 0 \ \exists N(\varepsilon) \in \mathbb{N}: \ \forall n > N \text{ будут выполняться неравенства:}
+		\]
+		\begin{gather*}
+			|x_n - a| < \varepsilon \\
+			|y_n - b| < \varepsilon \\
+			-\varepsilon + a < x_n < \varepsilon + a \\
+			-\varepsilon + b < y_n < \varepsilon + b
+		\end{gather*}
+		
+		Допустим, \(\varepsilon = \frac{a-b}{2}\), тогда:
+		\[
+		x_n > a - \frac{a - b}{2} = \frac{a + b}{2} \implies x_n > \frac{a + b}{2}.
+		\]
+		
+		Аналогично:
+		\[
+		y_n < b + \frac{a - b}{2} = \frac{a + b}{2} \implies y_n < \frac{a + b}{2}.
+		\]
+		
+		Отсюда следует, что \(y_n < \frac{a + b}{2} < x_n\), то есть \(y_n < x_n\). Это противоречит условию \(x_n \leq y_n\), следовательно, наше предположение \(a > b\) было неверным, и \(a \leq b\).
+	\end{proof}
+	
+	\begin{theorem}
+		если $\lim_{n \to \infty} x_n = a, \lim_{n \to \infty} y_n = b, \lim_{n \to \infty} z_n = c$, и справедливо неравенство $x_n \leq z_n \leq y_n$,начиная с некоторого номера $n \in \N$, то $a \leq c \leq b$.
+	\end{theorem}
+	
+	\begin{theorem}
+		если $\lim_{n \to \infty} x_n = a, \lim_{n \to \infty} y_n = a$, и справедливо неравенство $x_n \leq z_n \leq y_n$, то, начиная с некоторого $n \in \N$: $\lim_{n \to \infty} z_n = a$
+	\end{theorem}
+	
+	\newpage
+	\section{Предел монотонной ограниченной ЧП. Число е. Натуральный логарифм}
+	
+	\begin{itemize}
+		\item Не всякая ЧП имеет предел
+	\end{itemize}
+	
+	\paragraph{} \centerline{\textbf{Признак существования ЧП:}}
+	
+	\begin{theorem}
+		\textbf{Теорема Вейерштрасса} (о переделе монотонной ограниченной ЧП:) всякая монотонная ограниченная ЧП имеет предел.
+	\end{theorem}
+	
+	\begin{itemize}
+		\item Рассмотрим ЧП:
+	\end{itemize}
+	$x_n = (1 + \frac{1}{n})^{n}$	
+	
+	\subsection{Формулы Биома Ньютона:}
+	$(a + b)^{n} = a^{n} + \frac{n}{1} \cdot a^{n - 1} \cdot b^{1} + \frac{n(n - 1)}{1 \cdot 2} \cdot a^{n - 2} \cdot b^{2} + \frac{n(n - 1)(n - 2)}{1 \cdot 2 \cdot 3} \cdot a^{n - 3} \cdot b^{3} + ... + \frac{n(n - 1)(n - 2) ... (n - (n - 1))}{1 \cdot 2 \cdot 3 ... \cdot n}$
+	\vspace{0.4cm}
+	
+	Полагая: $a = 1, d = \frac{1}{n}$, получаем:
+	\vspace{0.4cm}
+	
+	$(1 + \frac{1}{n})^{n} = 1 + \frac{n}{1} \cdot \frac{1}{n} + \frac{n(n - 1)}{1 \cdot 2} \cdot \frac{1}{n^{2}} + \frac{n(n - 1)(n - 2)}{1 \cdot 2 \cdot 3} \cdot \frac{1}{n^{3}} + ... + \frac{n(n - 1)(n - 2) ... (n - (n - 1))}{1 \cdot 2 \cdot 3 \cdot ... \cdot n} \cdot \frac{1}{n^{?}} = 1 + 1 + \frac{1}{1 \cdot 2} + \frac{n - 1}{n} + \frac{1}{1 \cdot 2 \cdot 3} \cdot \frac{n - 1}{n} \cdot \frac{n - 2}{n} + ... + \frac{1}{1 \cdot 2 \cdot 3 \cdot ... \cdot n} \cdot \frac{n - 1}{n} \cdot \frac{n - 2}{n} \cdot ... \cdot \frac{n - (n - 1)}{n}$.
+	
+	\vspace{0.5cm} 
+	\hrule
+
+	\begin{enumerate}[label=(\arabic*), start = 1]
+		\item $(1 + \frac{1}{n})^{n} = 2 + \frac{1}{1 \cdot 2} (1 - \frac{1}{n}) + \frac{1}{1 \cdot 2 \cdot 3} \cdot (1 - \frac{1}{n}) \cdot (1 - \frac{2}{n}) + ... + \frac{1}{1 \cdot 2 \cdot 3 \cdot ... \cdot n} \cdot (1 - \frac{1}{n}) \cdot (1 - \frac{2}{n}) \cdot ... \cdot (1 - \frac{n - 1}{n})$
+	\end{enumerate}
+	
+	Из равенства (1) $\implies$ что с увелечением n число положительных слогаемых увеличивается. Число $\frac{1}{n}$ убывает $(\to 0)$, поэтому велечины $(1 - \frac{1}{n}), (1 - \frac{2}{n}), ... , (1 - \frac{n - 1}{n})$ возрастают. Из-за этого ЧП $x_n = (1 + \frac{1}{n})^{n}$ являются монотонной и больше 2-х.  
+	
+	\begin{enumerate}[label=(\arabic*), start = 2]
+		\item $(1 + \frac{1}{n})^n > 2 \cdot (2 < (1 + \frac{1}{n})^2)$
+	\end{enumerate}
+	
+	В равенстве $(1)$ заменим каждую скобку на 1. Тогда:
+	
+	\begin{enumerate}[label=(\arabic*), start = 3]
+		\item $(1 + \frac{1}{n})^n < 2 + \frac{1}{1 \cdot 2} + \frac{1}{1 \cdot 2 \cdot 3} + ... + \frac{1}{1 \cdot 2 \cdot 3}$
+	\end{enumerate}
+	
+	Заметим, каждое число больше 2 на два, тогда:
+	\vspace{0.4cm}
+	
+	$(1+ \frac{1}{n})^n < 1 + 1 + \frac{1}{2} + \frac{1}{2^2} + \frac{1}{2^3} + ... + \frac{1}{2^{n-1}}$ - бесконечно убывающая прогрессия 
+	\vspace{0.4cm}
+	
+	$S = \frac{b_1}{1 - q} = \frac{1}{1 - \frac{1}{2}} = 2$
+	\vspace{0.4cm}
+	
+	Тогда:
+	\vspace{0.4cm}
+	
+	$(1 + \frac{1}{n}) ^ n < 1 + 2 \implies (1 + \frac{1}{n})^n < 3$
+	\vspace{0.4cm}
+	
+	Таким образом:
+	\vspace{0.4cm}
+	
+	$2 < (1 + \frac{1}{n})^n < 3 \implies$ ЧП ограничена.
+	
+	\begin{tcolorbox}[colframe=red!70!black, colback=white, boxrule=1pt, arc=3pt, width=\textwidth]
+		\centering
+		\large
+		\(\displaystyle \lim_{n \to \infty} \left(1 + \frac{1}{n}\right)^n = e\) 
+		\hspace{1cm} 
+		\normalsize -- \textit{второй замечательный предел}
+	\end{tcolorbox}
+	
+	\newpage
+	
+	\textbf{Второй замечательный предел} применяется при раскрытии неопределённости вида $1^\infty$
+	
+	\begin{example}
+		$\lim_{n \to \infty} (\frac{n - 3}{n + 5})^{2n} = 1^\infty$
+ 	\end{example}
+ 	
+ 	\begin{align*}
+ 		\lim_{n \to \infty} \left( \frac{(n+5)-8}{n+5} \right)^{2n} 
+ 		&= \lim_{n \to \infty} \left( 1 + \frac{-8}{n+5} \right)^{2n} \\[10pt] % Отступ между строками
+ 		&= \lim_{n \to \infty} \left( \left( 1 + \frac{1}{\frac{n+5}{-8}} \right)^{\frac{n+5}{-8}} \right)^{\frac{-8}{n+5} \cdot 2n} 
+ 		= \lim_{n \to \infty} e^{\frac{-16n}{n+5}} \\[10pt]
+ 		&= e^{\displaystyle \lim_{n \to \infty} \frac{-16n}{n\left(1+\frac{5}{n}\right)}} 
+ 		= e^{\displaystyle \lim_{n \to \infty} \frac{-16}{1+\frac{5}{n}}} 
+ 		= e^{-16}
+ 	\end{align*}
+ 	\vspace{0.4cm}
+ 	
+ 	\theme{Тема 2. Функции}
+ 	
+ 	\subsection{Понятие функции.}
+ 	
+ 	Пусть равны два множества: 
+ 	
+ 	\begin{figure}[h]
+ 		\centering
+ 		\begin{tikzpicture}[scale=1.4]
+ 			
+ 			% Подписи над кругами
+ 			\node at (-3, 2.3) {\Large \(X \neq \varnothing\)};
+ 			\node at (3, 2.3) {\Large \(Y \neq \varnothing\)};
+ 			
+ 			% Левый круг (Множество X)
+ 			\draw[thick] (-3, 0) circle (1.5cm);
+ 			
+ 			% Правый круг (Множество Y)
+ 			\draw[thick] (3, 0) circle (1.5cm);
+ 			
+ 			% --- Точки в левом множестве (X) ---
+ 			\fill (-2.2, 1.0) circle (2pt);   % 1. Верхняя
+ 			\fill (-2.2, 0.5) circle (2pt);  % 2. Средняя верхняя
+ 			\fill (-2.2, -0.33) circle (2pt); % 3. Средняя нижняя
+ 			\fill (-2.2, -1.0) circle (2pt);  % 4. Нижняя
+ 			
+ 			% --- Точки в правом множестве (Y) ---
+ 			% 1. Верхняя точка (ПУСТАЯ - без стрелки)
+ 			\fill (2.2, 1.0) circle (2pt);    
+ 			
+ 			% 2. Точка для первой стрелки
+ 			\fill (2.2, 0.5) circle (2pt);    
+ 			
+ 			% 3. Точка для второй стрелки
+ 			\fill (2.2, -0.2) circle (2pt);   
+ 			
+ 			% 4. Общая нижняя точка (для двух стрелок)
+ 			\fill (2.2, -1.0) circle (2pt);   
+ 			
+ 			% --- Стрелки ---
+ 			
+ 			% 1. Из верхней левой в первую правую (под пустой)
+ 			\draw[->, thick] (-2.2, 1.0) -- (2.2, 1.0) node[midway, above] {\(f\)};
+ 			
+ 			% 2. Из второй левой во вторую правую
+ 			\draw[->, thick] (-2.2, 0.5) -- (2.2, 0.5) node[midway, above] {\(f\)};
+ 			
+ 			% 3. Из третьей левой в общую нижнюю
+ 			\draw[->, thick] (-2.2, -0.33) -- (2.2, -1.0) node[midway, above] {\(f\)};
+ 			
+ 			% 4. Из нижней левой ТОЖЕ в общую нижнюю
+ 			\draw[->, thick] (-2.2, -1.0) -- (2.2, -1.0) node[midway, above] {\(f\)};
+ 			
+ 		\end{tikzpicture}
+ 		\caption{Отображение множества \(X\) во множество \(Y\)}
+ 	\end{figure}
+ 	
+ 	\begin{definition}
+ 		Соответствие f, которое каждому элементу $x \in X$ ставит в соответствии элемент $y \in Y$, причём один и только один называется функцией. 
+ 	\end{definition}
+ 		
+ 	$y = f(x)$, где $x \in X$ (с точки зрения алгебры).
+ 	\vspace{0.4cm}
+ 	
+ 	$f : x \to y$ (с точки зрения теории множеств).
+ 	\vspace{0.4cm}
+ 	
+ 	$y = f(x) -$ аналитическое обозначение функции, где $x -$ независимая переменная (аргумент), а $y -$ зависимая переменная (результат).
+ 	
+ 	\newpage
+ 	
+	 \begin{itemize}
+ 		\item Если 2-м $y$ соответствует один $x -$ это \textbf{не функция!}
+ 	\end{itemize}
+ 	
+ 	\begin{figure}[h]
+ 		\centering
+ 		\begin{tikzpicture}[scale=1.4]
+ 			
+ 			% Подписи над кругами
+ 			\node at (-3, 2.3) {\Large \(X\)};
+ 			\node at (3, 2.3) {\Large \(Y\)};
+ 			
+ 			% Левый круг (Множество X)
+ 			\draw[thick] (-3, 0) circle (1.5cm);
+ 			
+ 			% Правый круг (Множество Y)
+ 			\draw[thick] (3, 0) circle (1.5cm);
+ 			
+ 			% --- Точки в левом множестве (X) ---
+ 			\fill (-2.2, 1.0) circle (2pt);   
+ 			\fill (-2.2, 0.5) circle (2pt);  
+ 			\fill (-2.2, -0.2) circle (2pt); 
+ 			\fill (-2.2, -1.0) circle (2pt);  
+ 			
+ 			% --- Точки в правом множестве (Y) ---
+ 			\fill (2.2, 1.0) circle (2pt);    
+ 			\fill (2.2, 0.5) circle (2pt);    
+ 			\fill (2.2, -0.2) circle (2pt);   
+ 			\fill (2.2, -1.0) circle (2pt);   
+ 			
+ 			% --- Стрелки ---
+ 			\draw[->, thick] (-2.2, 1.0) -- (2.2, 1.0) node[midway, above] {\(f\)};
+ 			\draw[->, thick] (-2.2, 0.5) -- (2.2, 0.5) node[midway, above] {\(f\)};
+ 			\draw[->, thick] (-2.2, 0.5) -- (2.2, 1.0) node[midway, above] {\(f\)};
+ 			\draw[->, thick] (-2.2, -0.2) -- (2.2, -0.2) node[midway, above] {\(f\)};
+ 			\draw[->, thick] (-2.2, -1.0) -- (2.2, -1.0) node[midway, above] {\(f\)};
+ 			
+ 		\end{tikzpicture}
+ 		\caption{Соответствие, не являющееся функцией}
+ 	\end{figure}
+ 
+ 	$D(y) - $ множество $x$, область определения функции. 
+ 	\vspace{0.4cm}
+ 	
+ 	$\E(y) - $ множество $y$, область значения функции. 
+ 	
+ 	\begin{definition}
+ 		Если элементами множеств $x$ и $y$ являются действительные числа, т.е $x \subset R$, $y \subset R$, то функцию называют \textbf{числовой функцией}.
+ 	\end{definition}
+ 	
+ 	\subsection{Предел функции в точке.}
+ 	
+ 	Пусть дана функция $y = f(x)$ с областью определения $D(y)$.
+ 	\vspace{0.4cm}
+ 	
+ 	\noindent Рассмотрим функцию в точке $x_0$ такой, что: $x \in D(y)$ или $x_0 \notin D(y)$.
+ 	\vspace{0.4cm}
+ 	
+ 	\textbf{Обозначение:} $\lim_{x \to x_0} f(x) = A$
+ 	
+ 	\begin{definition}
+ 		\textbf{(на языке последовательности или по Гейне):} число $A$ называется пределом функции $y = f(x)$ в точке $x_0$ (при $x \to x_0$), если для любой последовательности допустимых значений аргумента $x_n$, где $n \in N$, $x_n \neq x_0$ сходящейся к $x_0$ (т.е $\lim_{n \to \infty} x_n = x_0$), последовательность соответствующих значений функции $f(x_n)$, $n \in N$ сходится к числу $A$(т.е $\lim_{n \to \infty} f(x_n) = A$).
+ 	\end{definition}
+ 	
+ 	$f(x) \to A$, т.е ($x \to x_0$)
+ 	
+ 	\begin{definition}
+ 		\textbf{(на языке Эпсилон - дельта или по Коши):} число $А$ называется пределом функции $y = f(x)$ в точке $x_0$, если для $\Y\E > 0 \ \F\delta > 0: \Y x \neq x_0$ из неравенства $|x - x_0| < \delta \implies |f(x) - A| < \E$.
+ 	\end{definition}
+ 	
+ 	\textbf{Обозначения:} 
+ 	
+ 	$\Y x \neq x_0 \ \ |x - x_0| < \delta$
+	\vspace{0.2cm}
+	
+	$\Y x$: $x \neq x_0$, $|x - x_0| < \delta$ 	
+	\vspace{0.2cm}
+	
+	$\Y x$: $0 < |x - x_0| < \delta$
+	\vspace{0.4cm}
+	
+	Величина $\delta$ зависит от $\E$ и является сколь угодной малой: $\delta(\E) > 0$.
+	
+	\newpage
+	
+	\paragraph{} \centerline{\textbf{Геометрический смысл}}
+	
+	\begin{figure}[h]
+		\centering
+		\begin{tikzpicture}[scale=1.5, 
+			axis/.style={->, thick},
+			helper/.style={dashed, thick, gray},
+			eps_line/.style={dashed, thick, black}
+			]
+			
+			% 1. Оси координат
+			\draw[axis] (-0.5, 0) -- (5.5, 0) node[right] {\(x\)};
+			\draw[axis] (0, -0.5) -- (0, 3.8) node[above] {\(f(x)\)};
+			
+			% 2. Заштрихованная область (пересечение окрестностей)
+			% Рисуем прямоугольник (x0-delta, x0+delta) x (A-eps, A+eps)
+			\fill[pattern=north east lines, pattern color=black!70] (1.5, 1) rectangle (3.5, 3);
+			\draw[thick, black, fill=white, fill opacity=0.8] (1.5, 1) rectangle (3.5, 3); 
+			
+			% 3. График функции (кривая, проходящая через точку (x0, A))
+			% Используем функцию, которая точно проходит через (2.5, 2) и колеблется
+			\draw[thick, smooth, domain=0.5:4.8, samples=100] 
+			plot (\x, {2 + 0.4*sin(4*\x r) + 0.15*(\x - 2.5)});
+			
+			% 4. Горизонтальные линии (y = A + eps, y = A, y = A - eps)
+			\draw[eps_line] (0, 3) node[left] {\(A + \varepsilon\)} -- (4.5, 3);
+			\draw[dashed, thick] (0, 2) node[left] {\(A\)} -- (4.5, 2);
+			\draw[eps_line] (0, 1) node[left] {\(A - \varepsilon\)} -- (4.5, 1);
+			
+			% Подписи справа для горизонтальных линий
+			\node[right] at (4.5, 3) {\(y = A + \varepsilon\)};
+			\node[right] at (4.5, 1) {\(y = A - \varepsilon\)};
+			
+			% 5. Вертикальные линии (x0 - delta, x0, x0 + delta)
+			\draw[helper] (1.5, 0) node[below] {\(x_0 - \delta\)} -- (1.5, 3);
+			\draw[helper] (3.5, 0) node[below] {\(x_0 + \delta\)} -- (3.5, 3);
+			
+			% Линия x0 (с точкой на оси)
+			\draw[dashed, thick] (2.5, 0) node[below] {\(x_0\)} -- (2.5, 2.2); % Линия до графика
+			\filldraw (2.5, 0) circle (1.5pt); % Точка на оси x0
+			
+			% Точка на графике в x0
+			\filldraw (2.5, 2) circle (1.5pt); 
+			
+			% 6. Вертикальная стрелка, показывающая 2*eps (как на фото)
+			% Рисуем двустороннюю стрелку от A-eps до A+eps справа
+			\draw[<->, thick] (3.8, 1) -- (3.8, 3) node[midway, right] {\(2\varepsilon\)};
+			
+		\end{tikzpicture}
+		\caption{Геометрический смысл предела функции в точке}
+		\label{fig:limit_geometry}
+	\end{figure}
+	
+	Геометрический смысл заключается в том, что все значения функции на интервале находятся за шириной $2\E$. 
+	
+	\begin{example}
+		1) Доказать, что $\lim_{x \to 5} (2x - 3) = 7$ по определению:
+		\begin{proof}
+			$\Y x$: $|x - 5| < \delta \implies 2x - 3 \implies |(2x - 3) - 7| < \E \\ |2x - 10| < \E \\ |2x - 10| < \E |:2 \\ |x - 5| > \frac{\E}{2} \implies \delta(\E) = \frac{\E}{2} \implies |x - 5| < \frac{\E}{2}$ \\ $\lim_{x \to 5} (2x - 3) = 7$
+		\end{proof}
+
+		\noindent 2) Доказать, что $\lim_{x \to \infty} c = c$
+		\begin{proof}
+			$\Y\E > 0 \ \F\delta(\E) > 0: |x - x_0| < \delta \implies |f(x) - c| < \E \\ |c - c| < \E \\ 0 < \E \implies \lim_{x \to x_0} c = c$
+		\end{proof}
+	\end{example}
+	
+	\newpage
+	
+	\subsection{Односторонние пределы.}
+	
+	\begin{figure}[h]
+		\centering
+		\begin{tikzpicture}[scale=1.5]
+			
+			% 1. Оси координат
+			\draw[->, thick] (-0.5, 0) -- (5.5, 0) node[right] {\(x\)};
+			\draw[->, thick] (0, -0.5) -- (0, 3.5) node[above] {\(f(x)\)};
+			
+			% Точка начала координат (0,0) - опционально, но лучше не рисовать, чтобы не мешало
+			
+			% 2. Вертикальные линии (x0)
+			\draw[dashed, thick] (2.5, 0) node[below] {\(x_0\)} -- (2.5, 3.2);
+			\filldraw (2.5, 0) circle (1.5pt); % Точка на оси x0
+			
+			% 3. Горизонтальные пунктирные линии для A1 и A2
+			\draw[dashed, thick] (0, 1.5) node[left] {\(A_1\)} -- (4.5, 1.5);
+			\draw[dashed, thick] (0, 2.8) node[left] {\(A_2\)} -- (4.5, 2.8);
+			
+			% 4. График функции (состоит из двух частей)
+			% Левая часть (стремится к A1)
+			% Используем функцию, которая плавно подходит к точке (2.5, 1.5)
+			\draw[thick, smooth, domain=0.5:2.4, samples=50] 
+			plot (\x, {0.5 + 1.0 * (\x/2.5)^2}); % Кривая, растущая вправо
+			
+			% Правая часть (начинается от A2)
+			% Используем функцию, которая плавно уходит вправо от (2.5, 2.8)
+			\draw[thick, smooth, domain=2.6:4.5, samples=50] 
+			plot (\x, {2.8 + 0.5 * ((\x-2.5)/2)^1.5}); % Кривая, растущая вправо
+			
+			% Подписи графиков (опционально)
+			\node[above] at (4.2, 3.5) {\(y = f(x)\)}; 
+			
+		\end{tikzpicture}
+		\caption{Разрыв первого рода (односторонние пределы не равны)}
+		\label{fig:discontinuity}
+	\end{figure}
+	
+	\noindent $\lim_{x \to x_0 \to 0} f(x) = A_1$, $\lim_{x \to x_0} - \ \delta$ 
+	
+	\hspace{4.5cm} $\delta \to 0$ 
+	\vspace{0.4cm}
+	
+	\noindent $\lim_{x \to x_0 \to 0} f(x) = A_2$, $\lim_{x \to x_0} + \ \delta$ 
+	
+	\hspace{4.5cm} $\delta \to 0$ 
+	
+	\begin{definition}
+		Число $A_1$ называется \textbf{пределом функции} $y = f(x)$ слева в точке $x_0$, или \textbf{левосторонним пределом} если: \\ $\Y\E > 0 \ \F\delta(\E) > 0: \Y x \ x \in (x_0 - \delta; x_0) \implies |f(x) - A_1| < \E$
+	\end{definition}
+	
+	\begin{definition}
+			Число $A_2$ называется \textbf{пределом функции} $y = f(x)$ справа в точке $x_0$ или \textbf{правосторонним пределом}, если: \\ $\Y\E > 0 \ \F\delta(\E) > 0: \Y x$, $x \in (x_0; x + \delta) \implies |f(x) - A_2| < \E$
+	\end{definition}
+	
+	\begin{definition}
+		Пределом слева и справа называются \textbf{односторонними}. 
+		\begin{itemize}
+			\item Если $\E \lim_{x \to x_0} f(x) = A$, то $\F$ односторониие пределы $\lim_{x \to x_0 - 0} f(x) = A_1$, $\lim_{x \to x_0 + 0} = A_2$, причём $A = A_1 = A_2$.
+			
+			\item Если $A_1 \neq A_2$, то $\lim_{x \to x_0} f(x) \nexists$.
+		\end{itemize}
+	\end{definition}
+	
+	\begin{example}
+		$\lim_{x \to 2} e^{\frac{1}{x - 2}}$ \\
+		$x = 2 \notin D(y)$ \\
+		$\lim_{x \to 2 - 0} e^{\frac{1}{x - 2}} = e^{\frac{1}{2 - 0 - 2}} = e^{\frac{1}{-0}} = e^{-\infty} = \frac{1}{e^\infty} = \frac{1}{\infty} = 0$. \\ 
+		$\lim_{x \to 2 + 0} e^\frac{1}{x - 2} = e^{\frac{1}{2 + 0 - 2}} = e^\frac{1}{+0} = e^{+\infty} = \frac{1}{e^{+\infty}} = \frac{1}{+\infty} = 0$.
+	\end{example}
+	
+	\newpage
+	
+	\subsection{Предел функции при $x \to \infty$. \\ Бесконечно большая функция (ББФ)}
+	
+	Пусть функция определена на $D(y) = (- \infty; + \infty)$. $\lim_{x \to \infty} f(x) = A$.
+	
+	\begin{definition}
+		Число $A$ называется пределом функции $y = f(x)$ при $x \to \infty$, если $\Y\E > 0 \ \F M(\E) > 0: \Y x: |x| > M \implies$ выполняется неравенство $|f(x) - A| < \E$.
+	\end{definition}
+	\vspace{0.4cm}
+	
+	\paragraph{} \centerline{\textbf{Односторонние пределы:}}
+	\vspace{0.4cm}
+	
+	$\lim_{x \to -\infty} f(x), \quad \lim_{x \to +\infty} f(x)$
+	
+	\begin{figure}[h]
+		\centering
+		\begin{tikzpicture}[scale=1.2, 
+			axis/.style={->, thick},
+			helper/.style={dashed, thick, gray},
+			eps_line/.style={dashed, thick, black}
+			]
+			
+			% 1. Оси координат
+			\draw[axis] (-5.5, 0) -- (5.5, 0) node[right] {\(x\)};
+			\draw[axis] (0, -1.5) -- (0, 3.5) node[above] {\(f(x)\)};
+			
+			% 2. Горизонтальные линии (y = A + eps, y = A, y = A - eps)
+			\draw[eps_line] (-5.5, 2.5) node[left] {\(A + \varepsilon\)} -- (5.5, 2.5);
+			\draw[dashed, thick] (-5.5, 1) node[left] {\(A\)} -- (5.5, 1);
+			\draw[eps_line] (-5.5, -0.5) node[left] {\(A - \varepsilon\)} -- (5.5, -0.5);
+			
+			% 3. Вертикальные линии (x = -M, x = M)
+			\draw[helper] (-3, -1.5) node[below] {\(-M\)} -- (-3, 2.5);
+			\draw[helper] (3, -1.5) node[below] {\(M\)} -- (3, 2.5);
+			
+			% 4. Заштрихованные области
+			% Левая область (x < -M)
+			\fill[pattern=north east lines, pattern color=black!70] (-5.5, -0.5) rectangle (-3, 2.5);
+			\draw[thick, black, fill=white, fill opacity=0.8] (-5.5, -0.5) rectangle (-3, 2.5); 
+			
+			% Правая область (x > M)
+			\fill[pattern=north east lines, pattern color=black!70] (3, -0.5) rectangle (5.5, 2.5);
+			\draw[thick, black, fill=white, fill opacity=0.8] (3, -0.5) rectangle (5.5, 2.5); 
+			
+			% 5. График функции (одна непрерывная линия)
+			% Используем затухающую синусоиду: A + (амплитуда) * exp(-|x|/k)
+			% Это гарантирует, что при x -> бесконечность график стремится к A
+			\draw[thick, smooth, domain=-5.2:5.2, samples=150] 
+			plot (\x, {1 + 1.5 * sin(3*\x r) * exp(-abs(\x)/2.5)});
+			
+			% 6. Подписи под осью
+			\node[below] at (-4, -0.8) {\(x \in (-\infty; -M)\)};
+			\node[below] at (4, -0.8) {\(x \in (M; +\infty)\)};
+			
+		\end{tikzpicture}
+		\caption{Геометрический смысл предела функции на бесконечности}
+		\label{fig:limit_infinity}
+	\end{figure}
+	
+	\paragraph{} \centerline{\textbf{Бесконечно Большая функция (ББФ)}}
+	
+	\begin{definition}
+		Функция $y = f(x)$, заданная на всей числовой прямой называется ББФ при $x \to \infty$, если: \\
+		$\Y M > 0 \ \F N \in \N > 0$: \\
+		$\Y x: |x| > N \implies |f(x)| > M$ 
+		\vspace{0.4cm}
+		
+		\noindent\textbf{Обозначения:} $\lim_{x \to \infty} f(x) = \infty$
+	\end{definition}
+	
+	\begin{example}
+		Рассмотрим предел:
+		\[
+		\lim_{x \to \infty} 3^x = \lim_{x \to \pm\infty} 3^x = 
+		\left\{
+		\begin{array}{l}
+			\displaystyle \lim_{x \to +\infty} 3^x = 3^{+\infty} = +\infty \\
+			\\
+			\displaystyle \lim_{x \to -\infty} 3^x = 3^{-\infty} = 0
+		\end{array}
+		\right.
+		\]
+		
+		\hspace{4.5cm}Функция $y = 3^x -$ ББФ при $x \to \infty$.
+	\end{example}
+	
+	\newpage
+	
+	\begin{statement}
+		Всякая ББФ в окрестности точки $x_0 -$ является неограниченной в этой окрестности. Если $y = f(x)$ ограничена в окрестности точки $x_0$, то $\lim_{x \to x_0} f(x) = A = const$. 
+	\end{statement}
+	
+	\begin{proof}
+		Из определения предела: \\
+		$\Y\E > 0 \ \F \delta > 0: \Y x: 0 < |x - x_0| < \delta \implies |f(x) - A| < \E \\
+		-\E < f(x) - A < \E \\
+		-\E + A < f(x) < \E + A \implies y = f(x)$ ограничена.	
+	\end{proof}
+\end{document}
