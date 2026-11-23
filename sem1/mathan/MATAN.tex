@@ -81,15 +81,15 @@
 	\subsection{Определения монотонных последовательностей:}
 	
 	\begin{definition}
-		ЧП называется \textbf{ограниченной сверху}, если существует M > 0 такое, что для любого $n \in \N$ выполняется $x_n \leq M$. $(\E M > 0: \Y n \in \N \implies x_n \leq M)$.
+		ЧП называется \textbf{ограниченной сверху}, если существует M > 0 такое, что для любого $n \in \N$ выполняется $x_n \leq M$. $(\F M > 0: \Y n \in \N \implies x_n \leq M)$.
 	\end{definition}
 	
 	\begin{definition}
-		ЧП называется \textbf{ограниченной снизу}, если существует M > 0 такое, что для любого $n \in \N$ выполняется $x_n \geq M$. $(\E M > 0: \Y n \in \N \implies x_n \geq M)$.
+		ЧП называется \textbf{ограниченной снизу}, если существует M > 0 такое, что для любого $n \in \N$ выполняется $x_n \geq M$. $(\F M > 0: \Y n \in \N \implies x_n \geq M)$.
 	\end{definition}
 	
 	\begin{definition}
-		ЧП называется \textbf{ограниченной}, если она ограничена и сверху, и снизу. $(\E M > 0: \Y n \in \N \implies |x_n| \leq M)$. В противном случае ЧП \textbf{неограничена}.
+		ЧП называется \textbf{ограниченной}, если она ограничена и сверху, и снизу. $(\F M > 0: \Y n \in \N \implies |x_n| \leq M)$. В противном случае ЧП \textbf{неограничена}.
 	\end{definition}
 	
 	\begin{definition}
@@ -132,7 +132,7 @@
 	\]
 	
 	\begin{definition}
-		Число а называется пределом ЧП, если для любого эпсилон (сколь угодное малое число) больше нуля существует целые $\N$ такое, что для любых n больше $\N$ выполняется: 
+		Число а называется пределом ЧП, если для любого эпсилон (сколь угодное малое число) больше нуля существует натуральное N такое, что для любых n больше $\N$ выполняется: 
 	\end{definition}
 	
 	$|x_n - a| < \E$. (а - предел ЧП, если $\Y E > 0:\F\N \in \Z: \Y n > \N \implies |x_n - a| < \E)$.
@@ -211,7 +211,7 @@
 	\end{proof}
 	
 	\begin{definition}
-		Если $\lim_{n \to \infty} x_n = \infty$, то ЧП называется \textbf{расходящейся}.
+		Если $\lim_{n \to \infty} x_n = \infty$, то ЧП называется \textbf{расходящейся не имеющая конечного предела}.
 	\end{definition}
 	
 	\textbf{Постоянная ЧП:} $x_n = C, n \in \N$ имеет предел, равный с.
@@ -285,8 +285,10 @@
 	\end{itemize}
 	$x_n = \left(1 + \frac{1}{n}\right)^{n}$	
 	
-	\subsubsection{Формулы Биома Ньютона:}
-	$(a + b)^{n} = a^{n} + \frac{n}{1} \cdot a^{n - 1} \cdot b^{1} + \frac{n(n - 1)}{1 \cdot 2} \cdot a^{n - 2} \cdot b^{2} + \frac{n(n - 1)(n - 2)}{1 \cdot 2 \cdot 3} \cdot a^{n - 3} \cdot b^{3} + ... + \frac{n(n - 1)(n - 2) ... (n - (n - 1))}{1 \cdot 2 \cdot 3 ... \cdot n}$
+	\subsubsection{Формулы Бинома Ньютона:}
+	
+	$(a + b)^{n} = a^{n} + \frac{n}{1} \cdot a^{n - 1} \cdot b^{1} + \frac{n(n - 1)}{1 \cdot 2} \cdot a^{n - 2} \cdot b^{2} + \frac{n(n - 1)(n - 2)}{1 \cdot 2 \cdot 3} \cdot a^{n - 3} \cdot b^{3} + ... + \frac{n(n - 1)(n - 2) ... (n - (n - 1))}{1 \cdot 2 \cdot 3 ... \cdot n} \cdot \cdot \ a^{1} \cdot b^{n-1} + b^{n}$
+
 	\vspace{0.4cm}
 	
 	Полагая: $a = 1, d = \frac{1}{n}$, получаем:
@@ -294,7 +296,7 @@
 	
 	\begin{align*}
 		\left(1 + \frac{1}{n}\right)^{n} &= 1 + \frac{n}{1} \cdot \frac{1}{n} + \frac{n(n - 1)}{1 \cdot 2} \cdot \frac{1}{n^{2}} + \frac{n(n - 1)(n - 2)}{1 \cdot 2 \cdot 3} \cdot \frac{1}{n^{3}} + ... \\
-		&\quad + \frac{n(n - 1)(n - 2) ... (n - (n - 1))}{1 \cdot 2 \cdot 3 \cdot ... \cdot n} \cdot \frac{1}{n^{?}} \\
+		&\quad + \frac{n(n - 1)(n - 2) ... (n - (n - 1))}{1 \cdot 2 \cdot 3 \cdot ... \cdot n} \cdot \frac{1}{n^{n}} \\
 		&= 1 + 1 + \frac{1}{1 \cdot 2} + \frac{n - 1}{n} + \frac{1}{1 \cdot 2 \cdot 3} \cdot \frac{n - 1}{n} \cdot \frac{n - 2}{n} + ... \\
 		&\quad + \frac{1}{1 \cdot 2 \cdot 3 \cdot ... \cdot n} \cdot \frac{n - 1}{n} \cdot \frac{n - 2}{n} \cdot ... \cdot \frac{n - (n - 1)}{n}.
 	\end{align*}
@@ -306,38 +308,38 @@
 		\item $\left(1 + \frac{1}{n}\right)^{n} = 2 + \frac{1}{1 \cdot 2} \left(1 - \frac{1}{n}\right) + \frac{1}{1 \cdot 2 \cdot 3} \cdot \left(1 - \frac{1}{n}\right) \cdot \left(1 - \frac{2}{n}\right) + ... + \frac{1}{1 \cdot 2 \cdot 3 \cdot ... \cdot n} \cdot \left(1 - \frac{1}{n}\right) \cdot \left(1 - \frac{2}{n}\right) \cdot ... \cdot \left(1 - \frac{n - 1}{n}\right)$
 	\end{enumerate}
 	
-	Из равенства (1) $\implies$ что с увелечением n число положительных слогаемых увеличивается. Число $\frac{1}{n}$ убывает $(\to 0)$, поэтому велечины $\left(1 - \frac{1}{n}\right), \left(1 - \frac{2}{n}\right), ... , \left(1 - \frac{n - 1}{n}\right)$ возрастают. Из-за этого ЧП $x_n = \left(1 + \frac{1}{n}\right)^{n}$ являются монотонной и больше 2-х.  
-	
+	Из равенства (1) \(\implies\) что с увеличением \(n\) число положительных слагаемых увеличивается. Число \(\frac{1}{n}\) убывает \((\to 0)\), поэтому величины \(\left(1 - \frac{1}{n}\right), \left(1 - \frac{2}{n}\right), ... , \left(1 - \frac{n - 1}{n}\right)\) возрастают. Из-за этого ЧП \(x_n = \left(1 + \frac{1}{n}\right)^{n}\) является монотонно возрастающей и больше 2-х.  
+
 	\begin{enumerate}[label=(\arabic*), start = 2]
-		\item $\left(1 + \frac{1}{n}\right)^n > 2 \cdot \left(2 < \left(1 + \frac{1}{n}\right)^2\right)$
+		\item $\left(1 + \frac{1}{n}\right)^n > 2$ \quad (так как \(n \ge 1\), то \(\left(1 + \frac{1}{n}\right)^n \ge 2^n > 2\))
 	\end{enumerate}
-	
-	В равенстве $(1)$ заменим каждую скобку на 1. Тогда:
-	
+
+	В равенстве $(1)$ заменим каждую скобку на 1 (так как каждая скобка меньше 1). Тогда:
+
 	\begin{enumerate}[label=(\arabic*), start = 3]
-		\item $\left(1 + \frac{1}{n}\right)^n < 2 + \frac{1}{1 \cdot 2} + \frac{1}{1 \cdot 2 \cdot 3} + ... + \frac{1}{1 \cdot 2 \cdot 3}$
+		\item $\left(1 + \frac{1}{n}\right)^n < 2 + \frac{1}{1 \cdot 2} + \frac{1}{1 \cdot 2 \cdot 3} + ... + \frac{1}{1 \cdot 2 \cdot 3 \cdot ... \cdot n}$
 	\end{enumerate}
-	
-	Заметим, каждое число больше 2 на два, тогда:
+
+	Заметим, что для любого \(k \ge 2\) выполняется \(k! \ge 2^{k-1}\), поэтому \(\frac{1}{k!} \le \frac{1}{2^{k-1}}\). Тогда:
 	\vspace{0.4cm}
-	
-	$\left(1+ \frac{1}{n}\right)^n < 1 + 1 + \frac{1}{2} + \frac{1}{2^2} + \frac{1}{2^3} + ... + \frac{1}{2^{n-1}}$ - бесконечно убывающая прогрессия 
+
+	$\left(1+ \frac{1}{n}\right)^n < 2 + \frac{1}{2} + \frac{1}{2^2} + \frac{1}{2^3} + ... + \frac{1}{2^{n-1}}$ - часть бесконечно убывающей геометрической прогрессии 
 	\vspace{0.4cm}
-	
-	$S = \frac{b_1}{1 - q} = \frac{1}{1 - \frac{1}{2}} = 2$
+
+	$S = \frac{b_1}{1 - q} = \frac{\frac{1}{2}}{1 - \frac{1}{2}} = 1$
 	\vspace{0.4cm}
-	
-	Тогда:
+
+	Тогда, прибавляя сумму прогрессии к первой двойке:
 	\vspace{0.4cm}
-	
-	$\left(1 + \frac{1}{n}\right) ^ n < 1 + 2 \implies \left(1 + \frac{1}{n}\right)^n < 3$
+
+	$\left(1 + \frac{1}{n}\right) ^ n < 2 + 1 \implies \left(1 + \frac{1}{n}\right)^n < 3$
 	\vspace{0.4cm}
-	
+
 	Таким образом:
 	\vspace{0.4cm}
-	
+
 	$2 < \left(1 + \frac{1}{n}\right)^n < 3 \implies$ ЧП ограничена.
-	
+
 	\begin{tcolorbox}[colframe=red!70!black, colback=white, boxrule=1pt, arc=3pt, width=\textwidth]
 		\centering
 		\large
@@ -345,7 +347,7 @@
 		\hspace{1cm} 
 		\normalsize -- \textit{второй замечательный предел}
 	\end{tcolorbox}
-	
+
 	\newpage
 	
 	\textbf{Второй замечательный предел} применяется при раскрытии неопределённости вида $1^\infty$
@@ -2259,4 +2261,133 @@
 	\textbf{4)}$P = P(t) -$ производственная функция (кол-во) произведений продукции в момент времени t. \\
 	
 	\noindent$R = \lim_{\Delta t \to 0} \frac{\Delta P}{\Delta t} = \lim_{\Delta t \to 0} \frac{P(t + \Delta t) - P(t)}{\Delta t} = P'_t -$ производительность труда. 
+	
+	\newpage
+	
+	\subsection{Связь между непрерывностью и дифференцируемостью функции.}
+	
+	\begin{theorem}
+		если функция дифференцируема в этой точке, то она и непрерывна в этой точке.
+	\end{theorem}
+	
+	\begin{proof}
+		Пусть функция $y = f(x)$ дифференцируема в точке. Следовательно, $\lim_{\Delta x \to 0} \frac{\Delta y}{\Delta x} = f'(x)$. \\
+		
+		По теореме связи между пределом функции и бмф (если $\lim_{x \to x_0} f(x) = A$, то $f(x) = A + \alpha(x)$, где $\alpha(x) -$ БМФ) получим $\frac{\Delta y}{\Delta x} = f'(x) + \alpha(x), \alpha(x) \to 0$ при $\Delta x \to 0$. \\
+		
+		$\Delta y = f'(x) \cdot \Delta x + \alpha(x) \cdot \Delta x$ \\
+		
+		При $\Delta x \to 0:$ $\lim_{\Delta x \to x_0} \Delta y = 0$; таким образом функция $y = f(x)$ непрерывна.
+	\end{proof}
+	
+	\begin{remark}
+		обратное утверждение не является верным.
+	\end{remark}
+	
+	\begin{example}
+		\(y = |x| = \begin{cases} x, & x \ge 0 \\ -x, & x < 0 \end{cases}\)
+		
+		\vspace{0.3cm}
+		\noindent \(f(x) = |x|\)
+		
+		\vspace{0.5cm}
+		\noindent
+		\(\frac{\Delta y}{\Delta x} = \frac{f(0+\Delta x) - f(0)}{\Delta x} = \frac{f(\Delta x)}{\Delta x} = \frac{|\Delta x|}{\Delta x} = \begin{cases} 1, & \Delta x \ge 0 \\ -1, & \Delta x < 0 \end{cases}\) \\
+		
+		\begin{center}
+			\begin{tikzpicture}[scale=1.5, >=stealth]
+				% Оси
+				\draw[->, thick] (-2.5, 0) -- (2.5, 0) node[right] {\(x\)};
+				\draw[->, thick] (0, -0.5) -- (0, 2.5) node[above] {\(y\)};
+				
+				% График y = |x|
+				\draw[thick] (-1.5, 1.5) -- (0, 0) -- (1.5, 1.5);
+				
+				% Засечки на осях
+				\draw[thick] (-1, 0.1) -- (-1, -0.1) node[below] {\(-1\)};
+				\draw[thick] (1, 0.1) -- (1, -0.1) node[below] {\(1\)};
+				\draw[thick] (0.1, 1) -- (-0.1, 1) node[left] {\(1\)};
+				
+				% Точка 0
+				\fill (0,0) circle (1pt) node[below left] {\(0\)};
+			\end{tikzpicture}
+		\end{center}
+		
+		\vspace{1cm}
+		
+		\noindent
+		\(\lim_{\Delta x \to 0} \frac{\Delta y}{\Delta x} \ \ \nexists\)
+	\end{example} 
+	
+	С другой стороны, функция $y = |x|$ является непрерывной. \\
+	
+	Так как, существуют односторонние пределы в точке $x_0 = 0:$ $\lim_{\Delta x \to 0} \frac{\Delta y}{\Delta x} = 1, \lim_{\Delta x \to 0} \frac{\Delta y}{\Delta x}$, то функция имеет односторонние пределы $f'_+(x), f'_-(x)$.
+	
+	\begin{statement}
+		\textbf{1)} если $f'_+(a) \neq f'_-(x)$, то производные в точке $\nexists$. В точках разрывах производной $\nexists$. \\
+		
+		\textbf{2)} Производная $y' = f(x)$ непрерывной функции $y = f(x)$ не обязательно является непрерывной $y = \arcsin x, y' = \frac{1}{\sqrt{1 - x^2}}$.
+	\end{statement}
+	
+	\newpage
+	
+	\begin{definition}
+		если функция $y = f(x)$ имеет непрерывную производную $y' = f(x)$ в некотором интервале (a; b), то функция называется \textbf{гладкой}.
+	\end{definition}
+	
+	\subsection{Производная суммы, разности, произведения и частного функции.} 
+	
+	Пусть данны две функции $U = u(x), V = v(x) -$ дифференцируемы на интервале (a; b).
+	
+	\begin{theorem}
+		Производная суммы(разности) двух функции равна сумме(разности) прозводных этих функции: \\
+		
+		$(U + V)' = U' \pm V'$
+	\end{theorem}
+	
+	\begin{proof}
+		обозначаем $y = u \pm v.$ По определению производной. \\
+		
+		$y' = \lim_{\Delta x \to 0} \frac{(u(x + \Delta x) \pm v(x + \Delta x)) - (u(x) \pm v(x))}{\Delta x} = \lim_{\Delta x \to 0} \frac{(u(x + \Delta x) - u(x')) \pm (v(x + \Delta x) - v(x'))}{\Delta x} =$\\
+		
+		$ = \lim_{\Delta x \to 0} \frac{u(x + \Delta x) - u(x)}{\Delta x} \pm \lim_{\Delta x \to 0} \frac{v(x + \Delta x) - v(x)}{\Delta x} = u' \pm v'$.
+	\end{proof}
+	
+	\begin{theorem}
+		$(uv)' = u'v + uv'$
+	\end{theorem}
+	
+	\begin{proof}
+		$y' = \lim_{\Delta x \to 0} \frac{u(x + \Delta x) v(x + \Delta x) - u(x) v(x)}{\Delta x} = \lim_{\Delta x \to 0} \frac{(u(x) + \Delta u) (v(x) + \Delta v) - u(x) v(x)}{\Delta x} =$ \\
+		
+		$ = \lim_{\Delta x \to 0} (\frac{u(x) \cdot \Delta v}{\Delta x} + \frac{v(x) \cdot \Delta u}{\Delta x} + \frac{\Delta u \cdot \Delta v}{\Delta x}) = \lim_{\Delta x \to 0} (u(x) \cdot \frac{\Delta v}{\Delta x} + v(x) \cdot \frac{\Delta u}{\Delta x} + \Delta v \cdot \frac{\Delta u}{\Delta x}) =$ \\
+		
+		$ = u(x) \cdot \lim_{\Delta x \to 0} \frac{\Delta v}{\Delta x} + v(x) \cdot \lim_{\Delta x \to 0} \Delta v \cdot \lim_{\Delta x \to 0} \frac{\Delta u}{\Delta x} = u(x) \cdot v'(x) + v(x) \cdot u'(x) + 0 \cdot u'(x) = u \cdot v' + v \cdot u'$.
+	\end{proof}
+	
+	С помощью теоремы 2 доказывается следущее утверждение: \\
+	
+	\textbf{1)}$(CU)' = C \cdot U'$ \\
+	
+	\textbf{2)}$(UVW)' = U'VW + UV'W + UVW'$ 
+	
+	\begin{theorem}
+		$(\frac{U}{V})' = \frac{U'V - UV'}{V^2}, V(x) \neq 0$
+	\end{theorem}
+	
+	\begin{proof}
+		Пусть $y = \frac{u(x)}{v(x)}$. \\
+		
+		$\lim_{\Delta x \to 0} \frac{\frac{u(x + \Delta x)}{v(x + \Delta x)} - \frac{u(x)}{v(x)}}{x} = \lim_{\Delta x \to 0} \frac{\frac{u(x) + \Delta u}{v(x) + \Delta v} - \frac{u(x)}{v(x)}}{\Delta x} = \lim_{\Delta x \to 0} \frac{u(x) \cdot v(x) + v(x) \cdot \delta u - u(x) v(x) - u(x) \Delta v}{(V(x) + \Delta v) \cdot v(x) \cdot \Delta x} =$ \\
+		
+		$= \lim_{\Delta x \to 0} \frac{v(x) \cdot \Delta u - u(x) \cdot \Delta v}{\Delta x \cdot v(x) (v(x) + \Delta v)} = \lim_{\Delta x \to 0} \frac{V(x) \cdot \frac{\Delta u}{\Delta x} - u(x) \cdot \frac{\Delta v}{\Delta x}}{(v(x))^2 + v(x) \cdot \Delta v} = \frac{v \cdot u' - u \cdot v'}{v^2}$.
+	\end{proof}
+	
+	\begin{corollary}
+		$(\frac{u}{c})' = \frac{1}{c} \cdot u'$, где $c = const$.
+	\end{corollary}
+	
+	\begin{corollary}
+		$(\frac{c}{v})' = \frac{-c \cdot v'}{v^2}$, где $c = const$.
+	\end{corollary}
 \end{document}
