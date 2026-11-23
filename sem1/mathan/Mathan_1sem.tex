@@ -1,0 +1,2262 @@
+\documentclass[12pt, a4paper]{article}
+
+% --- Кодировки и шрифты ---
+\usepackage[utf8]{inputenc}
+\usepackage[T2A]{fontenc}
+\usepackage[russian]{babel}
+\usepackage{enumitem}
+\usepackage{tcolorbox}
+\usepackage{graphicx}
+
+% --- Геометрия страницы (поля) ---
+\usepackage{geometry}
+\geometry{top=2cm, bottom=2cm, left=2.5cm, right=2cm}
+
+% --- Математика ---
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{mathtools}
+\usepackage{tikz}
+\usetikzlibrary{decorations.pathreplacing, patterns, arrows.meta}
+
+
+% --- Многоточие ---
+\usepackage{tocloft}
+\renewcommand{\cftsecleader}{\cftdotfill{\cftdotsep}}
+\renewcommand{\cftsubsecleader}{\cftdotfill{\cftdotsep}}
+\setlength{\cftsecnumwidth}{2.5em}
+\setlength{\cftsubsecnumwidth}{3em}
+
+% --- Оформление теорем и определений ---
+\newtheorem{theorem}{Теорема}[subsection]
+\newtheorem{lemma}[theorem]{Лемма}
+\newtheorem{corollary}[theorem]{Следствие}
+\newtheorem{definition}{Определение}[subsection]
+\newtheorem{example}{Пример}[subsection]
+\newtheorem{statement}{Утверждение}[subsection]
+
+\theoremstyle{remark}
+\newtheorem*{remark}{Замечание}
+
+% --- Полезные сокращения для матана ---
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\eps}{\varepsilon}
+\newcommand{\dx}{\,dx}
+\newcommand{\Y}{\mathbb{\forall}}
+\newcommand{\F}{\mathbb{\exists}}
+\newcommand{\E}{\mathbb{\varepsilon}}
+
+% --- Команда для тем ---
+\newcommand{\theme}[2]{%
+	\clearpage
+	\phantomsection
+	\addcontentsline{toc}{section}{\textbf{Тема #1. #2}}
+	\setcounter{section}{#1}
+	\setcounter{subsection}{0}
+	\section*{Тема #1. #2}
+}
+
+% ==========================================
+% НАЧАЛО ДОКУМЕНТА
+% ==========================================
+\begin{document}
+	
+	\tableofcontents
+	\newpage
+	
+	\theme{1}{Числовая последовательность (ЧП). Предел ЧП}
+	
+	\begin{definition}
+		Под числовой последовательностью подразумевается функция $f(n)$, где $n \in \N$, которая ставит в соответствие каждому натуральному числу $n$ число $x_n$. Элементы $x_1, x_2, \dots, x_n$ называются членами последовательности.
+	\end{definition}
+	
+	\begin{center}
+		\textbf{Другие записи функции:}
+	\end{center}
+	
+	\noindent $\{x_n\}$ или $x_n$, где $n \in \N$. Таким образом ЧП имеет вид: $x_1, x_2, x_3, \dots, x_n$, где $x_n$ - общий член ЧП.
+	
+	\subsection{Определения монотонных последовательностей:}
+	
+	\begin{definition}
+		ЧП называется \textbf{ограниченной сверху}, если существует M > 0 такое, что для любого $n \in \N$ выполняется $x_n \leq M$. $(\E M > 0: \Y n \in \N \implies x_n \leq M)$.
+	\end{definition}
+	
+	\begin{definition}
+		ЧП называется \textbf{ограниченной снизу}, если существует M > 0 такое, что для любого $n \in \N$ выполняется $x_n \geq M$. $(\E M > 0: \Y n \in \N \implies x_n \geq M)$.
+	\end{definition}
+	
+	\begin{definition}
+		ЧП называется \textbf{ограниченной}, если она ограничена и сверху, и снизу. $(\E M > 0: \Y n \in \N \implies |x_n| \leq M)$. В противном случае ЧП \textbf{неограничена}.
+	\end{definition}
+	
+	\begin{definition}
+		ЧП называется \textbf{убывающей (невозрастающей)}, если $\Y n \in \N \implies x_{n+1} < x_n \cdot (x_{n+1} \leq x_n)$.
+	\end{definition}
+	
+	\begin{definition}
+		ЧП называется \textbf{возрастающей (неубывающей)}, если $\Y n \in \N \implies x_{n+1} > x_n \cdot (x_{n+1} \geq x_n)$.
+	\end{definition}
+	
+	\begin{definition}
+		Если ЧП является \textbf{убывающей}, или \textbf{невозрастающей}, или \textbf{возрастающей}, или \textbf{неубывающей}, то она называется \textbf{монотонной}.
+	\end{definition}
+	
+	\begin{definition}
+		Если все элементы ЧП равны одному и тому же элементу, то её называют \textbf{постоянной}.
+	\end{definition}
+	
+	\subsection{Рекуррентный и Аналитический способ задания ЧП:}
+	
+	\textbf{Аналитический способ:} \(x_n = \frac{n-1}{n}\). \\
+	\textbf{Рекуррентный способ:} задается \(x_1\) и формула \(x_{n+1} = f(x_n)\).
+	
+	\subsection{Предел ЧП}
+	
+	\textbf{Рассмотрим ЧП:}
+	
+	\begin{example}
+		$x_n = \frac{n-1}{n} = 1 - \frac{1}{n}, n \in \N$.
+	\end{example}
+	
+	При n стремящемся к бесконечности ($n \to \infty$) ЧП стремится к единице:
+	\[
+	\lim_{n \to \infty} \left(1 - \frac{1}{n}\right) = 1, n \in \N
+	\]
+	
+	В общем случае: 
+	\[
+	\lim_{n \to \infty} x_n = a
+	\]
+	
+	\begin{definition}
+		Число а называется пределом ЧП, если для любого эпсилон (сколь угодное малое число) больше нуля существует целые $\N$ такое, что для любых n больше $\N$ выполняется: 
+	\end{definition}
+	
+	$|x_n - a| < \E$. (а - предел ЧП, если $\Y E > 0:\F\N \in \Z: \Y n > \N \implies |x_n - a| < \E)$.
+	
+	\newpage
+	\begin{example}
+		Доказать по определению, что:
+	\end{example}
+	
+	\[
+	\lim_{n \to \infty} \frac{n-1}{n} = 1
+	\]
+	
+	\begin{proof}
+		\begin{gather*}
+			|x_n - a| < \E \\
+			\left|\frac{n-1}{n} - 1\right| < \E \\
+			\left|\frac{n-1-n}{n}\right| < \E \\
+			\left|-\frac{1}{n}\right| < \E \\
+			\frac{1}{n} < \varepsilon \\
+			n > \frac{1}{\varepsilon} \implies N(\E) = \frac{1}{\E}
+		\end{gather*}
+	\end{proof}
+	
+	\textbf{Эпсилон $(\E)$} можно назвать с точностью, с которой ищется предел.
+	\vspace*{0.4cm}
+	
+	\textbf{1)} Если $\E = 0,01$, то $\N(\E) = \frac{1}{0,01} = 100$.
+	Для того, чтобы $\lim_{n \to \infty} \frac{n-1}{n} = 1$ с точностью $\E = 0,01$, необходимо взять n > 100.
+	
+	\vspace*{0.4cm}
+	\textbf{2)} Взять $\E = 0, 0001$, то для $\lim_{n \to \infty} \frac{n-1}{n} = 1$ с точностью $\E = 0,0001$, необходимо взять n > 10000.
+	
+	\vspace*{0.4cm}
+	
+	\subsection{Геометрический смысл предела ЧП}
+	
+	Раскроем модуль из определения предела:
+	\begin{gather*}
+		|x_n - a| < \E \\
+		-\E < x_n - a < \E \\
+		-\E + a < x_n < \E + a 
+	\end{gather*}
+	
+	Таким образом, все $x_n$, подходящие под это условие можно назвать лежащими в окрестности эпсилон точки а. \textit{Рис. 1}
+	
+	\begin{figure}[h] 
+		\centering 
+		\begin{tikzpicture}[scale=1.5]
+			\draw[->, thick] (-2.5, 0) -- (2.5, 0) node[right] {\(x_n\)};
+			\fill[pattern=north east lines, pattern color=gray!70] (-1.2, 0) rectangle (1.2, 0.25);
+			\draw (-1.2, 0) -- (-1.2, 0.25) -- (1.2, 0.25) -- (1.2, 0);
+			\filldraw (0, 0) circle (1.5pt) node[below=4pt] {\(a\)};
+			\draw[fill=white] (-1.2, 0) circle (1.5pt) node[below=4pt] {\(a - \eps\)};
+			\draw[fill=white] (1.2, 0) circle (1.5pt) node[below=4pt] {\(a + \eps\)};
+			\draw[dashed] (-1.2, 0) -- (-1.2, 0.25);
+			\draw[dashed] (1.2, 0) -- (1.2, 0.25);
+			\draw[dashed] (0, 0) -- (0, 0.25);
+		\end{tikzpicture}
+		
+		\textit{Рис. 1: Эпсилон-окрестность точки \(a\)}
+		\label{fig:epsilon_env}
+	\end{figure}
+	
+	Вся ЧП находится внутри указаного интервала.
+	\begin{definition}
+		Если $\lim_{n \to \infty} x_n = a = const$, то ЧП называется сходящиейся. Из определения следует, что сходящаяся последовательность ограничена (но обратное следствие неверно)
+	\end{definition}
+	
+	\begin{theorem}
+		Чп не может иметь более одного предела.
+	\end{theorem}
+	
+	\begin{proof}
+		Пусть существует 2 предела A и B, таких, что A < B. Возьмём $\E_0 > 0$ так, чтобы окрестности A и B не имели общих точек. Поскольку A - предел, найдётся номер, начиная с которого все члены ЧП лежат внутри окрестности A, а значит вне неё число членов последовательности становится конечным, что противоречит утверждению о том, что B - предел.
+	\end{proof}
+	
+	\begin{definition}
+		Если $\lim_{n \to \infty} x_n = \infty$, то ЧП называется \textbf{расходящейся}.
+	\end{definition}
+	
+	\textbf{Постоянная ЧП:} $x_n = C, n \in \N$ имеет предел, равный с.
+	
+	\[
+	\lim_{n \to \infty} c = c
+	\]
+	
+	\begin{proof}
+		По определению ЧП $|x_n - a| < \E \implies \Y\E > 0: |c - c| = 0 < \E$.
+	\end{proof}
+	
+	\subsection{Предельный переход в неравенствах}
+	
+	\textbf{Рассмотрим ЧП $\{x_n\}, \{y_n\}$}
+	
+	\begin{theorem}
+		Если $\lim_{n \to \infty} x_n = a; \lim_{n \to \infty} y_n = b$ и, начиная с некоторого номера выполняется неравенство $x_n \leq y_n$, то $a \leq b$
+	\end{theorem}
+	
+	\begin{proof}
+		Пусть \(a > b\). Исходя из того, что \(a = \lim\limits_{n \to \infty} x_n\), а \(b = \lim\limits_{n \to \infty} y_n\), по определению предела:
+		\[
+		\forall \varepsilon > 0 \ \exists N(\varepsilon) \in \mathbb{N}: \ \forall n > N \text{ будут выполняться неравенства:}
+		\]
+		\begin{gather*}
+			|x_n - a| < \varepsilon \\
+			|y_n - b| < \varepsilon \\
+			-\varepsilon + a < x_n < \varepsilon + a \\
+			-\varepsilon + b < y_n < \varepsilon + b
+		\end{gather*}
+		
+		Допустим, \(\varepsilon = \frac{a-b}{2}\), тогда:
+		\[
+		x_n > a - \frac{a - b}{2} = \frac{a + b}{2} \implies x_n > \frac{a + b}{2}.
+		\]
+		
+		Аналогично:
+		\[
+		y_n < b + \frac{a - b}{2} = \frac{a + b}{2} \implies y_n < \frac{a + b}{2}.
+		\]
+		
+		Отсюда следует, что \(y_n < \frac{a + b}{2} < x_n\), то есть \(y_n < x_n\). Это противоречит условию \(x_n \leq y_n\), следовательно, наше предположение \(a > b\) было неверным, и \(a \leq b\).
+	\end{proof}
+	
+	\begin{theorem}
+		если $\lim_{n \to \infty} x_n = a, \lim_{n \to \infty} y_n = b, \lim_{n \to \infty} z_n = c$, и справедливо неравенство $x_n \leq z_n \leq y_n$,начиная с некоторого номера $n \in \N$, то $a \leq c \leq b$.
+	\end{theorem}
+	
+	\begin{theorem}
+		если $\lim_{n \to \infty} x_n = a, \lim_{n \to \infty} y_n = a$, и справедливо неравенство $x_n \leq z_n \leq y_n$, то, начиная с некоторого $n \in \N$: $\lim_{n \to \infty} z_n = a$
+	\end{theorem}
+	
+	\newpage
+	\subsection{Предел монотонной ограниченной ЧП. Число е. Натуральный логарифм}
+	
+	\begin{itemize}
+		\item Не всякая ЧП имеет предел
+	\end{itemize}
+	
+	\begin{center}
+		\textbf{Признак существования ЧП:}
+	\end{center}
+	
+	\begin{theorem}
+		\textbf{Теорема Вейерштрасса} (о переделе монотонной ограниченной ЧП:) всякая монотонная ограниченная ЧП имеет предел.
+	\end{theorem}
+	
+	\begin{itemize}
+		\item Рассмотрим ЧП:
+	\end{itemize}
+	$x_n = \left(1 + \frac{1}{n}\right)^{n}$	
+	
+	\subsubsection{Формулы Биома Ньютона:}
+	$(a + b)^{n} = a^{n} + \frac{n}{1} \cdot a^{n - 1} \cdot b^{1} + \frac{n(n - 1)}{1 \cdot 2} \cdot a^{n - 2} \cdot b^{2} + \frac{n(n - 1)(n - 2)}{1 \cdot 2 \cdot 3} \cdot a^{n - 3} \cdot b^{3} + ... + \frac{n(n - 1)(n - 2) ... (n - (n - 1))}{1 \cdot 2 \cdot 3 ... \cdot n}$
+	\vspace{0.4cm}
+	
+	Полагая: $a = 1, d = \frac{1}{n}$, получаем:
+	\vspace{0.4cm}
+	
+	\begin{align*}
+		\left(1 + \frac{1}{n}\right)^{n} &= 1 + \frac{n}{1} \cdot \frac{1}{n} + \frac{n(n - 1)}{1 \cdot 2} \cdot \frac{1}{n^{2}} + \frac{n(n - 1)(n - 2)}{1 \cdot 2 \cdot 3} \cdot \frac{1}{n^{3}} + ... \\
+		&\quad + \frac{n(n - 1)(n - 2) ... (n - (n - 1))}{1 \cdot 2 \cdot 3 \cdot ... \cdot n} \cdot \frac{1}{n^{?}} \\
+		&= 1 + 1 + \frac{1}{1 \cdot 2} + \frac{n - 1}{n} + \frac{1}{1 \cdot 2 \cdot 3} \cdot \frac{n - 1}{n} \cdot \frac{n - 2}{n} + ... \\
+		&\quad + \frac{1}{1 \cdot 2 \cdot 3 \cdot ... \cdot n} \cdot \frac{n - 1}{n} \cdot \frac{n - 2}{n} \cdot ... \cdot \frac{n - (n - 1)}{n}.
+	\end{align*}
+	
+	\vspace{0.5cm} 
+	\hrule
+	
+	\begin{enumerate}[label=(\arabic*), start = 1]
+		\item $\left(1 + \frac{1}{n}\right)^{n} = 2 + \frac{1}{1 \cdot 2} \left(1 - \frac{1}{n}\right) + \frac{1}{1 \cdot 2 \cdot 3} \cdot \left(1 - \frac{1}{n}\right) \cdot \left(1 - \frac{2}{n}\right) + ... + \frac{1}{1 \cdot 2 \cdot 3 \cdot ... \cdot n} \cdot \left(1 - \frac{1}{n}\right) \cdot \left(1 - \frac{2}{n}\right) \cdot ... \cdot \left(1 - \frac{n - 1}{n}\right)$
+	\end{enumerate}
+	
+	Из равенства (1) $\implies$ что с увелечением n число положительных слогаемых увеличивается. Число $\frac{1}{n}$ убывает $(\to 0)$, поэтому велечины $\left(1 - \frac{1}{n}\right), \left(1 - \frac{2}{n}\right), ... , \left(1 - \frac{n - 1}{n}\right)$ возрастают. Из-за этого ЧП $x_n = \left(1 + \frac{1}{n}\right)^{n}$ являются монотонной и больше 2-х.  
+	
+	\begin{enumerate}[label=(\arabic*), start = 2]
+		\item $\left(1 + \frac{1}{n}\right)^n > 2 \cdot \left(2 < \left(1 + \frac{1}{n}\right)^2\right)$
+	\end{enumerate}
+	
+	В равенстве $(1)$ заменим каждую скобку на 1. Тогда:
+	
+	\begin{enumerate}[label=(\arabic*), start = 3]
+		\item $\left(1 + \frac{1}{n}\right)^n < 2 + \frac{1}{1 \cdot 2} + \frac{1}{1 \cdot 2 \cdot 3} + ... + \frac{1}{1 \cdot 2 \cdot 3}$
+	\end{enumerate}
+	
+	Заметим, каждое число больше 2 на два, тогда:
+	\vspace{0.4cm}
+	
+	$\left(1+ \frac{1}{n}\right)^n < 1 + 1 + \frac{1}{2} + \frac{1}{2^2} + \frac{1}{2^3} + ... + \frac{1}{2^{n-1}}$ - бесконечно убывающая прогрессия 
+	\vspace{0.4cm}
+	
+	$S = \frac{b_1}{1 - q} = \frac{1}{1 - \frac{1}{2}} = 2$
+	\vspace{0.4cm}
+	
+	Тогда:
+	\vspace{0.4cm}
+	
+	$\left(1 + \frac{1}{n}\right) ^ n < 1 + 2 \implies \left(1 + \frac{1}{n}\right)^n < 3$
+	\vspace{0.4cm}
+	
+	Таким образом:
+	\vspace{0.4cm}
+	
+	$2 < \left(1 + \frac{1}{n}\right)^n < 3 \implies$ ЧП ограничена.
+	
+	\begin{tcolorbox}[colframe=red!70!black, colback=white, boxrule=1pt, arc=3pt, width=\textwidth]
+		\centering
+		\large
+		\(\displaystyle \lim_{n \to \infty} \left(1 + \frac{1}{n}\right)^n = e\) 
+		\hspace{1cm} 
+		\normalsize -- \textit{второй замечательный предел}
+	\end{tcolorbox}
+	
+	\newpage
+	
+	\textbf{Второй замечательный предел} применяется при раскрытии неопределённости вида $1^\infty$
+	
+	\begin{example}
+		\begin{align*}
+			\lim_{n \to \infty} \left(\frac{n - 3}{n + 5}\right)^{2n} &= 1^\infty \\
+			&= \lim_{n \to \infty} \left( \frac{(n+5)-8}{n+5} \right)^{2n} \\
+			&= \lim_{n \to \infty} \left( 1 + \frac{-8}{n+5} \right)^{2n} \\
+			&= \lim_{n \to \infty} \left( \left( 1 + \frac{1}{\frac{n+5}{-8}} \right)^{\frac{n+5}{-8}} \right)^{\frac{-8}{n+5} \cdot 2n} \\
+			&= \lim_{n \to \infty} e^{\frac{-16n}{n+5}} \\
+			&= e^{\displaystyle \lim_{n \to \infty} \frac{-16n}{n\left(1+\frac{5}{n}\right)}} \\
+			&= e^{\displaystyle \lim_{n \to \infty} \frac{-16}{1+\frac{5}{n}}} = e^{-16}
+		\end{align*}
+	\end{example}
+	
+	\vspace{0.4cm}
+	
+	\theme{2}{Функции}
+	
+	\subsection{Понятие функции}
+	
+	Пусть равны два множества: 
+	
+	\begin{figure}[h]
+		\centering
+		\begin{tikzpicture}[scale=1.4]
+			\node at (-3, 2.3) {\Large \(X \neq \varnothing\)};
+			\node at (3, 2.3) {\Large \(Y \neq \varnothing\)};
+			
+			\draw[thick] (-3, 0) circle (1.5cm);
+			\draw[thick] (3, 0) circle (1.5cm);
+			
+			\fill (-2.2, 1.0) circle (2pt);   
+			\fill (-2.2, 0.5) circle (2pt);  
+			\fill (-2.2, -0.33) circle (2pt); 
+			\fill (-2.2, -1.0) circle (2pt);  
+			
+			\fill (2.2, 1.0) circle (2pt);    
+			\fill (2.2, 0.5) circle (2pt);    
+			\fill (2.2, -0.2) circle (2pt);   
+			\fill (2.2, -1.0) circle (2pt);   
+			
+			\draw[->, thick] (-2.2, 1.0) -- (2.2, 1.0) node[midway, above] {\(f\)};
+			\draw[->, thick] (-2.2, 0.5) -- (2.2, 0.5) node[midway, above] {\(f\)};
+			\draw[->, thick] (-2.2, -0.33) -- (2.2, -1.0) node[midway, above] {\(f\)};
+			\draw[->, thick] (-2.2, -1.0) -- (2.2, -1.0) node[midway, above] {\(f\)};
+		\end{tikzpicture}
+		\caption{Отображение множества \(X\) во множество \(Y\)}
+	\end{figure}
+	
+	\begin{definition}
+		Соответствие f, которое каждому элементу $x \in X$ ставит в соответствии элемент $y \in Y$, причём один и только один называется функцией. 
+	\end{definition}
+	
+	$y = f(x)$, где $x \in X$ (с точки зрения алгебры).
+	\vspace{0.4cm}
+	
+	$f : x \to y$ (с точки зрения теории множеств).
+	\vspace{0.4cm}
+	
+	$y = f(x) -$ аналитическое обозначение функции, где $x -$ независимая переменная (аргумент), а $y -$ зависимая переменная (результат).
+	
+	\newpage
+	
+	\begin{itemize}
+		\item Если 2-м $y$ соответствует один $x -$ это \textbf{не функция!}
+	\end{itemize}
+	
+	\begin{figure}[h]
+		\centering
+		\begin{tikzpicture}[scale=1.4]
+			\node at (-3, 2.3) {\Large \(X\)};
+			\node at (3, 2.3) {\Large \(Y\)};
+			
+			\draw[thick] (-3, 0) circle (1.5cm);
+			\draw[thick] (3, 0) circle (1.5cm);
+			
+			\fill (-2.2, 1.0) circle (2pt);   
+			\fill (-2.2, 0.5) circle (2pt);  
+			\fill (-2.2, -0.2) circle (2pt); 
+			\fill (-2.2, -1.0) circle (2pt);  
+			
+			\fill (2.2, 1.0) circle (2pt);    
+			\fill (2.2, 0.5) circle (2pt);    
+			\fill (2.2, -0.2) circle (2pt);   
+			\fill (2.2, -1.0) circle (2pt);   
+			
+			\draw[->, thick] (-2.2, 1.0) -- (2.2, 1.0) node[midway, above] {\(f\)};
+			\draw[->, thick] (-2.2, 0.5) -- (2.2, 0.5) node[midway, above] {\(f\)};
+			\draw[->, thick] (-2.2, 0.5) -- (2.2, 1.0) node[midway, above] {\(f\)};
+			\draw[->, thick] (-2.2, -0.2) -- (2.2, -0.2) node[midway, above] {\(f\)};
+			\draw[->, thick] (-2.2, -1.0) -- (2.2, -1.0) node[midway, above] {\(f\)};
+		\end{tikzpicture}
+		\caption{Соответствие, не являющееся функцией}
+	\end{figure}
+	
+	$D(y) - $ множество $x$, область определения функции. 
+	\vspace{0.4cm}
+	
+	$\E(y) - $ множество $y$, область значения функции. 
+	
+	\begin{definition}
+		Если элементами множеств $x$ и $y$ являются действительные числа, т.е $x \subset R$, $y \subset R$, то функцию называют \textbf{числовой функцией}.
+	\end{definition}
+	
+	\subsection{Предел функции в точке}
+	
+	Пусть дана функция $y = f(x)$ с областью определения $D(y)$.
+	\vspace{0.4cm}
+	
+	\noindent Рассмотрим функцию в точке $x_0$ такой, что: $x \in D(y)$ или $x_0 \notin D(y)$.
+	\vspace{0.4cm}
+	
+	\textbf{Обозначение:} \(\lim_{x \to x_0} f(x) = A\)
+	
+	\begin{definition}
+		\textbf{(на языке последовательности или по Гейне):} число $A$ называется пределом функции $y = f(x)$ в точке $x_0$ (при $x \to x_0$), если для любой последовательности допустимых значений аргумента $x_n$, где $n \in N$, $x_n \neq x_0$ сходящейся к $x_0$ (т.е \(\lim_{n \to \infty} x_n = x_0\)), последовательность соответствующих значений функции $f(x_n)$, $n \in N$ сходится к числу $A$(т.е $\lim_{n \to \infty} f(x_n) = A$).
+	\end{definition}
+	
+	$f(x) \to A$, т.е (\(x \to x_0\))
+	
+	\begin{definition}
+		\textbf{(на языке Эпсилон - дельта или по Коши):} число $А$ называется пределом функции $y = f(x)$ в точке $x_0$, если для $\Y\E > 0 \ \F\delta > 0: \Y x \neq x_0$ из неравенства $|x - x_0| < \delta \implies |f(x) - A| < \E$.
+	\end{definition}
+	
+	\textbf{Обозначения:} 
+	
+	\(\Y x \neq x_0 \ \ |x - x_0| < \delta\)
+	\vspace{0.2cm}
+	
+	\(\Y x\): $x \neq x_0$, $|x - x_0| < \delta$ 	
+	\vspace{0.2cm}
+	
+	\(\Y x\): \(0 < |x - x_0| < \delta\)
+	\vspace{0.4cm}
+	
+	Величина $\delta$ зависит от $\E$ и является сколь угодной малой: \(\delta(\E) > 0\).
+	
+	\newpage
+	
+	\begin{center}
+		\textbf{Геометрический смысл}
+	\end{center}
+	
+	\begin{figure}[h]
+		\centering
+		\begin{tikzpicture}[scale=1.5, 
+			axis/.style={->, thick},
+			helper/.style={dashed, thick, gray},
+			eps_line/.style={dashed, thick, black}
+			]
+			
+			\draw[axis] (-0.5, 0) -- (5.5, 0) node[right] {\(x\)};
+			\draw[axis] (0, -0.5) -- (0, 3.8) node[above] {\(f(x)\)};
+			
+			\fill[pattern=north east lines, pattern color=black!70] (1.5, 1) rectangle (3.5, 3);
+			\draw[thick, black, fill=white, fill opacity=0.8] (1.5, 1) rectangle (3.5, 3); 
+			
+			\draw[thick, smooth, domain=0.5:4.8, samples=100] 
+			plot (\x, {2 + 0.4*sin(4*\x r) + 0.15*(\x - 2.5)});
+			
+			\draw[eps_line] (0, 3) node[left] {\(A + \varepsilon\)} -- (4.5, 3);
+			\draw[dashed, thick] (0, 2) node[left] {\(A\)} -- (4.5, 2);
+			\draw[eps_line] (0, 1) node[left] {\(A - \varepsilon\)} -- (4.5, 1);
+			
+			\node[right] at (4.5, 3) {\(y = A + \varepsilon\)};
+			\node[right] at (4.5, 1) {\(y = A - \varepsilon\)};
+			
+			\draw[helper] (1.5, 0) node[below] {\(x_0 - \delta\)} -- (1.5, 3);
+			\draw[helper] (3.5, 0) node[below] {\(x_0 + \delta\)} -- (3.5, 3);
+			
+			\draw[dashed, thick] (2.5, 0) node[below] {\(x_0\)} -- (2.5, 2.2); 
+			\filldraw (2.5, 0) circle (1.5pt); 
+			
+			\filldraw (2.5, 2) circle (1.5pt); 
+			
+			\draw[<->, thick] (3.8, 1) -- (3.8, 3) node[midway, right] {\(2\varepsilon\)};
+			
+		\end{tikzpicture}
+		\caption{Геометрический смысл предела функции в точке}
+		\label{fig:limit_geometry}
+	\end{figure}
+	
+	Геометрический смысл заключается в том, что все значения функции на интервале находятся за шириной $2\E$. 
+	
+	\begin{example}
+		\textbf{1)} Доказать, что $\lim_{x \to 5} (2x - 3) = 7$ по определению:
+		\begin{proof}
+			\begin{align*}
+				\Y x: |x - 5| &< \delta \implies 2x - 3 \implies |(2x - 3) - 7| < \E \\
+				|2x - 10| &< \E \\
+				|2x - 10| &< \E \mid :2 \\
+				|x - 5| &> \frac{\E}{2} \implies \delta(\E) = \frac{\E}{2} \implies |x - 5| < \frac{\E}{2} \\
+				\lim_{x \to 5} (2x - 3) &= 7
+			\end{align*}
+		\end{proof}
+		
+		\noindent \textbf{2)} Доказать, что $\lim_{x \to \infty} c = c$
+		\begin{proof}
+			\begin{align*}
+				\Y\E > 0 \ \F\delta(\E) &> 0: |x - x_0| < \delta \implies |f(x) - c| < \E \\
+				|c - c| &< \E \\
+				0 &< \E \implies \lim_{x \to x_0} c = c
+			\end{align*}
+		\end{proof}
+	\end{example}
+	
+	\newpage
+	
+	\subsection{Односторонние пределы}
+	
+	\begin{figure}[h]
+		\centering
+		\begin{tikzpicture}[scale=1.5]
+			
+			\draw[->, thick] (-0.5, 0) -- (5.5, 0) node[right] {\(x\)};
+			\draw[->, thick] (0, -0.5) -- (0, 3.5) node[above] {\(f(x)\)};
+			
+			\draw[dashed, thick] (2.5, 0) node[below] {\(x_0\)} -- (2.5, 3.2);
+			\filldraw (2.5, 0) circle (1.5pt); 
+			
+			\draw[dashed, thick] (0, 1.5) node[left] {\(A_1\)} -- (4.5, 1.5);
+			\draw[dashed, thick] (0, 2.8) node[left] {\(A_2\)} -- (4.5, 2.8);
+			
+			\draw[thick, smooth, domain=0.5:2.4, samples=50] 
+			plot (\x, {0.5 + 1.0 * (\x/2.5)^2}); 
+			
+			\draw[thick, smooth, domain=2.6:4.5, samples=50] 
+			plot (\x, {2.8 + 0.5 * ((\x-2.5)/2)^1.5}); 
+			
+			\node[above] at (4.2, 3.5) {\(y = f(x)\)}; 
+			
+		\end{tikzpicture}
+		\caption{Разрыв первого рода (односторонние пределы не равны)}
+		\label{fig:discontinuity}
+	\end{figure}
+	
+	\noindent $\lim_{x \to x_0 \to 0} f(x) = A_1$, $\lim_{x \to x_0} - \ \delta$ 
+	
+	\hspace{4.5cm} $\delta \to 0$ 
+	\vspace{0.4cm}
+	
+	\noindent $\lim_{x \to x_0 \to 0} f(x) = A_2$, $\lim_{x \to x_0} + \ \delta$ 
+	
+	\hspace{4.5cm} $\delta \to 0$ 
+	
+	\begin{definition}
+		Число $A_1$ называется \textbf{пределом функции} $y = f(x)$ слева в точке $x_0$, или \textbf{левосторонним пределом} если: \\ $\Y\E > 0 \ \F\delta(\E) > 0: \Y x \ x \in (x_0 - \delta; x_0) \implies |f(x) - A_1| < \E$
+	\end{definition}
+	
+	\begin{definition}
+		Число $A_2$ называется \textbf{пределом функции} $y = f(x)$ справа в точке $x_0$ или \textbf{правосторонним пределом}, если: \\ $\Y\E > 0 \ \F\delta(\E) > 0: \Y x$, $x \in (x_0; x + \delta) \implies |f(x) - A_2| < \E$
+	\end{definition}
+	
+	\begin{definition}
+		Пределом слева и справа называются \textbf{односторонними}. 
+		\begin{itemize}
+			\item Если $\E \lim_{x \to x_0} f(x) = A$, то $\F$ односторониие пределы $\lim_{x \to x_0 - 0} f(x) = A_1$, $\lim_{x \to x_0 + 0} = A_2$, причём $A = A_1 = A_2$.
+			
+			\item Если $A_1 \neq A_2$, то $\lim_{x \to x_0} f(x) \nexists$.
+		\end{itemize}
+	\end{definition}
+	
+	\begin{example}
+		\begin{align*}
+			&\lim_{x \to 2} e^{\frac{1}{x - 2}} \\
+			&x = 2 \notin D(y) \\
+			&\lim_{x \to 2 - 0} e^{\frac{1}{x - 2}} = e^{\frac{1}{2 - 0 - 2}} = e^{\frac{1}{-0}} = e^{-\infty} = \frac{1}{e^\infty} = \frac{1}{\infty} = 0. \\ 
+			&\lim_{x \to 2 + 0} e^\frac{1}{x - 2} = e^{\frac{1}{2 + 0 - 2}} = e^\frac{1}{+0} = e^{+\infty} = \frac{1}{e^{+\infty}} = \frac{1}{+\infty} = 0.
+		\end{align*}
+	\end{example}
+	
+	\newpage
+	
+	\subsection{Предел функции при $x \to \infty$. \\ Бесконечно большая функция (ББФ)}
+	
+	Пусть функция определена на $D(y) = (- \infty; + \infty)$. \(\lim_{x \to \infty} f(x) = A\).
+	
+	\begin{definition}
+		Число $A$ называется пределом функции $y = f(x)$ при $x \to \infty$, если \(\Y\E > 0 \ \F M(\E) > 0: \Y x: |x| > M \implies\) выполняется неравенство $|f(x) - A| < \E$.
+	\end{definition}
+	\vspace{0.4cm}
+	
+	\begin{center}
+		\textbf{Односторонние пределы:}
+	\end{center}
+	\vspace{0.4cm}
+	
+	$\lim_{x \to -\infty} f(x), \quad \lim_{x \to +\infty} f(x)$
+	
+	\begin{figure}[h]
+		\centering
+		\begin{tikzpicture}[scale=1.2, 
+			axis/.style={->, thick},
+			helper/.style={dashed, thick, gray},
+			eps_line/.style={dashed, thick, black}
+			]
+			
+			\draw[axis] (-5.5, 0) -- (5.5, 0) node[right] {\(x\)};
+			\draw[axis] (0, -1.5) -- (0, 3.5) node[above] {\(f(x)\)};
+			
+			\draw[eps_line] (-5.5, 2.5) node[left] {\(A + \varepsilon\)} -- (5.5, 2.5);
+			\draw[dashed, thick] (-5.5, 1) node[left] {\(A\)} -- (5.5, 1);
+			\draw[eps_line] (-5.5, -0.5) node[left] {\(A - \varepsilon\)} -- (5.5, -0.5);
+			
+			\draw[helper] (-3, -1.5) node[below] {\(-M\)} -- (-3, 2.5);
+			\draw[helper] (3, -1.5) node[below] {\(M\)} -- (3, 2.5);
+			
+			\fill[pattern=north east lines, pattern color=black!70] (-5.5, -0.5) rectangle (-3, 2.5);
+			\draw[thick, black, fill=white, fill opacity=0.8] (-5.5, -0.5) rectangle (-3, 2.5); 
+			
+			\fill[pattern=north east lines, pattern color=black!70] (3, -0.5) rectangle (5.5, 2.5);
+			\draw[thick, black, fill=white, fill opacity=0.8] (3, -0.5) rectangle (5.5, 2.5); 
+			
+			\draw[thick, smooth, domain=-5.2:5.2, samples=150] 
+			plot (\x, {1 + 1.5 * sin(3*\x r) * exp(-abs(\x)/2.5)});
+			
+			\node[below] at (-4, -0.8) {\(x \in (-\infty; -M)\)};
+			\node[below] at (4, -0.8) {\(x \in (M; +\infty)\)};
+			
+		\end{tikzpicture}
+		\caption{Геометрический смысл предела функции на бесконечности}
+		\label{fig:limit_infinity}
+	\end{figure}
+	
+	\begin{center}
+		\textbf{Бесконечно Большая функция (ББФ)}
+	\end{center}
+	
+	\begin{definition}
+		Функция $y = f(x)$, заданная на всей числовой прямой называется ББФ при $x \to \infty$, если: \\
+		$\Y M > 0 \ \F N \in \N > 0$: \\
+		$\Y x: |x| > N \implies |f(x)| > M$ 
+		\vspace{0.4cm}
+		
+		\noindent\textbf{Обозначения:} $\lim_{x \to \infty} f(x) = \infty$
+	\end{definition}
+	
+	\begin{example}
+		Рассмотрим предел:
+		\[
+		\lim_{x \to \infty} 3^x = \lim_{x \to \pm\infty} 3^x = 
+		\left\{
+		\begin{array}{l}
+			\displaystyle \lim_{x \to +\infty} 3^x = 3^{+\infty} = +\infty \\
+			\\
+			\displaystyle \lim_{x \to -\infty} 3^x = 3^{-\infty} = 0
+		\end{array}
+		\right.
+		\]
+		
+		\hspace{4.5cm}Функция $y = 3^x -$ ББФ при $x \to \infty$.
+	\end{example}
+	
+	\newpage
+	
+	\begin{statement}
+		Всякая ББФ в окрестности точки $x_0 -$ является неограниченной в этой окрестности. Если $y = f(x)$ ограничена в окрестности точки $x_0$, то $\lim_{x \to x_0} f(x) = A = const$. 
+	\end{statement}
+	
+	\begin{proof}
+		Из определения предела: \\
+		\begin{align*}
+			\Y\E > 0 \ \F \delta &> 0: \Y x: 0 < |x - x_0| < \delta \implies |f(x) - A| < \E \\
+			-\E < f(x) - A &< \E \\
+			-\E + A < f(x) &< \E + A \implies y = f(x) \text{ ограничена.}
+		\end{align*}
+	\end{proof}
+	
+	\theme{3}{Бесконечно малая функция (БМФ)}
+	
+	\subsection{Основные понятия}
+	
+	\begin{definition}
+		Функция $y = f(x)$ называется БМФ: \\ при $x \to x_0$, если \(\lim_{x \to x_0} f(x) = 0\). 
+	\end{definition}
+	
+	\noindent С точки зрения определения предела функция: $y = f(x) -$ БМФ, если: \\ $\Y\E > 0 \ \F\delta > 0: \Y x: 0 < |x - x_0| < \delta \implies |f(x)| < \E$.
+	\\
+	
+	\noindent Функция $y = f(X)$ может быть БМФ при $x \to x_0 - 0$, $x \to x_0 + 0$, $x \to \pm\infty$
+	\\ 
+	
+	\noindent Обозначения: Если $f(x) = \beta(x)$, $f(x) = \alpha(x)$ и.т.д.
+	
+	\begin{example}
+		\begin{align*}
+			&\text{1) } \lim_{x \to \pi k, k \in z} \sin x = 0 \\
+			&\text{2) } \lim_{x \to 2} (x - 2)^2 \\
+			&\text{3) } x_n = \frac{1}{n}, n \in \N
+		\end{align*}
+	\end{example}
+	
+	\begin{theorem}
+		(Алгебраическая сумма БМФ): алгебраическая сумма конечного числа БМФ есть также БМФ.	
+	\end{theorem}
+	
+	\begin{proof}
+		пусть $\alpha(x)$ и $\beta(x) -$ БМФ при $x \to x_0$. Это означает, что: 
+		\\
+		
+		\(\lim_{x \to x_0} \alpha(x) = 0\), т.е \(\Y\E > 0\), а значит $x \to x_0$ и для:
+		
+		\begin{enumerate}[label=(\arabic*), start = 1]
+			\item $\Y\frac{\E}{2} > 0 \F\delta_1 > 0: \Y x: 0 < |x - x_0| < \delta_1 \implies |\alpha(x)| < \frac{\E}{2}$;
+		\end{enumerate}
+		
+		\(\lim_{x \to x_0} \beta(x) = 0\), т.е $\Y\frac{\E}{2} > 0 \ \F\delta_2 > 0$:
+		
+		\begin{enumerate}[label=(\arabic*), start = 2]
+			\item \(\Y x: 0 < |x - x_0| < \delta_2 \implies |\beta(x)| < \frac{\E}{2}\)
+		\end{enumerate}
+		
+		Пусть \(\delta = \min\{\delta_1, \delta_2\}\). Тогда для $\Y x: 0 < |x - x_0| < \delta$ выполняются неравенства (1) и (2). Следовательно: \(|\alpha(x) + \beta(x)| \leq |\alpha(x)| + |\beta(x)| < \frac{\E}{2} + \frac{\E}{2} = \E\)
+		\\
+		
+		Таким образом, для $\Y\E > 0 \ \F\delta > 0:$ для $\Y x: 0 < |x - x_0| < \delta \implies |\alpha(x) + \beta(x)| < \E$.
+		\\
+		
+		Это значит по определению БМФ, что \(\lim_{x \to x_0} (\alpha(x) + \beta(x)) = 0\). Следовательно, $\alpha(x) + \beta(x) -$ БМФ.
+	\end{proof}
+	
+	\begin{theorem}
+		(О произведении БМФ на ограниченную функцию): произведение БМФ на ограниченную функцию есть БМФ.
+	\end{theorem}
+	
+	\begin{proof}
+		пусть функция $y = f(x)$ ограниченна при $x \to x_0$. Тогда по определению ограниченной фунции:
+		
+		\begin{enumerate}[label=(\arabic*), start = 3]
+			\item $\F M > 0$, что $|f(x)| \leq M$
+		\end{enumerate}
+		
+		\noindent Неравенство (3) выполняется для $\Y x$ из $\delta_1 -$ окрестности, т.е. \(0 < |x - x_0| < \delta_1\).
+		\\
+		
+		\noindent Пусть $\alpha(x) -$ БМФ. Тогда: \\ $\Y\E > 0$, а значит, $\Y\frac{\E}{M} > 0 \ \F\delta_2 > 0:$ для $\Y x: 0 < |x - x_0| < \delta_2 \implies |\alpha(x)| < \frac{\E}{M}$.
+		\\
+		
+		\noindent Пусть \(\delta = \min\{\delta_1, \delta_2\}\). Тогда для $\Y x: 0 < |x - x_0| < \delta$ выполняются неравенства (3) и (4). Следовательно: $|f(x) \cdot \alpha(x)| = |f(x)| \cdot |\alpha(x)| < M \cdot \frac{\E}{M} = \E$. Значит $f(x) \cdot \alpha(x) -$ БМФ.
+	\end{proof}
+	
+	\newpage
+	
+	\begin{corollary}
+		Так как, всякая БМФ ограничена, то из \textbf{теоремы 2} $\implies$, что произведение двух БМФ есть БМФ.
+	\end{corollary}
+	
+	\begin{corollary}
+		Произведение БМФ на число есть БМФ.
+	\end{corollary}
+	
+	\begin{theorem}
+		(О частном БМФ и отличной от нуля функции): частное от деления БМФ на функцию, имеющую отличный от нуля предел, есть БМФ.
+	\end{theorem}
+	
+	\begin{proof}
+		Пусть \(\lim_{x \to x_0} \alpha(x) = 0\), \\
+		
+		\(\lim_{x \to x_0} f(x) = A \neq 0\) \\
+		
+		Представим \(\frac{\alpha(x)}{f(x)} = \frac{1}{f(x)} \cdot \alpha(x)\). Из \textbf{теоремы 2} $\implies$, что $\frac{\alpha(x)}{f(x)} = \frac{1}{f(x)} \cdot \alpha(x) -$ БМФ, если $\frac{1}{f(x)} -$ ограниченная функция. \\
+		
+		Докажем, что $\frac{1}{f(x)} -$ ограниченная функция. \\
+		
+		Возьмем $\E < |A|$. Тогда на основании определения предела: \\
+		
+		$\F\delta > 0: \Y x: 0 < |x - x_0| < \delta \implies |f(x) - A| < \E$. \\
+		
+		$\E > |f(x) - A| = |A - f(x)| \geq |A| - |f(x)|$ \\
+		
+		Тогда: $|A| - |f(x)| < \E$, т.е $|f(x)| > |A| - \E > 0$. Следовательно: \(\frac{1}{f(x)} = \frac{1}{|f(x)|} < \frac{|A|}{\E} = M (const) \implies \frac{1}{f(x)} -\) ограниченная функция.
+	\end{proof}
+	
+	\begin{theorem}
+		(о связи м/у БМФ и ББФ): если функция $\alpha(x) -$ БМФ, то функция $\frac{1}{f(x)} -$ ББФ и наоборот, если $f(x) -$ ББФ, то $\frac{1}{f(x)} -$ БМФ. 
+	\end{theorem}
+	
+	\begin{tcolorbox}[colframe=red!70!black, colback=white, boxrule=1pt, arc=3pt, width=\textwidth]
+		\centering
+		\large
+		\[
+		\frac{1}{0} = \infty \hspace{1cm} \frac{1}{\infty} = 0
+		\]
+		\normalsize \textit{по Теореме 4}
+	\end{tcolorbox}
+	
+	\begin{proof}
+		Пусть $\alpha(x) -$ БМФ при $x \to x_0$, т.е \(\lim_{x \to x_0} \alpha(x) = 0\). Тогда: \\
+		
+		$\Y\E > 0 \ \F\delta > 0: \Y x: 0 < |x - x_0| < \delta \implies |\alpha(x)| < \E$, т.е. $|\frac{1}{\alpha(x)}| > \frac{1}{\E}$. \\
+		
+		Т.е. $|\frac{1}{\alpha(x)}| > M$, $M = \frac{1}{\E}$, $\implies \frac{1}{\alpha(x)} -$ ББФ.
+		\\
+		
+		Докажем обратное утверждение: пусть $f(x) -$ ББФ при $x \to x_0$, т.е. \(\lim_{x \to x_0} f(x) = \infty\). Тогда: \\
+		
+		$\Y M > 0 \ \F\delta > 0: \Y x: 0 < |x - x_0| < \delta \implies |f(x)| > M$.
+		\\
+		
+		$|\frac{1}{f(x)}| < \frac{1}{M}$, т.е $|\frac{1}{f(x)}| < \E$, где $\E = \frac{1}{M} \implies \frac{1}{f(x)} -$ БМФ.
+	\end{proof}
+	
+	\begin{remark}
+		Доказательство всех теорем 1, 2, 3, 4 также справедливы и для $x \to \infty$
+	\end{remark}
+	
+	\newpage
+	
+	\begin{example}
+		\begin{align*}
+			&f(x) = (x - 1)^2 \cdot \sin^3 \frac{1}{x - 1} - \text{БМФ при } x \to 1 \\
+			&\lim_{x \to 1} (x - 1)^2 \cdot \sin^3 \frac{1}{x - 1} = \text{БМФ.} \\
+			&\lim_{x \to 1} (x - 1)^2 = 0 - \text{БМФ} \\
+			&\lim_{x \to 1} \sin^3 \frac{1}{x - 1} \ \nexists
+		\end{align*}
+	\end{example}
+	
+	\subsection{Свзяь между функцией, её пределом и БМФ}
+	
+	\begin{theorem}
+		(о функции, её пределе и БМФ): если функция $f(x)$ имеет предел равный $A$, то её можно представить как сумму числа $A$ и БМФ, т.е., если: \\
+		
+		\(\lim_{x \to x_0} f(x) = A\), то \\
+		
+		\(f(x) = A + \alpha(x)\)
+	\end{theorem}
+	
+	\begin{proof}
+		Пусть \(\lim_{x \to x_0} f(x) = A\). \\
+		
+		\begin{align*}
+			\Y\E > 0 \ \F\delta &> 0: \Y x: 0 < |x - x_0| < \delta \implies |f(x) - A| < \E \\
+			|(f(x) - A) - 0| &< \E
+		\end{align*}
+		
+		Это означает, что \(\lim_{x \to x_0} (f(x) - A) = 0\), т.е. $f(x) = A -$ БМФ $\implies f(x) - A = \alpha(x) \implies f(x) = A + \alpha(x)$
+	\end{proof}
+	
+	\begin{theorem}
+		(Обратная к прошлой): если функцию можно представить в виде суммы числа $A$ и БМФ, то число $A$ является пределом функции $f(x)$, т.е., если: \\
+		
+		\(f(x) = A + \alpha(x)\), то: \\
+		
+		\(\lim_{x \to x_0} f(x) = A\) 
+	\end{theorem}
+	
+	\begin{proof}
+		Пусть \(f(x) = A + \alpha(x)\), где $\alpha(x) -$ БМФ, т.е: \\
+		
+		\(\lim_{x \to x_0} \alpha(x) = 0\), тогда: \\
+		
+		\begin{align*}
+			\Y\E > 0 \ \F\delta &> 0: \Y x: 0 < |x - x_0| < \delta \implies |\alpha(x)| < \E \\
+			&|f(x) - A| < \E \quad (\text{т.к. } \alpha(x) = f(x) - A)
+		\end{align*}
+		
+		На основании определения предела функции: \\
+		
+		$\Y\E > 0 \ \F\delta > 0: \Y x: 0 < |x - x_0| < \delta \implies |f(x) - A| < \E \Longleftrightarrow \lim_{x \to x_0} f(x) = A$
+	\end{proof}
+	
+	\newpage
+	
+	\subsection{Основные теоремы о пределах}
+	
+	Пусть $\F \ \lim_{x \to x_0} f(x) = A$, \(\lim_{x \to x_0} g(x) = B\)  
+	
+	\begin{theorem}
+		(о пределе суммы/разности функции): Предел суммы/разности 2-х функции равен сумме/разности пределов эти функции: \\
+		
+		$\lim_{x \to x_0} (f(x) \pm g(x)) = \lim_{x \to x_0} f(x) \pm \lim_{x \to x_0} g(x)$
+	\end{theorem}
+	
+	\begin{proof}
+		пусть \(\lim_{x \to x_0} f(x) = A, \lim_{x \to x_0} g(x) = B\), тогда на основании теоремы о функции, её пределе и БМФ: \\
+		
+		\begin{align*}
+			f(x) &= A + \alpha(x) \\
+			g(x) &= B + \beta(x) \quad (\text{где } \alpha(x), \beta(x) \text{ - БМФ}) \\
+			f(x) + g(x) &= A + \alpha(x) + B + \beta(x) = A + B + (\alpha(x) + \beta(x))
+		\end{align*}
+		
+		По теореме о сумме/разности... : \\
+		
+		$\lim_{x \to x_0} (f(x) + g(x)) = A + B = \lim_{x \to x_0} f(x) + \lim_{x \to x_0} g(x)$
+	\end{proof}
+	
+	Теорема справедлива для $\Y$ количества функциий. 
+	
+	\begin{corollary}
+		Функция можеть иметь только один предел при \(x \to x_0\).
+	\end{corollary}
+	
+	\begin{proof}
+		Пусть \(\lim_{x \to x_0} f(x) = A\) и \(\lim_{x \to x_0} f(x) = B\), тогда по теореме сумме/разности: \\
+		
+		\begin{align*}
+			\lim_{x \to x_0} (f(x) - g(x)) &= \lim_{x \to x_0} f(x) - \lim_{x \to x_0} g(x) = A - B \\
+			\text{С другой стороны:} \\
+			\lim_{x \to x_0} (f(x) - g(x)) &= 0 \implies A - B = 0
+		\end{align*}
+		
+		Откуда следует, что $A = B$.
+	\end{proof}
+	
+	\begin{theorem}
+		о пределе произведений 2-х функции: \\
+		
+		$\lim_{x \to x_0} (f(x) \cdot g(x)) = \lim_{x \to x_0} f(x) \cdot \lim_{x \to x_0} g(x)$
+	\end{theorem}
+	
+	\begin{proof}
+		Пусть \(\lim_{x \to x_0} g(x) = B\) \\
+		
+		По теореме о пределе суммы/разности: \\
+		
+		\begin{align*}
+			f(x) &= A + \alpha(x) \\
+			g(x) &= B + \beta(x) \quad (\text{где } \alpha(x), \beta(x) \text{ - БМФ}) \\
+			f(x) \cdot g(x) &= (A + \alpha(x)) \cdot(B + \beta(x)) = AB + A \cdot \beta(x) + \alpha(x) \cdot B + \alpha(x) \cdot \beta(x)
+		\end{align*}
+		
+		Тогда на основании теоремы о обратной сумме/разности: \\
+		
+		$\lim_{x \to x_0}(f(x) \cdot g(x)) = A \cdot B = \lim_{x \to x_0} f(x) \cdot \lim_{x \to x_0} g(x)$ \\
+		
+		Теорема справедлива для любого количества функции.
+	\end{proof}
+	
+	\newpage
+	
+	\begin{corollary}
+		Постоянный множитель выносится за знак предела: \\
+		
+		$\lim_{x \to x_0} (C \cdot f(x)) = C \cdot \lim_{x \to x_0} f(x)$
+	\end{corollary}
+	
+	\begin{proof}
+		$\lim_{x \to x_0} (C \cdot f(x)) = \lim_{x \to x_0} C \cdot \lim_{x \to x_0} f(x) = C \cdot \lim_{x \to x_0} f(x)$.
+	\end{proof}
+	
+	\begin{corollary}
+		Предел степени с натуральным показателем: \\
+		
+		$\lim_{x \to x_0} (f(x))^n = (\lim_{x \to x_0} f(x))^n $
+	\end{corollary}
+	
+	\begin{proof}
+		\begin{align*}
+			\lim_{x \to x_0} (f(x))^n &= \lim_{x \to x_0} (f(x) \cdot f(x) \cdot f(x) ...) \\
+			&= \lim_{x \to x_0} f(x) \cdot \lim_{x \to x_0} f(x) \cdot ... \cdot \lim_{x \to x_0} f(x) = (\lim_{x \to x_0} f(x))^n
+		\end{align*}
+	\end{proof}
+	
+	\begin{theorem}
+		о пределе частном 2-х функции: \\
+		
+		$\lim_{x \to x_0} \frac{f(x)}{g(x)} = \frac{\lim_{x \to x_0} f(x)}{\lim_{x \to x_0} g(x)}$, при $\lim_{x \to x_0} g(x) \neq 0$.
+	\end{theorem}
+	
+	\begin{proof}
+		Пусть $\lim_{x \to x_0} f(x) = A$, $\lim_{x \to x_0} g(x) = B$ \\
+		
+		На основании теоремы о обратной сумме/разности: \\
+		
+		$f(x) = A + \alpha(x), g(x) = B + \beta(x)$, где $\alpha(x)$, $\beta(x) -$ БМФ. \\
+		
+		\begin{align*}
+			\frac{f(x)}{g(x)} &= \frac{A + \alpha(x)}{B + \beta(x)} = \frac{A}{B} + \frac{A + \alpha(x)}{B + \beta(x)} - \frac{A}{B} \\
+			&= \frac{A}{B} + \frac{AB + B \cdot \alpha(x) - AB - A \cdot \beta(x)}{B(B + \beta(x))} \\
+			&= \frac{A}{B} + \frac{B \cdot \alpha(x) - A \cdot \beta(x)}{B^2 + B \cdot \beta(x)}, \quad B \neq 0
+		\end{align*}
+		
+		т.к. $\lim_{x \to x_0} g(x) \neq 0$. \\
+		
+		По теореме о обратной сумме/разности: \\
+		
+		$\lim_{x \to x_0} \frac{f(x)}{g(x)} = \frac{A}{B} = \frac{\lim_{x \to x_0} f(x)}{\lim_{x \to x_0} g(x)}$. 
+	\end{proof}
+	
+	\subsection{Признаки существования предела}
+	
+	\begin{example}
+		\begin{align*}
+			&\lim_{x \to \infty} \sin x \text{ и } \lim_{x \to \infty} \cos x \ \nexists \\
+			&\lim_{x \to \infty} \sin x \in [-1; 1]
+		\end{align*}
+	\end{example}
+	
+	\begin{theorem}
+		"о милиционерах": если функция $f(x)$ заключена между двумя функциями $\varphi(x)$ и $g(x)$, стремящимимся к одному и тому же пределу, т.е., если $\lim_{x \to x_0} \varphi(x) \leq f(x) \leq g(x)$, то $\lim_{x \to x_0} f(x) = A$.
+	\end{theorem}
+	
+	\begin{proof}
+		пусть $\lim_{x \to x_0} \varphi(x) = A$, тогда по определению предела: \\
+		
+		$\Y\E > 0 \ \F\delta_1 > 0: \Y x: 0 < |x - x_0| < \delta_0 \implies |f(x) - A| < \E$ \\
+		
+		Аналогично, $\lim_{x \to x_0} g(x) = A$, тогда \\
+		
+		$\Y\E > 0 \F\delta_2 > 0: \Y x: 0 < |x - x_0| < \delta \implies |g(x) - A| < \E$ \\
+		
+		$-\E < g(x) - A < \E$ \\
+		
+		$-\E < g(x) - A < \E$ (*) \\
+		
+		По условию: $\varphi(x) \leq f(x) \leq g(x)$ \\
+		
+		$\varphi(x) - A \leq f(x) - A \leq g(x) - A$ \\ 
+		
+		С учетом (*): $-\E < f(x) - A < \E \implies |f(x) - A| < \E$ \\
+		
+		Таким образом: \\
+		
+		$\Y\E > 0 \ \F \delta > 0: \Y x: 0 < |x - x_0| < \delta \implies |f(x) - A| < \E$ \\
+		
+		Значит: $\lim_{x \to x_0} f(x) = A$.
+	\end{proof}
+	
+	\begin{theorem}
+		(о пределе монотонности последовательности): если функция $f(x)$ монотонна и ограничена и при $x < x_0$, и при $x > x_0$, то $\F$ её левосторонний предел: \\
+		
+		$\lim_{x \to x_0 - 0} f(x) = f(x_0 - 0)$ \\
+		
+		и правосторонний предел: \\
+		
+		$\lim_{x \to x_0 + 0} f(x) = f(x_0 + 0)$
+	\end{theorem}
+	
+	\begin{corollary}
+		ограниченная монотонная последовательность имеет предел.
+	\end{corollary}
+	
+	\subsection{Первый замечательный предел}
+	
+	$\lim_{x \to 0} \frac{\sin x}{x} = 1$
+	
+	\begin{figure}[h]
+		\centering
+		\begin{tikzpicture}[scale=3, thick]
+			
+			% 1. Оси координат
+			\draw[->] (-1.3, 0) -- (1.4, 0) node[right] {\(x\)};
+			\draw[->] (0, -1.2) -- (0, 1.4) node[above] {\(y\)};
+			\node[below left] at (0,0) {\(O\)};
+			
+			% 2. Единичная окружность
+			\draw (0,0) circle (1);
+			
+			% 3. Угол x (дуга и подпись)
+			\draw (0.25,0) arc (0:40:0.25);
+			\node at (0.35, 0.15) {\(x\)};
+			
+			% 4. Точка M на окружности (угол 40 градусов, cos40 ~ 0.766, sin40 ~ 0.642)
+			\coordinate (M) at (40:1);
+			\fill (M) circle (0.5pt) node[above right] {\(M\)};
+			
+			% 5. Радиус OM
+			\draw (0,0) -- (M);
+			% Продолжение радиуса до точки C (касательная)
+			\coordinate (C) at (40:1.25);
+			\draw (M) -- (C) node[above right] {\(C\)};
+			
+			% 6. Опускаем перпендикуляр из M на ось Ox
+			\coordinate (A) at (0.766, 0);
+			\draw[dashed] (M) -- (A) node[below] {\(A\)};
+			
+			% 7. Отмечаем точку G (пересечение касательной x=1 с прямой OC)
+			\coordinate (G) at (1, 0);
+			\fill (G) circle (0.5pt) node[below right] {\(G\)};
+			\draw[dashed] (C) -- (G);
+			
+			% 8. Прямой угол (отмечаем квадратиком в точке A)
+			\draw (0.766, 0.05) -- (0.716, 0.05) -- (0.716, 0);
+			
+			% 9. Добавим точку 1 на оси Ox (для красоты)
+			\node[below] at (1,0) {\(1\)};
+			
+		\end{tikzpicture}
+		\caption{Геометрическая интерпретация первого замечательного предела}
+	\end{figure}
+	
+	$\angle MOG = x, 0 < x < \frac{\pi}{2},$ отрезок - $AM = \sin \ x,$ отрезок $GC = \tg \ x$
+	
+	\newpage
+	
+	Рассмотрим $\triangle MOG$, сектор $MOG$ и $ \triangle COG$:
+	
+	\begin{proof}
+		\begin{align*}
+			&S_{\triangle MOG} < S_{\text{сектор } MOG} < S_{\triangle COG} \\
+			&\frac{1}{2} \cdot \sin x \cdot 1 \cdot 1 < \frac{\pi \R^2}{2\pi} \cdot x < \frac{1}{2} \cdot 1 \cdot \tg x \cdot 1 \\
+			&\frac{\sin x}{2} < \frac{x}{2} < \frac{\tg x}{2} \quad \mid : \frac{\sin x}{2} \\
+			&1 < \frac{x}{\sin x} < \frac{1}{\cos x} \\
+			&\frac{1}{1} > \frac{\sin x}{x} > \frac{\cos x}{1} \\
+			&\cos x < \frac{\sin x}{x} < 1 \\
+			&\lim_{x \to 0} \cos x = 1; \quad \lim_{x \to 0} 1 = 1
+		\end{align*}
+		
+		По признаку существования пределов (теорема о "милиционерах") получаем: \\
+		
+		$\lim_{x \to 0} \frac{\sin x}{x} = 1$ при $x > 0$ \\
+		
+		При $x < 0$: \(\frac{\sin x}{x} = \frac{\sin (-x)}{-x}\) \\
+		
+		$\lim_{x \to 0} \frac{\sin(-x)}{-x} = \lim_{x \to 0} \frac{-\sin x}{-x} = \lim_{x \to 0} \frac{\sin x}{x} = 1$
+	\end{proof}
+	
+	\begin{example}
+		
+		\textbf{1)} 
+		\begin{align*}
+			\lim_{x \to 0} \frac{\sin 3x}{5x} &= \left( \frac{0}{0} \right) = \left[ \lim_{x \to 0} \frac{\sin x}{x} = 1 \right] \\
+			&= \lim_{x \to 0} \frac{\sin 3x}{3x \cdot \frac{5}{3}} = \frac{3}{5}.
+		\end{align*}
+		
+		
+		\noindent \textbf{2)} 
+		\begin{align*}
+			\lim_{x \to 0} \frac{\tg x}{x} &= \left( \frac{0}{0} \right) = \lim_{x \to 0} \frac{\frac{\sin x}{\cos x}}{x} \\
+			&= \lim_{x \to 0} \frac{\sin x}{x} \cdot \frac{1}{\cos x} = 1 \cdot 1 = 1.
+		\end{align*}
+	\end{example}
+	
+	\subsection{Второй замечательный предел}
+	
+	\begin{tcolorbox}[colframe=red!70!black, colback=white, boxrule=1pt, arc=3pt, width=\textwidth]
+		\centering
+		\large
+		\[
+		\lim_{n \to \infty} \left(1 + \frac{1}{n}\right)^n = e
+		\]
+		\normalsize \textit{--- I вариант второго з.п.}
+	\end{tcolorbox}
+	
+	\begin{tcolorbox}[colframe=red!70!black, colback=white, boxrule=1pt, arc=3pt, width=\textwidth]
+		\centering
+		\large
+		\[
+		\lim_{x \to \infty} \left(1 + \frac{1}{x}\right)^x = e
+		\]
+		\normalsize \textit{--- II замечательный предел}
+	\end{tcolorbox}
+	
+	\begin{proof}
+		Пусть \(x \to +\infty\). 
+		
+		Для любого \(x \in \R\) найдется натуральное число \(n \in \Z^+\), такое что:
+		\[
+		n \leq x < n + 1
+		\]
+		
+		Тогда для обратных величин выполняется двойное неравенство:
+		\[
+		\frac{1}{n+1} < \frac{1}{x} \leq \frac{1}{n}
+		\]
+		
+		Прибавим к каждой части по 1:
+		\[
+		\frac{1}{n+1} + 1 < \frac{1}{x} + 1 \leq \frac{1}{n} + 1
+		\]
+		
+		Т.к. \(n \leq x < n + 1\), то, возводя в степень, получаем:
+		\[
+		\left(\frac{1}{n+1} + 1\right)^{n} < \left(1 + \frac{1}{x}\right)^x \leq \left(1 + \frac{1}{n}\right)^{n+1}
+		\]
+		
+		Если \(x \to +\infty\), то и \(n \to +\infty\). 
+		
+		Рассмотрим пределы крайних частей:
+		\begin{align*}
+			\lim_{n \to \infty} \left(1 + \frac{1}{n+1}\right)^n &= \left[ 1^\infty \right] = \lim_{n \to \infty} \left( \left(1 + \frac{1}{n+1}\right)^{n+1} \right)^{\frac{n}{n+1}} \\
+			&= \lim_{n \to \infty} e^{\frac{n}{n+1}} = e^{\displaystyle \lim_{n \to \infty} \frac{n}{n+1}} = e^1 = e
+		\end{align*}
+		
+		Аналогично, предел правой части:
+		\[
+		\lim_{n \to \infty} \left(1 + \frac{1}{n}\right)^{n+1} = \lim_{n \to \infty} \left(1 + \frac{1}{n}\right)^n \cdot \left(1 + \frac{1}{n}\right) = e \cdot 1 = e
+		\]
+		
+		По теореме о "двух милиционерах" (о зажатой функции), так как пределы левой и правой частей равны \(e\), то и предел функции, стоящей в середине, равен \(e\):
+		\[
+		\lim_{x \to \infty} \left(1 + \frac{1}{x}\right)^x = e
+		\]
+		
+		Предел правой части:
+		\begin{align*}
+			\lim_{n \to \infty} \left(1 + \frac{1}{n}\right)^{n+1} &= \left[ 1^\infty \right] = \lim_{n \to \infty} \left( \left(1 + \frac{1}{n}\right)^n \right)^{\frac{n+1}{n}} \\
+			&= \lim_{n \to \infty} e^{\frac{n+1}{n}} = e^{\displaystyle \lim_{n \to \infty} \frac{n+1}{n}} = e^1 = e
+		\end{align*}
+		
+		По теореме "о милиционерах": \(\lim_{x \to \infty} \left(1 + \frac{1}{x}\right)^x = e\).
+		
+	\end{proof}
+	\begin{proof}
+		Пусть \(x \to -\infty\), тогда:
+		\[
+		\lim_{x \to -\infty} \left(1 + \frac{1}{x}\right)^x = \left[ 1^{-\infty} = \frac{1}{1^\infty} \right] = 
+		\]
+		\[
+		= \left[ \text{замена: } t = -x, \ x = -t, \ t \to +\infty \right] = 
+		\]
+		\[
+		= \lim_{t \to +\infty} \left(1 - \frac{1}{t}\right)^{-t} = e
+		\]
+		
+	\end{proof}
+	
+	На основании теоремы о связи м/у функцией и её пределом получаем II вариант:
+	
+	\begin{tcolorbox}[colframe=red!70!black, colback=white, boxrule=1pt, arc=3pt, width=\textwidth]
+		\centering
+		\large
+		\[
+		\lim_{x \to 0} (1 + x)^{\frac{1}{x}} = e
+		\]
+		\normalsize \textit{--- II вариант второго з.п.}
+	\end{tcolorbox}
+	
+	\theme{4}{Эквивалентная БМФ.}
+	
+	\subsection{Сравнение БМФ}
+	
+	Пусть $\alpha(x)$ и $\beta(x) - $ БМФ, т.е $\lim_{x \to x_0} \alpha(x) = 0$ и $\lim_{x \to 0} \beta(x) = 0$. Тогда: \\
+	
+	\textbf{1)} Если $\lim_{x \to 0} \frac{\alpha(x)}{\beta(x)} = A, A \neq 0, A \neq 1, A = const, A \in \R$, то $\alpha$ и $\beta$ называются \textbf{БМФ одного порядка}. \\ 
+	
+	\textbf{2) Если \(\lim_{x \to 0} \frac{\alpha(x)}{\beta(x)} = 0\), то \(\boldsymbol{\alpha}\) --- БМФ более высокого порядка, чем \(\boldsymbol{\beta}\).} \\
+	
+	\textbf{3) Если \(\boldsymbol{\lim_{x \to 0} \frac{\alpha(x)}{\beta(x)} = \infty}\), то \(\boldsymbol{\alpha}\) --- БМФ более низкого порядка, чем \(\boldsymbol{\beta}\).} \\
+	
+	\textbf{4) Если \(\lim_{x \to 0} \frac{\alpha(x)}{\beta(x)} = \nexists\), то \(\boldsymbol{\alpha}\) и \(\boldsymbol{\beta}\) --- несравнимые БМФ.} 
+	
+	\begin{example}
+		
+		\textbf{1)} 
+		\(\alpha = 15x^3\) и \(\beta = 4x^3\).
+		\[
+		\lim_{x \to 0} \frac{15x^3}{4x^3} = \frac{15}{4} \neq 0 \ (\text{const}) \implies \text{функции } \alpha \text{ и } \beta \text{ --- БМФ одного порядка.}
+		\]
+		
+		\noindent \textbf{2)} 
+		\(\alpha = 3x^7\), \(\beta = 8x^2\).
+		\[
+		\lim_{x \to 0} \frac{3x^7}{8x^2} = \frac{3x^5}{8} = 0 \ (\text{const}) \implies \alpha \text{ --- БМФ более высокого порядка, чем} \ \beta
+		\]
+		
+		\noindent \textbf{3)} 
+		\(\alpha = tg x\), \(\beta = 3x^2\).
+		\[
+		\lim_{x \to 0} \frac{tg x}{3x^2} = \lim_{x \to 0}\frac{tg x}{3x \cdot x} = \lim_{x \to 0} \frac{1}{3x} = \infty \implies \alpha \text{ --- БМФ более низкого порядка, чем} \ \beta
+		\]
+		
+		\noindent \textbf{4)} 
+		\(\alpha = x \cdot sin \frac{1}{x}\), \(\beta = x\).
+		\[
+		\lim_{x \to 0} \frac{x \cdot sin \frac{1}{x}}{x} = \lim_{x \to 0}sin\frac{1}{x} = \lim_{x \to 0}sin \infty \ \nexists \implies \alpha \ \text{и} \ \beta \text{ --- несравнимые БМФ.}
+		\]
+	\end{example}
+	
+	\subsection{Эквивалентные БМФ.}
+	
+	Пусть $\alpha(x)$ и $\beta(x) -$ БМФ.
+	
+	\begin{definition}
+		если $\lim_{x \to 0} \frac{\alpha(x)}{\beta(x)} = 1$, то $\alpha(x)$ и $\beta(x) -$ эквивалентные БМФ.
+	\end{definition} 
+	
+	Обозначения: $\alpha \sim \beta$ \\
+	
+	\begin{example}
+		\textbf{1)} Так как, $\lim_{x \to 0} \frac{sin x}{x} = 1$, то $sin x \sim_{x \to 0} x$ \\
+		
+		Аналогично: \\
+		
+		\textbf{2)}$\lim_{x \to 0} \frac{tg x}{x} = 1 \implies tg x \sim_{x \to 0} x$ \\
+	\end{example}
+	
+	\newpage
+	
+	С геометрической точки зрения:
+	
+	\begin{figure}[h]
+		\centering
+		\begin{tikzpicture}[scale=1.5, thick]
+			
+			% Оси координат
+			\draw[->] (-2.5, 0) -- (2.5, 0) node[right] {\(x\)};
+			\draw[->] (0, -2.5) -- (0, 2.5) node[above] {\(y\)};
+			
+			% График y = x (касательная)
+			\draw[red, domain=-1.5:1.5] plot (\x, \x) node[above right] {\(y = x\)};
+			
+			% График y = sin x
+			% Используем синус, но масштабируем, чтобы графики сильно не расходились
+			\draw[blue, domain=-2:2, samples=100] plot (\x, {sin(\x r)}) node[right] {\(y = \sin x\)};
+			
+			% Выделяем область около нуля (пунктирный кружок)
+			\draw[dashed, black!60] (0,0) circle (0.4);
+			
+			% Стрелочка и подпись
+			\draw[->, black!80, thick] (0.7, -0.7) -- (0.2, -0.1);
+			\node[right, align=left] at (0.7, -0.7) {почти\\равны};
+			
+			% Точка в начале координат
+			\fill (0,0) circle (1.5pt) node[below left] {\(0\)};
+			
+		\end{tikzpicture}
+		\caption{Эквивалентность \(\sin x \sim x\) при \(x \to 0\)}
+	\end{figure}
+	
+	\begin{theorem}
+		(Предел отношения 2-х БМФ): предел отнощения 2-х БМФ не изменится, если каждую из них заменить на эквивалентную БМФ.
+	\end{theorem}
+	
+	\begin{proof}
+		Сам рисунок 7.
+	\end{proof}
+	
+	\begin{theorem}
+		(Разность 2-х экваивалентных БМФ): разность 2-х эквивалентных БМФ есть БМФ более высокого порядка, чем каждая из них.
+	\end{theorem}
+	
+	\begin{proof}
+		Сам рисунок 7.
+	\end{proof}
+	
+	\begin{theorem}
+		(О сумме конечного числа БМФ): сумма конечного числа БМФ разного порядка эквивалентна слагаемому более низкого порядка.
+	\end{theorem}
+	
+	\begin{proof}
+		Сам рисунок 7.
+	\end{proof}
+	
+	\begin{definition}
+		слагаемое, эквивалентно сумме БМФ, называется главной частью этой суммы.
+	\end{definition} 
+	
+	\begin{definition}
+		замена суммы БМФ её главной частью называется отбрасыванием БМФ высшего порядка.
+	\end{definition}
+	
+	\newpage
+	
+	\subsection{Применение эквивалентных БМФ.}
+	
+	На основании \textbf{первого замечательного предела} и \textbf{понятия эквивалентных БМФ}: \\
+	
+	Условие для следствий: $x \to 0$ \\
+	
+	$sin x \sim x$ \\
+	
+	$tg x \sim x$ \\
+	
+	$arcsin x \sim x$ \\
+	
+	$arctg x \sim x$ \\
+	
+	$1 - cos x \sim \frac{x^2}{2}$ \\
+	
+	$ln (1 + x) \sim x$ \\
+	
+	$log_a (1 + x) \sim \frac{x}{ln a}$ \\
+	
+	$e^x - 1 \sim x$ \\
+	
+	$a^x - 1 \sim ln a \cdot x$ \\
+	
+	$(1 + a)^n - 1 \sim mx$, m - любой \\
+	
+	$\sqrt{1 + x} - 1 \sim ln a \cdot \frac{1}{2} x$ \\
+	
+	\begin{example}
+	\textbf{1)}
+		\[
+		\lim_{x \to 0} \frac{\arcsin x}{x} = 
+		\left[ \substack{t = \arcsin x \\ x = \sin t} \right] 
+		= \lim_{t \to 0} \frac{t}{\sin t} = (\lim_{t \to 0} \frac{sin t}{t}) = 1^{-1} = 1
+		\]
+	\textbf{2)}
+		$ln(1,0092) = ln(1 + 0,0092) \approx 0,0092$ \\
+		
+		$ln(1,0092) \approx 0,0091573$
+	\end{example}
+	
+	\theme{5}{Непрерывность функции.}
+	
+	\subsection{Непрерывная функция.}
+	
+	$y = f(x)$, $x = x_0$ \\
+	
+	\begin{definition}
+		функция $y = f(x)$ называется непрерывной в точке $x_0$, если функция определена в этой точке и предел функции при $x \to x_0$ будет равен самому значению функции в этой точке. \\
+		
+		$\lim_{x \to x_0} f(x) = f(x_0)$
+	\end{definition}
+	
+	\begin{definition}
+		функция называется непрерывной на интервале $(a, b)$ (отрезке $[a; b]$), если она непрерывна в каждой точке интервала $(a, b)$ (отрезка $[a; b]$).
+	\end{definition}
+	
+	\begin{center}
+		\textbf{Точки разрыва функции:}
+	\end{center}
+	
+	\begin{definition}
+		точка $x_0$ называется \textbf{точкой разрыва функции}, если функция в этой точке определена, но не является непрерывной или функция в этой точке неопределена.
+	\end{definition}
+	
+	\begin{center}
+		\textbf{Классификация точек разрыва:}
+	\end{center}
+	
+	\textbf{I} \ Точки разрыва I рода: \\
+	
+	\textbf{1)} $x_0 \notin D(y), \lim_{x \to x_0 - 0} f(x) = A - const$ \\
+	
+	\hspace{2.6 cm}$\lim_{x \to x_0 + 0} f(x) = A - const$ \\
+	
+	Тогда $x_0 -$ точка устранимого разрыва функции. \\
+	
+	\textbf{2)} $x_0 \in D(y)$ или $x_0 \notin D(y)$, $\lim_{x \to x_0 - 0} f(x) = A - const$ \\
+	
+	\hspace{5.4 cm}$\lim_{x \to x_0 + 0} f(x) = B - const: A \neq B$ \\
+	
+	Тогда $x_0 -$ точка неустранимого разрыва (точка разрыва типа "скачок") \\
+	
+	$n = |A - B| -$ скачок \\
+	
+	\textbf{II} \ Точки разрыва II рода: (точка бесконечного разрыва) \\
+	
+	$x \notin D(y)$ \\
+	
+	\begin{center}
+		% Верхний левый блок (разрыв второго рода / уход в бесконечность слева)
+		$
+		\begin{cases}
+			\lim\limits_{x \to x_0-0} f(x) = \infty \\[10pt]
+			\lim\limits_{x \to x_0+0} f(x) = \text{const}
+		\end{cases}
+		$
+		\hspace{2cm} % отступ между системами
+		% Верхний правый блок
+		$
+		\begin{cases}
+			\lim\limits_{x \to x_0-0} f(x) = \text{const} \\[10pt]
+			\lim\limits_{x \to x_0+0} f(x) = \infty
+		\end{cases}
+		$
+	\end{center}
+	
+	\vspace{0.5cm}
+	
+	% Нижний блок
+	\[
+	\begin{cases}
+		\lim\limits_{x \to x_0-0} f(x) = \infty \\[10pt]
+		\lim\limits_{x \to x_0+0} f(x) = \infty
+	\end{cases}
+	\]
+	
+	\newpage
+	
+	\begin{example}
+		$y = \frac{x^3 - 8}{-x + 2}$ \\
+		
+		$-x + 2 \neq 0 \implies x \neq 2$ \\
+		
+		$D(y): (-\infty; 2) \cup (2; +\infty)$ \\
+		
+		$y = \frac{x^3 - 8}{-(x - 2)} = -\frac{x^3 - 2^3}{x - 2} = -\frac{(x - 2)(x^2 + 2x + 4)}{x - 2} = -(x^2 + 2x + 4)$ \\
+		
+		Найдём односторонний предел в окружности z: \\
+		
+		$\lim_{x \to 2 - 0} \frac{x^3 - 8}{-x + 2} = \lim_{x \to 2 - 0} (-x^2 - 2x - 4) = -4 - 4 - 4 = -12$ \\
+		
+		$\lim_{x \to 2 + 0} \frac{x^3 - 8}{-x + 2} = \lim_{x \to 2 + 0} (-x^2 - 2x - 4) = -4 - 4 - 4 = -12$ \\
+		
+		Так как, $x_0 = z \notin D(y)$ \\
+		
+		$\lim_{x \to 2 - 0} f(x) = \lim_{x \to 2 + 0} f(x) -12 = const$, то в точке $x_0 = 2$ функция терпит устранимый разрыв I рода.\\
+	\end{example}
+	
+	\newpage
+	
+	\noindent \textbf{Задание 1:} Построить график функции \(y = -x^2 - 2x - 4\).
+	
+	\vspace{0.3cm}
+	\noindent \textbf{Решение:} Выделим полный квадрат.
+	\begin{align*}
+		y &= -x^2 - 2x - 4 \\
+		&= -(x^2 + 2x + 4) \\
+		&= -(x^2 + 2x + 1 + 3) \\
+		&= -(x+1)^2 - 3
+	\end{align*}
+	Отсюда получаем каноническое уравнение параболы:
+	\[
+	y + 3 = -(x+1)^2
+	\]
+	Вершина параболы находится в точке \((-1; -3)\). Ветви направлены вниз, так как коэффициент перед \(x^2\) отрицательный (\(a = -1\)).
+	
+	\vspace{0.3cm}
+	\begin{center}
+		\begin{tikzpicture}[scale=1.2, >=stealth, thick]
+			
+			% Оси координат
+			\draw[->] (-3.5, 0) -- (2.5, 0) node[right] {\(x\)};
+			\draw[->] (0, -4.5) -- (0, 2.0) node[above] {\(y\)};
+			
+			% Отрисовка параболы y = -(x+1)^2 - 3
+			% Область domain задает ширину параболы (от -3.2 до 1.2)
+			\draw[blue!80!black, ultra thick, domain=-3.2:1.2, samples=100] 
+			plot (\x, {-(\x+1)^2 - 3});
+			
+			% Выноски (пунктирные линии) от вершины к осям
+			\draw[dashed, gray] (-1, 0) -- (-1, -3) -- (0, -3);
+			
+			% Отмечаем точку вершины
+			\fill (-1, -3) circle (2pt) node[below right] {\((-1; -3)\)};
+			
+			% Подписи на осях
+			\draw (-1, 0) node[above left] {\(-1\)};
+			\draw (0, -3) node[left] {\(-3\)};
+			
+		\end{tikzpicture}
+	\end{center}
+	
+	\noindent \textbf{Задание 2:} $y = 2^{\frac{1}{x - 1}}$. Проверить функцию на непрерывность в точка $x = 0, x = 1$
+	
+	\vspace{0.3cm}
+	\noindent Так как, $x - 1 \neq 0, x \neq 1$ \\
+	
+	\noindent $D(y) = \R \ \{1\}$ \\
+	
+	\textbf{a)} $x = 0 \in D(y)$ \\
+	
+	$\lim_{x \to 0} (2^{\frac{1}{x - 1}}) = 2^{-1} = \frac{1}{2}$ \ \ $f(0) = 2^{\frac{1}{0-1}} = \frac{1}{2}$
+	
+	\newpage
+	
+	\textbf{б)} $x = 1, x \in D(y)$ \\
+	
+	\textbf{1)} $\lim_{x \to 1 - 0} (2^{\frac{1}{x - 1}}) = 2^{1 - 0 -1} = 2^{-\infty} = \frac{1}{\infty}$  \\
+	
+	\textbf{2)} $\lim_{x \to 1 + 0} (2^{\frac{1}{x - 1}}) = 2^{1 + 0 -1} = 2^{\frac{1}{+0}} = 2^{+\infty} = +\infty$ \\
+	
+	Так как, $x = 1 \nexists D(y)$ и $\lim_{x \to x + 0} f(x) = \infty$, то $x = 1 -$ \textbf{по теореме разрыва II рода.} \\
+	
+	\noindent \textbf{3)} Функция задана кусочно:
+	\[
+	f(x) = 
+	\begin{cases}
+		-x + 2, & x \leq 0 \\
+		\sqrt{x}, & 0 < x < 4 \\
+		1, & x \geq 4
+	\end{cases}
+	\]
+	
+	\vspace{1cm}
+	
+	\begin{center}
+		\begin{tikzpicture}[scale=1.2, >=stealth, thick]
+			
+			% Оси координат
+			\draw[->] (-4.5, 0) -- (6.5, 0) node[right] {\(x\)};
+			\draw[->] (0, -1.5) -- (0, 5.5) node[above] {\(y\)};
+			
+			% 1. График y = -x + 2 (для x <= 0)
+			% Проходит через (0,2) и (-1,3)
+			\draw[blue, ultra thick, domain=-2.5:0, samples=50] 
+			plot (\x, {-\x + 2});
+			% Закрашенная точка в (0,2), так как x <= 0
+			\fill (0,2) circle (2pt);
+			
+			% 2. График y = sqrt(x) (для 0 < x < 4)
+			% Начинается с выколотой точки (0,0)
+			\draw[red, ultra thick, domain=0:4, samples=50] 
+			plot (\x, {sqrt(\x)});
+			\draw[fill=white] (0,0) circle (2pt); % Выколотая в нуле
+			\draw[fill=white] (4,2) circle (2pt); % Выколотая в конце корня (x=4, y=2)
+			
+			% 3. График y = 1 (для x >= 4)
+			% Начинается с выколотой точки в x=4 (так как строгое неравенство)
+			\draw[green!60!black, ultra thick, domain=4:6, samples=50] 
+			plot (\x, {1});
+			\draw[fill=white] (4,1) circle (2pt); % Выколотая в (4,1)
+			
+			% Пунктирные линии, как на вашем чертеже
+			\draw[dashed, gray] (0, 1) node[left] {\(1\)} -- (6, 1);
+			\draw[dashed, gray] (0, 2) node[left] {\(2\)} -- (-2.5, 2);
+			\draw[dashed, gray] (2, 0) node[below] {\(2\)} -- (2, 1.414);
+			\draw[dashed, gray] (4, 0) node[below] {\(4\)} -- (4, 2);
+			
+			% Подписи осей
+			\draw (0, 0) node[below left] {\(0\)};
+			
+		\end{tikzpicture}
+	\end{center}
+	
+	$D(y) = (-\infty; 0] \cup (0; 4) \cup (4; +\infty) = (-\infty; +\infty)$ \\
+	
+	\textbf{a)} $x = 0$ \\
+	
+	$\lim_{x \to - 0} (-2x) = 0$ \\
+	
+	$\lim_{x \to +0} \sqrt{x} = 0 - const$. Так как, $x = 0 \in D(y), \lim_{x \to -0} f(x) = \lim_{x \to +0} f(x) = 0 = const$, то в точке $x = 0$ функция непрерывна. \\
+	
+	\textbf{б)} 4 \\
+	
+	$\lim_{x \to 4 - 0} f(x) = \lim_{x \to 4 - 0} \sqrt{x} = \sqrt{4 - 0} = \sqrt{4} = 2 - const$ \\
+	
+	$\lim_{x \to 4 + 0} f(x) = \lim_{x \to 4 + 0} 1 = 1 - const$ \\
+	
+	Так как, $x = 4 \in D(y), \lim_{x \to 4 - 0} f(x) \neq \lim_{x \to 4 + 0} f(x), (2 \neq 1)$, то $x = 4 -$ \textbf{точка неустранимого разрыва I рода} $h = |2 - 1| = 1$ 
+	
+	\begin{definition}
+		\textbf{(1)} $x_0 \in D(y) \hspace{1cm} \lim_{x \to x_0} f(x) = f(x_0)$
+	\end{definition}
+	
+	\begin{center}
+		\begin{tikzpicture}[scale=2.2, >=stealth, thick]
+			
+			% Оси координат
+			\draw[->] (-1, 0) -- (6.5, 0) node[right] {\(x\)};
+			\draw[->] (0, -0.5) -- (0, 4) node[above] {\(y\)};
+			
+			% График функции (Повторяем форму с фото: подъем, спуск, ямка, резкий подъем)
+			\draw[blue, ultra thick] 
+			(0.2, 1.0) 
+			.. controls (0.8, 2.5) and (1.5, 2.5) .. (2.0, 1.8) % Горб
+			.. controls (2.5, 1.3) and (2.8, 1.3) .. (3.2, 2.0) % Ямка
+			.. controls (3.8, 3.2) and (4.5, 3.5) .. (5.0, 3.6); % Взлет
+			
+			\node[blue] at (4.5, 3.0) {\(y = f(x)\)};
+			
+			% Координаты точек для пунктиров (x0, dx, x)
+			\def\Xa{1.8} % Точка x0
+			\def\Ya{1.8} % Значение f(x0)
+			
+			\def\Xb{3.2} % Точка x
+			\def\Yb{2.0} % Значение f(x)
+			
+			\def\Xc{4.5} % Точка b (для галочки на оси)
+			
+			% 1. Линии от точек к оси X
+			\draw[dashed, gray] (\Xa, 0) node[below] {\(x_0\)} -- (\Xa, \Ya);
+			\draw[dashed, gray] (\Xb, 0) node[below] {\(x\)} -- (\Xb, \Yb);
+			\draw[dashed, gray] (\Xc, 0) node[below] {\(b\)} -- (\Xc, 3.6);
+			
+			% 2. Линии от точек к оси Y
+			\draw[dashed, gray] (0, \Ya) node[left] {\(f(x_0)\)} -- (\Xa, \Ya);
+			\draw[dashed, gray] (0, \Yb) node[left] {\(f(x)\)} -- (\Xb, \Yb);
+			
+			% 3. Подпись \Delta x на оси X
+			\draw[<->, red, thick] (\Xa, -0.3) -- (\Xb, -0.3) node[midway, below] {\(\Delta x\)};
+			
+			% 4. Подпись \Delta y на оси Y (как на фото - фигурная скобка)
+			\draw[decorate, decoration={brace, amplitude=5pt, raise=2pt}, thick] 
+			(\Xb + 0.8, \Ya) -- (\Xb + 0.8, \Yb) node[midway, right=8pt] {\(\Delta y\)};
+			
+			% Пунктирные линии для \Delta y (идут от графика вправо)
+			\draw[dashed, gray] (\Xa, \Ya) -- (\Xb + 0.8, \Ya);
+			\draw[dashed, gray] (\Xb, \Yb) -- (\Xb + 0.8, \Yb);
+			
+			% 5. Дополнительные штрихи и текст (как на фото)
+			\node[left] at (0, 2.5) {\(f(x)\)}; % Просто f(x) на оси
+			
+			% Точки на графике
+			\fill (\Xa, \Ya) circle (1.5pt);
+			\fill (\Xb, \Yb) circle (1.5pt);
+			
+		\end{tikzpicture}
+	\end{center}	
+	
+	\begin{definition}
+		\textbf{(2)} Функция $y = f(x)$ называется непрерывной в точке $x_0$, если $\lim_{\Delta x \to 0} \Delta y = 0$
+	\end{definition}
+	
+	\subsection{Основные теоремы о непрерывных функциях.}
+	
+	\begin{theorem}
+		(о сумме произведений и частном) Сумма произведения и частное 2-х непрерывных функции есть непрерывная функция (за исключением функции, стоящей в знаменателе у частного в случае равенства нулю)
+	\end{theorem}
+	
+	\begin{proof}
+		Пусть $f(x)$ и $\psi(x) -$ непрерывная функция на некотором множестве X. $x_0 \in X$, докажем непрерывность функции: \\
+		
+		$F(x) = f(x) + \psi(x)$ \\
+		
+		$\lim_{x \to x_0} F(x) = \lim_{x \to x_0}(f(x) \cdot \psi(x)) = \lim_{x \to x_0} f(x) \cdot \lim_{x \to x_0} \psi(x)$. \\
+		
+		По определению непрерывность функции (1): \\
+		
+		$\lim_{x \to x_0} f(x) \cdot \lim_{x \to x_0} \psi(x) = f(x_0) \cdot \psi(x_0) = F(x_0) \implies F(x) -$ непрерывная функция.
+	\end{proof}
+	
+	\begin{theorem}
+		(о непрерывности сложении функции): \\
+		
+		Пусть функция $u = \psi(x)$ непрерывна в точке $x_0$, а функция $y = f(u)$ непрерывна в точке $u_0$. Тогда функция $f(\psi(x)) -$ непрерывна в точке $x_0$. 
+	\end{theorem}
+	
+	\newpage
+	
+	\begin{proof}
+		Так как $u = \psi(x)$ непрерывна в точке $x_0$, то в точке $u_0 = \psi(x_0)$ \\
+		
+		$\lim_{x \to x_0} f(\psi(x)) = f(\psi(x_0)) = f(x_0)$ \\
+		
+		Так как, $y = f(u)$ непрерывна в точке $x_0$, то $\lim_{u \to u_0} f(u)$. Следственно, функция $f(\psi(x))$ является непрерывной в точке $x_0$.
+	\end{proof}
+	
+	\begin{theorem}
+		(о непрерывности обратной функции) Если функция непрерывна и строго монотонна на [a; b] по оси $O_x$, то обратная ей функция $x = \psi(y)$ так как непрерывна и монотонна на соответствии орезка [c; d] по оси $O_y$.
+	\end{theorem}
+	
+	\begin{theorem}
+		(теорема Вейерштрасса о непрерывности функции): \\
+		
+		Если функция непрерывна на отрезке, то она достигает своего наибольшего и наименьшего значения.
+	\end{theorem}
+	
+	\begin{center}
+		\begin{tikzpicture}[scale=1.6, >=stealth, thick]
+			
+			% --- ТЕКСТ СЛЕВА (как на фото) ---
+			\node[align=left, anchor=north east] at (-0.5, 4.5) {
+				\(M = f(x_2)\) \\
+				\(\forall x \in [a; b]\) \\
+				\(f(x_2) = M\) \\
+				\(f(x_1) = m\) \\
+				\(m = f(x_1)\)
+			};
+			
+			% --- ОСИ КООРДИНАТ ---
+			\draw[->] (-0.5, 0) -- (7, 0) node[right] {\(x\)};
+			\draw[->] (0, -0.5) -- (0, 4.5) node[above] {\(y\)};
+			
+			% --- ГРАФИК ФУНКЦИИ ---
+			% Воспроизводим форму: спад, ямка, крутой подъем, спуск в плато
+			\draw[blue, ultra thick] 
+			(1.0, 2.5) % Начало (x = a)
+			.. controls (1.5, 1.5) and (2.0, 1.2) .. (2.5, 1.2) % Ямка (минимум)
+			.. controls (3.0, 1.2) and (3.2, 3.5) .. (3.8, 3.5) % Резкий подъем
+			.. controls (4.1, 3.5) and (4.3, 2.0) .. (4.8, 2.0) % Спуск
+			-- (6.0, 2.0); % Плато до (x = b)
+			
+			\node[blue] at (5.2, 3.0) {\(y = f(x)\)};
+			
+			% --- ОТМЕТКИ НА ОСИ X ---
+			\draw[dashed, gray] (1.0, 0) node[below] {\(a\)} -- (1.0, 2.5);
+			\draw[dashed, gray] (6.0, 0) node[below] {\(b\)} -- (6.0, 2.0);
+			
+			% --- ТОЧКА МИНИМУМА (x1, m) ---
+			\def\Xone{2.5}
+			\def\Yone{1.2}
+			\draw[dashed, gray] (\Xone, 0) node[below] {\(x_1\)} -- (\Xone, \Yone);
+			\draw[dashed, gray] (0, \Yone) node[left] {\(m\)} -- (\Xone, \Yone);
+			\fill (\Xone, \Yone) circle (1.5pt);
+			
+			% --- ТОЧКА МАКСИМУМА (x2, M) ---
+			\def\Xtwo{3.8}
+			\def\Ytwo{3.5}
+			\draw[dashed, gray] (\Xtwo, 0) node[below] {\(x_2\)} -- (\Xtwo, \Ytwo);
+			\draw[dashed, gray] (0, \Ytwo) node[left] {\(M\)} -- (\Xtwo, \Ytwo);
+			\fill (\Xtwo, \Ytwo) circle (1.5pt);
+			
+			% --- ЛИНИИ УРОВНЯ ---
+			\draw[dashed, gray!50] (0, \Ytwo) -- (6.5, \Ytwo);
+			\draw[dashed, gray!50] (0, \Yone) -- (6.5, \Yone);
+			
+			% --- ДОПОЛНИТЕЛЬНЫЙ ТЕКСТ ВНИЗУ СЛЕВА ---
+			\node[align=left, anchor=north west] at (-0.5, -0.5) {
+				\(m = f(x) \le M\) \\
+				\(m \le f(x) \le M\)
+			};
+			
+		\end{tikzpicture}
+	\end{center}
+	
+	\begin{corollary}
+		Если функция непрерывна на отрезке, то она ограничена на этом отрезке.
+	\end{corollary}
+	
+	\begin{theorem}
+		(Бальзано-Коши): \\
+		
+		Если функция $y = f(x)$ непрерывна на [a; b] и функция непрерывна и монотоннa, и принимает на его концах разные значения: $f(a) = A, f(b) = B$: $A \neq B$, то на [a; b] она принимает все промежуточные значения м/у A и B.
+	\end{theorem}
+	
+	\newpage
+	
+	\noindent \textbf{Проиллюстрируем:} (Теорема о промежуточном значении)
+	
+	\vspace{0.3cm}
+	
+	\begin{center}
+		\begin{tikzpicture}[scale=1.5, >=stealth, thick]
+			
+			% --- ВЕРХНИЙ ГРАФИК (оставлен без изменений) ---
+			\begin{scope}[shift={(0,0)}]
+				% Оси
+				\draw[->] (-0.5, 0) -- (6.5, 0) node[right] {\(x\)};
+				\draw[->] (0, -0.5) -- (0, 5) node[above] {\(y\)};
+				\node[below left] at (0,0) {\(0\)};
+				
+				\coordinate (A_pt) at (1.5, 2.0);
+				\coordinate (C_pt) at (3.5, 3.0);
+				\coordinate (B_pt) at (5.0, 4.0);
+				
+				\draw[blue, ultra thick] 
+				(0.2, 1.0) .. controls (0.8, 2.0) and (1.2, 2.0) .. (A_pt) 
+				.. controls (2.2, 2.0) and (3.0, 3.5) .. (C_pt) 
+				.. controls (4.5, 2.5) and (5.0, 3.5) .. (B_pt) 
+				.. controls (6.0, 4.2) and (6.5, 4.5) .. (7.0, 4.8);
+				
+				\node[blue, align=left, anchor=west] at (7.5, 4.0) {
+					\(y = f(x)\), если \\ \(C \in [a; b]\), \\ \(c \in [A; B]\)
+				};
+				
+				\draw[dashed, thick] (0, 4.0) node[left] {\(B\)} -- (7.0, 4.0);
+				\draw[dashed, thick] (0, 3.0) node[left] {\(c\)} -- (7.0, 3.0);
+				\draw[dashed, thick] (0, 2.0) node[left] {\(A\)} -- (7.0, 2.0);
+				
+				\draw[dashed] (1.5, 2.0) -- (1.5, 0) node[below] {\(a\)};
+				\draw[dashed] (3.5, 3.0) -- (3.5, 0) node[below] {\(C\)};
+				\draw[dashed] (5.0, 4.0) -- (5.0, 0) node[below] {\(b\)};
+				
+				\fill (1.5, 2.0) circle (1.5pt);
+				\fill (3.5, 3.0) circle (1.5pt);
+				\fill (5.0, 4.0) circle (1.5pt);
+				\node[above left] at (3.5, 3.0) {\(y = c\)};
+			\end{scope}
+			
+			% --- НИЖНИЙ ГРАФИК (ИСПРАВЛЕН) ---
+			\begin{scope}[shift={(0, -6)}]
+				% Оси
+				\draw[->] (-0.5, 0) -- (6, 0) node[right] {\(x\)};
+				\draw[->] (0, -0.5) -- (0, 3.5) node[above] {\(y\)};
+				
+				% Рисуем график с двумя четкими "ямками" (зубцами)
+				% Используем плавную кривую, проходящую через точки минимумов
+				\draw[red, ultra thick] 
+				(0.5, 1.8) 
+				.. controls (0.8, 3.0) and (1.1, 2.0) .. (1.5, 1.2) % Первый горб
+				.. controls (1.8, 0.8) and (2.0, 1.5) .. (2.3, 2.2) % Спуск в 1-ю яму
+				.. controls (2.6, 3.0) and (2.8, 2.0) .. (3.2, 1.2) % Второй горб
+				.. controls (3.5, 0.8) and (3.8, 1.5) .. (4.2, 2.5) % Спуск во 2-ю яму
+				.. controls (4.5, 3.5) and (4.8, 4.0) .. (5.2, 4.5); % Резкий взлет вправо
+				
+				% Линия уровня, пересекающая график
+				\draw[dashed, thick] (-0.5, 1.8) -- (5.5, 1.8);
+				
+				% Отметки a и b на оси X (в точках минимумов)
+				\draw[dashed] (1.5, 0) node[below] {\(a\)} -- (1.5, 1.2);
+				\draw[dashed] (3.2, 0) node[below] {\(b\)} -- (3.2, 1.2);
+				
+				% Точки минимумов (как на фото)
+				\fill (1.5, 1.2) circle (1.5pt);
+				\fill (3.2, 1.2) circle (1.5pt);
+			\end{scope}
+			
+		\end{tikzpicture}
+	\end{center}
+	
+	\begin{corollary}
+		Если функция принимает на концах отрезка значения разных знаков, то графики функции пересечёт ось $O_x$ хотя бы в одной точке.
+	\end{corollary}
+	
+	\theme{6}{Производная функции.}
+	
+	\subsection{Производная, сложение производной. Приложения производной.}
+	
+	Пусть функция $y = f(x)$ непрерывна на интервале (a, b). \\
+	
+	\textbf{1)} $\Delta x: x + \Delta x \in (a; b)$ \\
+	
+	\textbf{2)} $f(x + \Delta x), \Delta y = f(x + \Delta x) - f(x)$ \\
+	
+	\textbf{3)} $\frac{\Delta y}{\Delta x}$ \\
+	
+	\textbf{4)} $\lim_{\Delta x \to 0}\frac{\Delta y}{\Delta x}$ \\
+	
+	Если $\lim_{\Delta x \to 0}\frac{\Delta y}{\Delta x} \hspace{0,2cm}\F$, то этот предел называется производной. 
+	
+	\begin{definition}
+		производной функции $y = f(x)$ в точке $x_0$ называется $\lim_{\Delta x \to 0} \frac{\Delta y}{\Delta x} = \lim_{\Delta x \to 0} \frac{f(x + \Delta x) - f(x)}{\Delta x} = \lim_{\Delta x \to 0} \frac{f(x) - f(x_0)}{x - x_0}$
+	\end{definition}
+	
+	$y' = f'_x = \frac{dy}{dx} = y'_x$ \\
+	
+	\begin{definition}
+		функция имеющая производную в каждой точке интервала $(a; b)$ называется дифференцируемой на этом интревале.
+	\end{definition}
+	
+	\begin{definition}
+		операция нахождения производной называется дифференцированием.
+	\end{definition}
+	
+	\begin{example}
+		$y = c, c = const$ \\
+		
+		$y' = c'= 0$ \\
+		
+		$\square: y' = \lim_{x \to 0} \frac{f(x + \Delta x) - f(x)}{\Delta x} = \lim_{\Delta x \to 0} \frac{c - c}{\Delta x} = \lim_{\Delta x \to 0} \frac{0}{\Delta x} = 0$ \\
+	\end{example}
+	
+	\begin{example}
+		$y = x, f(x) = x$ \\
+		
+		$x' = 1$ \\
+		
+		$\square: \lim_{\Delta x \to 0} \frac{f(x + \Delta x) - f(x)}{\Delta x} = \lim_{\Delta x \to 0} \frac{x  + \Delta x - x}{\Delta x} = \lim_{\Delta x \to 0} \frac{\Delta x}{\Delta x} = \lim_{\Delta x \to 0} 1 = 1$
+	\end{example} 
+	
+	\begin{example}
+		$y = x^2, f(x) = x^2$ \\
+		
+		$y' = (x^2)' = 2x$ \\
+		
+		$\lim_{\Delta x \to 0} \frac{f(x + \Delta x) - f(x)}{\Delta x} = \lim_{\Delta x \to 0} \frac{(x + \Delta x)^2 - x^2}{\Delta x} = \lim_{\Delta x \to 0} \frac{x^2 + 2x\Delta x + (\Delta x)^2 - x^2}{\Delta x} = {\lim_{\Delta x \to 0} \frac{\Delta x(2x + \Delta x)}{\Delta x} = 2x}$
+	\end{example}
+	
+	\newpage
+	
+	\begin{example}
+		$y = x^n, f(x) = x^n$ \\
+		
+		$(a + b)^n = a^n + \frac{n}{1} \cdot a^{n - 1} \cdot b' + \frac{n(n - 1)}{1 \cdot 2} \cdot a^{n - 2} \cdot b^2 + ... + \frac{n(n - 1)(n - 2)\cdot ... \cdot (n - (n - 1)) \cdot b^n}{n!}$ \\
+		
+		$y' = (x^n)' = nx^{n - 1}$
+		
+		\begin{align*}
+			\lim_{\Delta x \to 0} \frac{f(x + \Delta x) - f(x)}{\Delta x} 
+			&= \lim_{\Delta x \to 0} \frac{(x + \Delta x)^n - x^n}{\Delta x} \\[10pt]
+			&= \lim_{\Delta x \to 0} \left[ x^n + \frac{n}{1} x^{n - 1} \Delta x + \frac{n(n - 1)}{1 \cdot 2} x^{n - 2} (\Delta x)^2 + \dots \right. \\
+			&\qquad\qquad \left. + \frac{n(n - 1)(n - 2) \cdot \ldots \cdot (n - (n - 1))}{n!} (\Delta x)^n - x^n \right] : \Delta x \\[10pt]
+			&= \lim_{\Delta x \to 0} \left( n x^{n - 1} + \frac{n(n - 1)}{2!} x^{n - 2} \Delta x + \dots \right. \\
+			&\qquad\qquad \left. + \frac{n(n - 1)(n - 2) \cdot \ldots \cdot (n - (n - 1))}{n!} (\Delta x)^{n - 1} \right) \\[10pt]
+			&= n x^{n - 1}
+		\end{align*}
+	\end{example}
+	
+	\newpage
+	
+	\subsection{Геометрический смысл производной.}
+	
+	\noindent \(y = f(x)\) --- непрерывная функция на \((a; b)\)
+	
+	\vspace{0.3cm}
+	
+	\begin{tikzpicture}[
+		x=1cm,y=1cm,
+		>=Stealth,
+		line cap=round,
+		line join=round
+		]
+		
+		% Цвета оригинала
+		\definecolor{axiscol}{RGB}{105,0,116}
+		\definecolor{curvecol}{RGB}{0,65,20}
+		\definecolor{linecol}{RGB}{48,51,96}
+		\definecolor{textcol}{RGB}{150,48,12}
+		
+		% Координаты
+		\def\xA{3.35}
+		\def\xB{5.45}
+		\def\yA{1.65}
+		\def\yB{3.55}
+		
+		% Оси координат
+		\draw[axiscol,line width=2.8pt,-{Stealth[length=8pt]}]
+		(-3.65,0) -- (8.15,0);
+		
+		\draw[axiscol,line width=2.8pt,-{Stealth[length=8pt]}]
+		(0,-1.85) -- (0,5.15);
+		
+		% Пунктирные линии
+		\draw[axiscol,dashed,line width=1.7pt,
+		dash pattern=on 5pt off 5pt]
+		(0,\yA) -- (\xB,\yA);
+		
+		\draw[axiscol,dashed,line width=1.7pt,
+		dash pattern=on 5pt off 5pt]
+		(0,\yB) -- (\xB,\yB);
+		
+		\draw[axiscol,dashed,line width=1.7pt,
+		dash pattern=on 5pt off 5pt]
+		(\xA,0) -- (\xA,\yA);
+		
+		\draw[axiscol,dashed,line width=1.7pt,
+		dash pattern=on 5pt off 5pt]
+		(\xB,0) -- (\xB,\yB);
+		
+		% Зеленая плавная кривая
+		\draw[curvecol,line width=2.9pt]
+		(-0.85,-0.10)
+		.. controls (0.10,0.22) and (1.65,0.65) ..
+		(2.40,1.03)
+		.. controls (2.90,1.28) and (3.15,1.52) ..
+		(\xA,\yA)
+		.. controls (4.05,2.45) and (4.70,3.35) ..
+		(\xB,\yB)
+		.. controls (6.30,3.79) and (7.30,3.85) ..
+		(8.25,3.88);
+		
+		% Секущая MM_1
+		\draw[linecol,line width=2.1pt]
+		(1.35,-0.15) -- (7.55,5.35);
+		
+		% Касательная в M
+		\draw[linecol,line width=1.9pt]
+		(-0.90,-0.15) -- (4.55,2.60);
+		
+		% Точки на осях
+		\fill[axiscol] (0,\yA) circle (0.19);
+		\fill[axiscol] (0,\yB) circle (0.19);
+		\fill[axiscol] (\xA,0) circle (0.19);
+		\fill[axiscol] (\xB,0) circle (0.19);
+		
+		% Точки на графике
+		\fill[curvecol] (\xA,\yA) circle (0.20);
+		\fill[curvecol] (\xB,\yB) circle (0.20);
+		
+		% Подписи точек
+		\node[textcol,font=\bfseries\Large]
+		at (2.95,2.17) {$M$};
+		
+		\node[textcol,font=\bfseries\Large]
+		at (4.95,4.10) {$M_1$};
+		
+		% Обозначения осей
+		\node[textcol,font=\bfseries\Large]
+		at (-0.48,5.05) {$y$};
+		
+		\node[textcol,font=\bfseries\Large]
+		at (7.85,-0.72) {$x$};
+		
+		\node[textcol,font=\bfseries\Large]
+		at (-0.42,-0.68) {$0$};
+		
+		% Значения функции слева
+		\node[textcol,font=\bfseries\large,anchor=east]
+		at (-0.62,\yA)
+		{$f(x_0)$};
+		
+		\node[textcol,font=\bfseries\large,anchor=east]
+		at (-0.62,\yB)
+		{$f(x_0+\Delta x)$};
+		
+		% Значения аргументов
+		\node[textcol,font=\bfseries\Large]
+		at (\xA,-0.76) {$x_0$};
+		
+		\node[textcol,font=\bfseries\Large]
+		at (5.72,-0.76) {$x_0+\Delta x$};
+		
+		% Горизонтальная скобка Delta x
+		\draw[decorate,
+		decoration={brace,amplitude=7pt,mirror},
+		line width=1.5pt]
+		(\xA-0.02,1.40) -- (\xB-0.02,1.40);
+		
+		\node[font=\Large]
+		at (4.45,0.57) {$\Delta x$};
+		
+		% Вертикальная скобка Delta y
+		\draw[decorate,
+		decoration={brace,amplitude=9pt},
+		line width=1.5pt]
+		(5.65,\yB) -- (5.65,\yA);
+		
+		\node[font=\Large]
+		at (6.55,2.65) {$\Delta y$};
+		
+		% Угол alpha
+		\draw[linecol,line width=1.5pt]
+		(1.02,0) arc[
+		start angle=0,
+		end angle=26.8,
+		radius=1.02
+		];
+		
+		\node[font=\Large]
+		at (1.50,0.33) {$\alpha$};
+		
+		% Угол phi
+		\draw[linecol,line width=1.5pt]
+		(2.38,0) arc[
+		start angle=0,
+		end angle=41.5,
+		radius=2.38
+		];
+		
+		\node[font=\Large]
+		at (2.68,0.40) {$\varphi$};
+		
+		% Маленькая стрелка на Delta x
+		\draw[linecol,line width=1.5pt,
+		-{Stealth[length=6pt]}]
+		(5.20,-0.23) -- (3.65,-0.23);
+		
+		% Стрелка возле Delta y
+		\draw[linecol,line width=1.5pt,
+		-{Stealth[length=6pt]}]
+		(6.45,2.65) -- (3.90,1.82);
+		
+		% Вертикальная стрелка слева
+		\draw[black!65,line width=1.4pt,
+		-{Stealth[length=6pt]}]
+		(0.33,3.32) -- (0.33,1.92);
+		
+	\end{tikzpicture}
+	
+	\vspace{1 cm}
+	$k = \tg \psi = \frac{\Delta y}{\Delta x} = \frac{f(x + \Delta x) - f(x)}{\Delta x}$ \\
+	
+	$\Delta x \to 0:$ $\Delta y \to 0 \implies \psi \to \alpha$ \\
+	
+	$\lim_{\Delta x \to 0} \psi = \alpha$ \\
+	
+	$k_2 = \tg \alpha = \lim_{\Delta x \to 0} = \lim_{\Delta x \to 0} \frac{\Delta y}{\Delta x} = \lim_{\Delta x \to 0} \frac{(x + \Delta x) - f(x)}{\Delta x} = y'x$ \\
+	
+	\textbf{Приложения(геометрические):} \\
+	
+	\textbf{1)}$y - y_0 = f'(x_0)(x - x_0) -$ уравнение касательной. \\
+	
+	\textbf{2)}$y - y_0 = \frac{-1}{f'(x_0)} (x - x_0) -$ уравнение нормали. \\
+	
+	\newpage
+	
+	\subsection{Механический смысл производной.}
+	
+	Рассмотрим материальную точку M: \\
+	
+	\begin{tikzpicture}[x=2.5cm,y=2cm,>=Stealth, line cap=round,line join=round]
+		
+		% --- Ось t ---
+		\draw[->, line width=1.2pt] (-0.5,0) -- (6.5,0) node[below] {$t$};
+		\node[below left] at (0,0) {$0$};
+		
+		% --- Точки M и M1 ---
+		\coordinate (M) at (2,0);
+		\coordinate (M1) at (4,0);
+		
+		\fill (M) circle (3pt);
+		\fill (M1) circle (3pt);
+		
+		% --- Подписи точек (снизу) ---
+		\node[below=3pt, font=\large] at (M) {$M$};
+		\node[below=3pt, font=\large] at (M1) {$M_1$};
+		
+		% ==========================================
+		% ВЕРХНЯЯ ЧАСТЬ (Скобки S)
+		% ==========================================
+		
+		% 1. Путь S(t) от 0 до M
+		\draw[decorate,decoration={brace,amplitude=8pt,raise=4pt}, line width=1.1pt] 
+		(0,0) -- (2,0) node[midway, above=12pt, font=\large] {$S(t)$};
+		
+		% 2. Путь S(t+dt) от 0 до M1
+		\draw[decorate,decoration={brace,amplitude=8pt,raise=4pt}, line width=1.1pt] 
+		(0,0) -- (4,0) node[midway, above=12pt, font=\large] {$S(t+\Delta t)$};
+		
+		
+		% ==========================================
+		% НИЖНЯЯ ЧАСТЬ (Скобки приращений и подписи)
+		% ==========================================
+		
+		% 3. Приращение времени Delta t от M до M1
+		\draw[decorate,decoration={brace,mirror,amplitude=8pt,raise=4pt}, line width=1.1pt] 
+		(2,0) -- (4,0) node[midway, below=12pt, font=\large] {$\Delta t$};
+		
+		% Подписи моментов времени под осью
+		% Размещаем t под M, а t+dt под M1 (опускаем ниже, чтобы не мешала скобка Delta t)
+		\node[below=30pt, font=\large] at (2,0) {$t$};
+		\node[below=30pt, font=\large] at (4,0) {$t+\Delta t$};
+		
+	\end{tikzpicture}
+	
+	
+	$S(t) -$ Закон движения. \\
+	
+	$OM_1 = S (t + \Delta t) - S (t)$ \\
+	
+	$\frac{\Delta S}{\Delta t} = Vcp$ \\
+	
+	$\lim_{\Delta t \to 0} \frac{\Delta S}{\Delta t} = \lim_{\Delta t \to 0} \frac{S(\Delta t + t) - S(t)}{\Delta t}$ \\
+	
+	Скорость в момент времени t или мгновенная скорость. \\
+	
+	$V = S'(t)$ \\
+	
+	\textbf{Приложения:} \\
+	
+	\textbf{1)}$Q = Q(t) -$ кол-во электричества, проходящего ч/з поперечное сечение в момент t.\\
+	
+	\noindent$I = \lim_{\Delta t \to 0} \frac{\Delta Q}{\Delta t} = \lim_{\Delta t \to 0} \frac{Q(t + \Delta t) - Q(t)}{\Delta t} = Q't -$ сила тока. \\
+	
+	\textbf{2)}$ N = N(t) -$ кол-во вещества, вступающего в химическую реакцию в момент времени t.\\
+	
+	\noindent$V = \lim_{\Delta t \to 0} \frac{\Delta N}{\Delta t} = \lim_{\Delta t \to 0} \frac{N(t + \Delta t) - N(t)}{\Delta t} = N'_t -$ скорость химической реакции в момент времени t. \\
+	
+	\textbf{3)}$m = m(x) -$ масса неоднородного стержня длиной OM. \\
+	
+	\noindent$\gamma = \lim_{\Delta x \to 0} \frac{\Delta m}{\Delta x} = \lim_{\Delta x \to 0} \frac{m(x + \Delta x) - m(x)}{\Delta x} = m'x -$ линейная плотность стержня в точке x. \\
+	
+	\textbf{4)}$P = P(t) -$ производственная функция (кол-во) произведений продукции в момент времени t. \\
+	
+	\noindent$R = \lim_{\Delta t \to 0} \frac{\Delta P}{\Delta t} = \lim_{\Delta t \to 0} \frac{P(t + \Delta t) - P(t)}{\Delta t} = P'_t -$ производительность труда. 
+\end{document}
